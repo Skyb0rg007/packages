@@ -14,5 +14,18 @@ Import with
     inputs.skye-packages.inputs.nixpkgs.follows = "nixpkgs";
     # If you're also depending on cachix's git-hooks package
     inputs.skye-packages.inputs.git-hooks.follows = "git-hooks";
+
+    # ...
+}
+```
+
+You can use the packages with `skye-packages.packages.package-name`,
+or can import them all with `skye-packages.overlays.default`:
+
+```nix
+{
+    nixpkgs.overlays = [ skye-packages.overlays.default ];
+
+    # ...
 }
 ```
