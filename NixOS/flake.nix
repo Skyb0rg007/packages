@@ -51,5 +51,6 @@
     });
     formatter = forAllSystems (system: pkgsFor.${system}.alejandra);
     packages = forAllSystems (system: import ./pkgs {pkgs = pkgsFor.${system};});
+    overlays.default = final: prev: import ./pkgs {};
   };
 }
