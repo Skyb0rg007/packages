@@ -102,7 +102,9 @@ in
       patchPhase = ''
         sed -i '/^PATH=/d' config/_arch-n-opsys base/runtime/config/gen-posix-names.sh
         echo SRCARCHIVEURL="file:/$TMP" > config/srcarchiveurl
-      '';
+      '' + (if stdenv.isDarwin then ''
+        sed -i 's:INCLFILE=.*$:INCLFILE=${stdenv.cc.libc}/include/unistd.h:' base/runtime/config/gen-posix-names.sh
+      '' else "");
 
       unpackPhase = ''
         for s in $sources; do
