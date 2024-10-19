@@ -2,16 +2,27 @@
   stdenv,
   fetchurl,
   lib,
+  pkgs,
   ...
 }: let
-  arch = "64";
+  arch =
+    if stdenv.hostPlatform.is64bit
+    then "64"
+    else "32";
   version = "110.99.6";
   baseurl = "http://smlnj.cs.uchicago.edu/dist/working/${version}";
   sources = map fetchurl [
-    {
-      url = "${baseurl}/boot.amd64-unix.tgz";
-      hash = "sha256-SHUYt/jJLUiuIIgCq3F/X20r30i3+FS2VJNsMpZMvUk=";
-    }
+    (
+      if stdenv.hostPlatform.is64bit
+      then {
+        url = "${baseurl}/boot.amd64-unix.tgz";
+        hash = "sha256-SHUYt/jJLUiuIIgCq3F/X20r30i3+FS2VJNsMpZMvUk=";
+      }
+      else {
+        url = "${baseurl}/boot.x86-unix.tgz";
+        hash = "sha256-7fk0x9lj9klYTljyeMuKaSyZocdAwFjXsNK7qP6MEaU=";
+      }
+    )
     {
       url = "${baseurl}/doc.tgz";
       hash = "sha256-Svv65apyManShajxZgUKrt40PWya++vVJnkAcnlx2eU=";
@@ -94,39 +105,49 @@
     }
   ];
 in
-  assert lib.assertMsg stdenv.is64bit "Only 64-bit for now";
-    stdenv.mkDerivation {
-      pname = "smlnj";
-      inherit version sources;
+  stdenv.mkDerivation {
+    pname = "smlnj";
+    inherit version sources;
 
-      patchPhase = ''
+    unpackPhase = ''
+      for s in $sources; do
+        b=$(basename $s)
+        cp $s ''${b#*-}
+      done
+      unpackFile config.tgz
+      mkdir base
+      ./config/unpack $TMP runtime
+    '';
+
+    patchPhase =
+      ''
         sed -i '/^PATH=/d' config/_arch-n-opsys base/runtime/config/gen-posix-names.sh
         echo SRCARCHIVEURL="file:/$TMP" > config/srcarchiveurl
-      '' + lib.optionalString stdenv.isDarwin ''
-        sed -i '/^INCLFILE=/c INCLFILE=${stdenv.cc.libc}/include/unistd.h' base/runtime/config/gen-posix-names.sh
+      ''
+      + lib.optionalString stdenv.isDarwin ''
+        substituteInPlace base/runtime/config/gen-posix-names.sh \
+          --replace "\$SDK_PATH/usr" "${pkgs.Libsystem}"
       '';
 
-      unpackPhase = ''
-        for s in $sources; do
-          b=$(basename $s)
-          cp $s ''${b#*-}
-        done
-        unpackFile config.tgz
-        mkdir base
-        ./config/unpack $TMP runtime
-      '';
+    buildPhase = ''
+      ./config/install.sh -default ${arch}
+    '';
 
-      buildPhase = ''
-        ./config/install.sh -default ${arch}
-      '';
+    installPhase = ''
+      mkdir -pv $out
+      cp -rv bin lib $out
 
-      installPhase = ''
-        mkdir -pv $out
-        cp -rv bin lib $out
+      cd $out/bin
+      for i in *; do
+        sed -i "2iSMLNJ_HOME=$out/" $i
+      done
+    '';
 
-        cd $out/bin
-        for i in *; do
-          sed -i "2iSMLNJ_HOME=$out/" $i
-        done
-      '';
-    }
+    meta = {
+      description = "Standard ML of New Jersey";
+      homepage = "http://smlnj.org";
+      license = lib.licenses.bsd3;
+      platforms = ["x86_64-linux" "i686-linux" "x86_64_darwin"];
+      mainProgram = "sml";
+    };
+  }
