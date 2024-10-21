@@ -1,5 +1,6 @@
 {pkgs ? import <nixpkgs> {}, ...}: {
   ascsaver = pkgs.callPackage ./ascsaver.nix {};
+  maybe = pkgs.callPackage ./maybe {};
   mlton-dev = pkgs.callPackage ./mlton.nix {};
   porkbun-ddns = pkgs.callPackage ./porkbun-ddns.nix {};
   receipt-wrangler = pkgs.callPackage ./receipt-wrangler.nix {};
