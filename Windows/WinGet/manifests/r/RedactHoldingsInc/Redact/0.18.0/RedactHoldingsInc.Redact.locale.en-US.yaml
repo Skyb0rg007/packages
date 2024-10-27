@@ -1,0 +1,13 @@
+# Created using wingetcreate 1.6.5.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.6.0.schema.json
+
+PackageIdentifier: RedactHoldingsInc.Redact
+PackageVersion: 0.18.0
+PackageLocale: en-US
+Publisher: Redact Holdings, Inc.
+PackageName: Redact
+License: Proprietary
+Copyright: Copyright © 2023 Redact Holdings, Inc.
+ShortDescription: Redact your history
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0
