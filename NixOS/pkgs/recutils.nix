@@ -27,6 +27,10 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = lib.optional stdenv.cc.isClang "format";
 
+  patches = [
+    ./lexer-declarations.patch
+  ];
+
   configureFlags =
     lib.optionals withBashBuiltins [
       "--with-bash-headers=${bash.dev}/include/bash"
