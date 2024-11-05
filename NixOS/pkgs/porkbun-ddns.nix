@@ -11,8 +11,8 @@ python3Packages.buildPythonApplication {
   src = fetchFromGitHub {
     owner = "mietzen";
     repo = "porkbun-ddns";
-    rev = "558edfee4a8ae3f0e8052cf6ed2a0afdf8ce0084";
-    hash = "sha256-HWHglpz/rRoLP4opMsraZeQ0gPA8MaQTmNUuodZ+eyY=";
+    rev = "531d239234b76a41425fca51a2c3ed0244a2ae68";
+    hash = "sha256-p3DPVS/c0qQr2mCL7zS7UV0jr+aYum5mSgDzaNAjy2s=";
   };
   build-system = [python3Packages.setuptools];
   dependencies = [python3Packages.xdg-base-dirs];
