@@ -8,4 +8,5 @@
   smlnj = pkgs.callPackage ./smlnj.nix {};
   smlnj-dev = pkgs.callPackage ./smlnj-dev.nix {};
   tmux-notify = pkgs.callPackage ./tmux-notify.nix {};
+  recutils = pkgs.callPackage ./recutils.nix {};
 }
