@@ -1,5 +1,6 @@
 {
   bundlerApp,
+  bundlerEnv,
   bundlerUpdateScript,
   fetchFromGitHub,
   git,
@@ -16,7 +17,7 @@ let
     hash = "sha256-IV5MJNgBVGpT3icZRF9XLlwZAlYERRjOTOeVLYsiHIY=";
   };
 in
-bundlerApp {
+bundlerEnv {
   pname = "maybe";
   gemdir = ./.;
   buildInputs = [vips postgresql];

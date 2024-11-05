@@ -15,7 +15,7 @@
     git-hooks,
     ...
   } @ inputs: let
-    systems = ["x86_64-linux"];
+    systems = ["x86_64-linux" "aarch64-darwin"];
     forAllSystems = nixpkgs.lib.genAttrs systems;
     pkgsFor = forAllSystems (system:
       import nixpkgs {
