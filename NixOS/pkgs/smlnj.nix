@@ -4,7 +4,7 @@
   fetchurl,
 }: let
   version = "110.99.6.1";
-  baseurl = "http://smlnj.cs.uchicago.edu/dist/working/${version}";
+  baseurl = "https://smlnj.cs.uchicago.edu/dist/working/${version}";
 
   arch =
     if stdenv.hostPlatform.is64bit
