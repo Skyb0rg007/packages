@@ -21,7 +21,7 @@
       import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        config.permittedInsecurePackages = ["imagemagick-6.9.13-10"];
+        # config.permittedInsecurePackages = ["imagemagick-6.9.13-10"];
       });
   in {
     checks = forAllSystems (system: {
