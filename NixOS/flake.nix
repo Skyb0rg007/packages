@@ -1,5 +1,5 @@
 {
-  description = "NixOS and Home Manager Configurations";
+  description = "Nix packages";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -21,7 +21,6 @@
       import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        # config.permittedInsecurePackages = ["imagemagick-6.9.13-10"];
       });
   in {
     checks = forAllSystems (system: {
@@ -40,11 +39,8 @@
         inherit (self.checks.${system}.pre-commit-check) shellHook;
         buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
         nativeBuildInputs = [
-          pkgs.age
           pkgs.git
-          pkgs.home-manager
           pkgs.nix
-          pkgs.sops
         ];
         env.NIX_CONFIG = "extra-experimental-features = nix-command flakes";
       };
