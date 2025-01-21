@@ -14,19 +14,10 @@
     then "64"
     else "32";
 
-  boot32 = {
-    url = "${baseurl}/boot.x86-unix.tgz";
-    hash = "sha256-2yBY0wGZ8B1jYC5os9SfH6eKJoWlQ4rAclBC3Pnacoc=";
-  };
-  boot64 = {
-    url = "${baseurl}/boot.amd64-unix.tgz";
-    hash = "sha256-kUabK03MdSYVRWhWKl3kS32SExUYpM3MtLU0mCxhiaQ=";
-  };
-
-  bootSource = 
+  bootSource =
     if stdenv.hostPlatform.is64bit
-    then "boot.x86-unix.tgz"
-    else "boot.amd64-unix.tgz";
+    then "boot.amd64-unix.tgz"
+    else "boot.x86-unix.tgz";
   fetchSource = name: fetchurl { url = "${baseurl}/${name}"; hash = hashes.${name}; };
 
   sources = map fetchSource [
@@ -99,8 +90,8 @@ in
       description = "Standard ML of New Jersey, a compiler";
       homepage = "http://smlnj.org";
       license = licenses.bsd3;
-      platforms = ["x86_64-linux" "i686-linux" "x86_64-darwin"];
-      maintainers = with maintainers; [thoughtpolice];
+      platforms = ["x86_64-linux" "i686-linux" "x86_64-darwin" "aarch64-darwin"];
+      maintainers = with maintainers; [skyesoss thoughtpolice];
       mainProgram = "sml";
     };
   }
