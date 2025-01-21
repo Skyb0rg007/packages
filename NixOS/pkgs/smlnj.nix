@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchurl,
+  darwin,
 }: let
   version = "110.99.7.1";
   baseurl = "https://smlnj.cs.uchicago.edu/dist/working/${version}";
@@ -23,7 +24,7 @@
   };
 
   bootSource = 
-    if stdenv.hostPlatform.is64bit && false
+    if stdenv.hostPlatform.is64bit
     then "boot.x86-unix.tgz"
     else "boot.amd64-unix.tgz";
   fetchSource = name: fetchurl { url = "${baseurl}/${name}"; hash = hashes.${name}; };
@@ -66,7 +67,7 @@ in
       + lib.optionalString stdenv.isDarwin ''
         # Locate standard headers like <unistd.h>
         substituteInPlace base/runtime/config/gen-posix-names.sh \
-          --replace "\$SDK_PATH/usr" "${stdenv.darwin.Libsystem}"
+          --replace "\$SDK_PATH/usr" "${darwin.Libsystem}"
       '';
 
     unpackPhase = ''
@@ -101,7 +102,5 @@ in
       platforms = ["x86_64-linux" "i686-linux" "x86_64-darwin"];
       maintainers = with maintainers; [thoughtpolice];
       mainProgram = "sml";
-      # never built on x86_64-darwin since first introduction in nixpkgs
-      broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64;
     };
   }
