@@ -18,7 +18,11 @@
     if stdenv.hostPlatform.is64bit
     then "boot.amd64-unix.tgz"
     else "boot.x86-unix.tgz";
-  fetchSource = name: fetchurl { url = "${baseurl}/${name}"; hash = hashes.${name}; };
+  fetchSource = name:
+    fetchurl {
+      url = "${baseurl}/${name}";
+      hash = hashes.${name};
+    };
 
   sources = map fetchSource [
     bootSource

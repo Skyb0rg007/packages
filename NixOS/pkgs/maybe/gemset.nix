@@ -384,11 +384,14 @@
   debug = {
     dependencies = ["irb" "reline"];
     groups = ["development" "test"];
-    platforms = [{
-      engine = "maglev";
-    } {
-      engine = "ruby";
-    }];
+    platforms = [
+      {
+        engine = "maglev";
+      }
+      {
+        engine = "ruby";
+      }
+    ];
     source = {
       remotes = ["https://rubygems.org"];
       sha256 = "1z77qyzcmvz3ciny6cb24s79a243jqkybqk30b310yichp02dq28";
@@ -677,11 +680,14 @@
   };
   io-console = {
     groups = ["default" "development" "test"];
-    platforms = [{
-      engine = "maglev";
-    } {
-      engine = "ruby";
-    }];
+    platforms = [
+      {
+        engine = "maglev";
+      }
+      {
+        engine = "ruby";
+      }
+    ];
     source = {
       remotes = ["https://rubygems.org"];
       sha256 = "08d2lx42pa8jjav0lcjbzfzmw61b8imxr9041pva8xzqabrczp7h";
@@ -692,11 +698,14 @@
   irb = {
     dependencies = ["rdoc" "reline"];
     groups = ["default" "development" "test"];
-    platforms = [{
-      engine = "maglev";
-    } {
-      engine = "ruby";
-    }];
+    platforms = [
+      {
+        engine = "maglev";
+      }
+      {
+        engine = "ruby";
+      }
+    ];
     source = {
       remotes = ["https://rubygems.org"];
       sha256 = "1y40dv3caswr81dlsyln6vnmmpzf5jcal2rqjbsglvnkb0xh0xar";
@@ -1055,11 +1064,14 @@
   psych = {
     dependencies = ["stringio"];
     groups = ["default" "development" "test"];
-    platforms = [{
-      engine = "maglev";
-    } {
-      engine = "ruby";
-    }];
+    platforms = [
+      {
+        engine = "maglev";
+      }
+      {
+        engine = "ruby";
+      }
+    ];
     source = {
       remotes = ["https://rubygems.org"];
       sha256 = "0s5383m6004q76xm3lb732bp4sjzb6mxb6rbgn129gy2izsj4wrk";
@@ -1272,11 +1284,14 @@
   rdoc = {
     dependencies = ["psych"];
     groups = ["default" "development" "test"];
-    platforms = [{
-      engine = "maglev";
-    } {
-      engine = "ruby";
-    }];
+    platforms = [
+      {
+        engine = "maglev";
+      }
+      {
+        engine = "ruby";
+      }
+    ];
     source = {
       remotes = ["https://rubygems.org"];
       sha256 = "0ygk2zk0ky3d88v3ll7qh6xqvbvw5jin0hqdi1xkv1dhaw7myzdi";
@@ -1307,11 +1322,14 @@
   reline = {
     dependencies = ["io-console"];
     groups = ["default" "development" "test"];
-    platforms = [{
-      engine = "maglev";
-    } {
-      engine = "ruby";
-    }];
+    platforms = [
+      {
+        engine = "maglev";
+      }
+      {
+        engine = "ruby";
+      }
+    ];
     source = {
       remotes = ["https://rubygems.org"];
       sha256 = "0rl1jmxs7pay58l7lkxkrn6nkdpk52k8rvnfwqsd1swjlxlwjq0n";
@@ -1586,11 +1604,14 @@
   };
   stringio = {
     groups = ["default" "development" "test"];
-    platforms = [{
-      engine = "maglev";
-    } {
-      engine = "ruby";
-    }];
+    platforms = [
+      {
+        engine = "maglev";
+      }
+      {
+        engine = "ruby";
+      }
+    ];
     source = {
       remotes = ["https://rubygems.org"];
       sha256 = "07mfqb40b2wh53k33h91zva78f9zwcdnl85jiq74wnaw2wa6wiak";

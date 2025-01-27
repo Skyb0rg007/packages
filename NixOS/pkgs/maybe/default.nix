@@ -8,8 +8,7 @@
   postgresql,
   vips,
   ...
-}:
-let
+}: let
   source = fetchFromGitHub {
     owner = "maybe-finance";
     repo = "maybe";
@@ -17,19 +16,19 @@ let
     hash = "sha256-IV5MJNgBVGpT3icZRF9XLlwZAlYERRjOTOeVLYsiHIY=";
   };
 in
-bundlerEnv {
-  pname = "maybe";
-  gemdir = ./.;
-  buildInputs = [vips postgresql];
-  nativeBuildInputs = [git];
-  exes = [];
-  passthru.updateScript = bundlerUpdateScript "maybe";
-  meta = {
-    description = "Maybe: The OS for your personal finances";
-    homepage = "https://maybe.co";
-    license = lib.licenses.agpl3Plus;
-    maintainers = [];
-    platforms = lib.platforms.unix;
-    # mainProgram = "";
-  };
-}
+  bundlerEnv {
+    pname = "maybe";
+    gemdir = ./.;
+    buildInputs = [vips postgresql];
+    nativeBuildInputs = [git];
+    exes = [];
+    passthru.updateScript = bundlerUpdateScript "maybe";
+    meta = {
+      description = "Maybe: The OS for your personal finances";
+      homepage = "https://maybe.co";
+      license = lib.licenses.agpl3Plus;
+      maintainers = [];
+      platforms = lib.platforms.unix;
+      # mainProgram = "";
+    };
+  }
