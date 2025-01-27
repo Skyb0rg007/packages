@@ -2,7 +2,6 @@
 # nix shell nixpkgs#node2nix --command node2nix \
 #   --nodejs-14 --input package.json \
 #   --composition node-composition.nix
-
 {
   pkgs,
   node-pre-gyp,
@@ -13,21 +12,22 @@
   ...
 }: let
   nodePackages = pkgs.callPackage ./node-composition.nix {};
-in nodePackages.package.override {
-  version = "2.0.0";
-  src = fetchFromGitHub {
-    owner = "clusterzx";
-    repo = "paperless-ai";
-    rev = "3050abe7670e7e49ff728eedbffafb6da37706fe";
-    hash = "sha256-mgj3+Wj0WorK1obBo7iYREsZc27wzS2Gnw5xVYn7fDw=";
-  };
-  postInstall = ''
-    mkdir -p $out/bin
+in
+  nodePackages.package.override {
+    version = "2.4.0";
+    src = fetchFromGitHub {
+      owner = "clusterzx";
+      repo = "paperless-ai";
+      rev = "ab207fa335f5985312771ff14d0835f85ed8f346";
+      hash = "sha256-z5X8tTPeLm/eH1LwyNIkAq0JZxyL0KvjMCYs5MjfrG0=";
+    };
+    postInstall = ''
+      mkdir -p $out/bin
 
-    cat <<EOF > $out/bin/paperless-ai
-    #!/bin/sh
-    exec ${lib.getExe nodejs} $out/lib/node_modules/paperless-ai/server.js "\$@"
-    EOF
-    chmod +x $out/bin/paperless-ai
-  '';
-}
+      cat <<EOF > $out/bin/paperless-ai
+      #!/bin/sh
+      exec ${lib.getExe nodejs} $out/lib/node_modules/paperless-ai/server.js "\$@"
+      EOF
+      chmod +x $out/bin/paperless-ai
+    '';
+  }
