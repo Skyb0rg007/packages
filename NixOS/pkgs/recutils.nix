@@ -1,21 +1,18 @@
-{ lib
-, stdenv
-, fetchurl
-, bc
-, check
-, curl
-
-, withEncryption ? true
-, libgcrypt
-, libgpg-error
-
-, withUuid ? true
-, libuuid
-
-, withBashBuiltins ? true
-, bash
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bc,
+  check,
+  curl,
+  withEncryption ? true,
+  libgcrypt,
+  libgpg-error,
+  withUuid ? true,
+  libuuid,
+  withBashBuiltins ? true,
+  bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "recutils";
   version = "1.9";
@@ -31,21 +28,24 @@ stdenv.mkDerivation rec {
     ./lexer-declarations.patch
   ];
 
-  configureFlags =
-    lib.optionals withBashBuiltins [
-      "--with-bash-headers=${bash.dev}/include/bash"
-    ];
-
-  buildInputs = [
-    curl
-  ] ++ lib.optionals withEncryption [
-    libgpg-error.dev
-    libgcrypt.dev
-  ] ++ lib.optionals withUuid [
-    libuuid
-  ] ++ lib.optionals withBashBuiltins [
-    bash.dev
+  configureFlags = lib.optionals withBashBuiltins [
+    "--with-bash-headers=${bash.dev}/include/bash"
   ];
+
+  buildInputs =
+    [
+      curl
+    ]
+    ++ lib.optionals withEncryption [
+      libgpg-error.dev
+      libgcrypt.dev
+    ]
+    ++ lib.optionals withUuid [
+      libuuid
+    ]
+    ++ lib.optionals withBashBuiltins [
+      bash.dev
+    ];
 
   nativeCheckInputs = [
     bc
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       records, each record containing an arbitrary number of named fields.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.all;
   };
 }
