@@ -16,8 +16,8 @@ in
         name = "mlton";
         owner = "MLton";
         repo = "mlton";
-        rev = "680bfcc6d6d8df3e51220fd88d297830316b89b4";
-        hash = "sha256-5+GafQydWR6blttUYPWf/YwHqH8wzBM8MKTg7MgW2Rg=";
+        rev = "4b221ed9a80550ded664a7ea9feb766ca9249940";
+        hash = "sha256-4T271ZbTrcAPDmzwSL7lZnZMGRpYHx5IXalJ9LKfqYc=";
       };
       propagatedBuildInputs = [pkgs.gmp];
       nativeBuildInputs = lib.optional stdenv.isLinux [pkgs.mlton pkgs.patchelf pkgs.makeWrapper];
