@@ -11,4 +11,5 @@
   recutils = pkgs.callPackage ./recutils.nix {};
   paperless-ai = pkgs.callPackage ./paperless-ai/default.nix {};
   archivebox = pkgs.callPackage ./archivebox.nix {};
+  tubearchivist = pkgs.callPackage ./tubearchivist.nix {};
 }
