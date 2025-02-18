@@ -10,4 +10,5 @@
   tmux-notify = pkgs.callPackage ./tmux-notify.nix {};
   recutils = pkgs.callPackage ./recutils.nix {};
   paperless-ai = pkgs.callPackage ./paperless-ai/default.nix {};
+  archivebox = pkgs.callPackage ./archivebox.nix {};
 }
