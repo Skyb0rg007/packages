@@ -14,12 +14,12 @@
   nodePackages = pkgs.callPackage ./node-composition.nix {};
 in
   nodePackages.package.override {
-    version = "2.4.0";
+    version = "2.6.7";
     src = fetchFromGitHub {
       owner = "clusterzx";
       repo = "paperless-ai";
-      rev = "ab207fa335f5985312771ff14d0835f85ed8f346";
-      hash = "sha256-z5X8tTPeLm/eH1LwyNIkAq0JZxyL0KvjMCYs5MjfrG0=";
+      rev = "v2.6.7";
+      hash = "sha256-BFxgF3GTgqPbhlfJDTgBg8zDv4j/Us/8lD9vkrOXXdg=";
     };
     postInstall = ''
       mkdir -p $out/bin

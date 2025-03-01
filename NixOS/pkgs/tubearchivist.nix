@@ -49,20 +49,23 @@
     ps.whitenoise
     ps.yt-dlp
   ]);
+in
+  pkgs.stdenv.mkDerivation {
+    pname = "tubearchivist";
+    inherit version;
+    src = source;
 
-in pkgs.stdenv.mkDerivation {
-  pname = "tubearchivist";
-  inherit version;
-  src = source;
+    nativeBuildInputs = [pkgs.makeWrapper];
 
-  nativeBuildInputs = [pkgs.makeWrapper];
+    buildPhase = ''
+      mkdir -p $out/{libexec,share/tubearchivist/static}
+      cp -r --no-preserve=mode $src/backend/* $src/LICENSE $out/share/tubearchivist
+      cp --no-preserve=mode $src/docker_assets/backend_start.py $src/LICENSE $out/share/tubearchivist
+      cp -r --no-preserve=mode ${frontend}/* $out/share/tubearchivist/static
 
-  buildPhase = ''
-    mkdir -p $out/{bin,share/tubearchivist/static}
-    cp -r --no-preserve=mode $src/backend/* $src/LICENSE $out/share/tubearchivist
-    cp -r ${frontend}/* $out/share/tubearchivist/static
-
-    makeWrapper ${pythonEnv}/bin/python $out/bin/tubearchivist \
-      --add-flags $out/share/tubearchivist/manage.py
-  '';
-}
+      makeWrapper ${pythonEnv}/bin/python $out/libexec/tubearchivist/manage.py \
+        --add-flags $out/share/tubearchivist/manage.py
+      makeWrapper ${pythonEnv}/bin/python $out/libexec/tubearchivist/backend_start.py \
+        --add-flags $out/share/tubearchivist/backend_start.py
+    '';
+  }
