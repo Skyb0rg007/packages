@@ -12,4 +12,5 @@
   paperless-ai = pkgs.callPackage ./paperless-ai/default.nix {};
   archivebox = pkgs.callPackage ./archivebox.nix {};
   tubearchivist = pkgs.callPackage ./tubearchivist.nix {};
+  reddio = pkgs.callPackage ./reddio.nix {};
 }
