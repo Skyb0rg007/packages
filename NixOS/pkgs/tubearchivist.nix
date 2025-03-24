@@ -63,6 +63,11 @@ in
       cp --no-preserve=mode $src/docker_assets/backend_start.py $src/LICENSE $out/share/tubearchivist
       cp -r --no-preserve=mode ${frontend}/* $out/share/tubearchivist/static
 
+      sed --in-place \
+        's/^STATIC_ROOT\s*=.*/STATIC_ROOT = environ.get("TA_STATIC_ROOT")/' \
+        $out/share/tubearchivist/config/settings.py
+
+
       makeWrapper ${pythonEnv}/bin/python $out/libexec/tubearchivist/manage.py \
         --add-flags $out/share/tubearchivist/manage.py
       makeWrapper ${pythonEnv}/bin/python $out/libexec/tubearchivist/backend_start.py \

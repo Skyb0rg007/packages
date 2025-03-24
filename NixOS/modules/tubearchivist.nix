@@ -52,8 +52,9 @@ in {
 
         # Application paths
         TA_MEDIA_DIR = cfg.mediaDir;
-        TA_APP_DIR = "/var/lib/tubearchivist/app";
+        TA_APP_DIR = "${cfg.package}/share/tubearchivist";
         TA_CACHE_DIR = "/var/cache/tubearchivist";
+        TA_STATIC_ROOT = "/var/lib/tubearchivist/staticfiles";
 
         # Redis
         REDIS_CON = config.services.redis.servers.tubearchivist.unixSocket;
@@ -68,14 +69,6 @@ in {
 
         DJANGO_DEBUG = lib.mkIf cfg.debug "True";
       };
-
-      preStart = ''
-        if [ ! -e "$TA_APP_DIR/static" ]; then
-          mkdir -p "$TA_APP_DIR"
-          ln -s ${cfg.package}/share/tubearchivist/* "$TA_APP_DIR"
-          mkdir "$TA_APP_DIR/staticfiles"
-        fi
-      '';
 
       script = ''
         ${cfg.package}/libexec/tubearchivist/manage.py ta_stop_on_error
@@ -141,7 +134,7 @@ in {
             proxyPass = "http://localhost:${toString cfg.port}";
           };
           "/static/" = {
-            alias = "/app/staticfiles/";
+            alias = "/var/lib/tubearchivist/staticfiles/";
           };
         };
       };
