@@ -48,6 +48,6 @@
     formatter = forAllSystems (system: pkgsFor.${system}.alejandra);
     packages = forAllSystems (system: import ./pkgs {pkgs = pkgsFor.${system};});
     overlays.default = final: prev: import ./pkgs {pkgs = final.pkgs;};
-    nixosModules = {tubearchivist = ./modules/tubearchivist;};
+    nixosModules = {tubearchivist = ./modules/tubearchivist.nix;};
   };
 }
