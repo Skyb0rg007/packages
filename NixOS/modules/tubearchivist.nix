@@ -17,6 +17,7 @@ in {
 
     mediaDir = lib.mkOption {
       type = lib.types.str;
+      default = "/var/lib/tubearchivist/youtube";
       description = "The media directory";
     };
 
@@ -29,6 +30,12 @@ in {
       type = lib.types.package;
       default = pkgs.tubearchivist;
     };
+
+    debug = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable additional debugging output";
+    };
   };
   config = lib.mkIf cfg.enable {
     systemd.services.tubearchivist = {
@@ -40,15 +47,16 @@ in {
         # ENABLE_CAST = "False";
         # DISABLE_STATIC_AUTH = "False";
         # TZ = "UTC";
-        TA_PORT = "${toString cfg.port}";
+        TA_BACKEND_PORT = "${toString cfg.port}";
+        TA_HOST = "https://${cfg.hostName}";
 
         # Application paths
-        TA_MEDIA_DIR = "${cfg.mediaDir}";
-        TA_APP_DIR = "${cfg.package}/share/tubearchivist";
+        TA_MEDIA_DIR = cfg.mediaDir;
+        TA_APP_DIR = "/var/lib/tubearchivist/app";
         TA_CACHE_DIR = "/var/cache/tubearchivist";
 
         # Redis
-        REDIS_CON = config.services.redis.tubearchivist.unixSocket;
+        REDIS_CON = config.services.redis.servers.tubearchivist.unixSocket;
         # REDIS_NAME_SPACE = "ta:";
 
         # ElasticSearch
@@ -57,12 +65,35 @@ in {
         ES_USER = "elastic";
         ES_SNAPSHOT_DIR = "/var/lib/elasticsearch/data/snapshot";
         ES_DISABLE_VERIFY_SSL = "False";
+
+        DJANGO_DEBUG = lib.mkIf cfg.debug "True";
       };
+
+      preStart = ''
+        if [ ! -e "$TA_APP_DIR/static" ]; then
+          mkdir -p "$TA_APP_DIR"
+          ln -s ${cfg.package}/share/tubearchivist/* "$TA_APP_DIR"
+          mkdir "$TA_APP_DIR/staticfiles"
+        fi
+      '';
+
+      script = ''
+        ${cfg.package}/libexec/tubearchivist/manage.py ta_stop_on_error
+
+        ${cfg.package}/libexec/tubearchivist/manage.py migrate
+        ${cfg.package}/libexec/tubearchivist/manage.py collectstatic --noinput -c
+
+        ${cfg.package}/libexec/tubearchivist/manage.py ta_envcheck
+        ${cfg.package}/libexec/tubearchivist/manage.py ta_connection
+        ${cfg.package}/libexec/tubearchivist/manage.py ta_startup
+
+        ${cfg.package}/libexec/tubearchivist/backend_start.py
+      '';
 
       serviceConfig = {
         DynamicUser = true;
-        ExecStart = "${cfg.package}/libexec/tubearchivist/backend_start.py";
         StateDirectory = "tubearchivist";
+        CacheDirectory = "tubearchivist";
       };
     };
 
@@ -74,7 +105,7 @@ in {
       enable = lib.mkDefault true;
       virtualHosts.${cfg.hostName} = {
         root = "${cfg.package}/share/tubearchivist/static";
-        index = "index.html";
+        # index = "index.html";
         locations = {
           "/".tryFiles = "$uri $uri/ /index.html =404";
           "/cache/videos/".extraConfig = ''
@@ -84,6 +115,10 @@ in {
           "/cache/channels/".extraConfig = ''
             auth_request /api/ping/;
             alias /cache/channels/;
+          '';
+          "/cache/playlists/".extraConfig = ''
+            auth_request /api/ping/;
+            alias /cache/playlists/;
           '';
           "/media/".extraConfig = ''
             auth_request /api/ping/;
@@ -96,16 +131,18 @@ in {
             auth_request /api/ping/;
             alias /youtube/;
             types {
-              text/vtt vtt;
+              video/mp4 mp4;
             }
           '';
           "/api" = {
-            proxyPass = "http://localhost:${cfg.port}";
+            proxyPass = "http://localhost:${toString cfg.port}";
           };
           "/admin" = {
-            proxyPass = "http://localhost:${cfg.port}";
+            proxyPass = "http://localhost:${toString cfg.port}";
           };
-          "/static/".alias = "/app/staticfiles/";
+          "/static/" = {
+            alias = "/app/staticfiles/";
+          };
         };
       };
     };

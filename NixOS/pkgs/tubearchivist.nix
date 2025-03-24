@@ -4,12 +4,12 @@
   config,
   ...
 }: let
-  version = "0.4.14alpha";
+  version = "0.5.0";
   source = pkgs.fetchFromGitHub {
     owner = "tubearchivist";
     repo = "tubearchivist";
-    rev = "dfddf8cb4d24c172fd1d9ee8724869e1d60a1c1e";
-    hash = "sha256-JUUODzx/v6KdbfjxvLUi0PLk2vZjCw4Gm5fW3a1USw0=";
+    rev = "v0.5.0";
+    hash = "sha256-A2aMh+uflAZPKOqoChumVppDu0QDN7/C1BuoUOCPXLY=";
   };
 
   frontend = pkgs.buildNpmPackage {
@@ -17,7 +17,7 @@
     inherit version;
     buildInputs = [pkgs.nodejs];
     src = "${source}/frontend";
-    npmDepsHash = "sha256-KQ328ju4bCicpZeDILyW1U9Ac/tzFZyq5DXm/74kEP8=";
+    npmDepsHash = "sha256-luwl7dolzjXGmUWoB0JbPzQs0NnLVd5I+xeIY2z9u2w=";
     npmBuildScript = "build:deploy";
     installPhase = ''
       mkdir -p $out
