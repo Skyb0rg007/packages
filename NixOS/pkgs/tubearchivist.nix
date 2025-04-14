@@ -57,20 +57,35 @@ in
 
     nativeBuildInputs = [pkgs.makeWrapper];
 
-    buildPhase = ''
-      mkdir -p $out/{libexec,share/tubearchivist/static}
-      cp -r --no-preserve=mode $src/backend/* $src/LICENSE $out/share/tubearchivist
-      cp --no-preserve=mode $src/docker_assets/backend_start.py $src/LICENSE $out/share/tubearchivist
-      cp -r --no-preserve=mode ${frontend}/* $out/share/tubearchivist/static
+    # Override the /app/static path with the Nix path to the frontend
+    # Also allow the STATIC_ROOT property to be set
+    # through the environment variable TA_STATIC_ROOT
+    installPhase = ''
+      mkdir -p $out/{bin,share/tubearchivist}
+      cp -r --no-preserve=mode \
+        $src/backend/* \
+        $src/docker_assets/run.sh \
+        $src/docker_assets/backend_start.py \
+        $out/share/tubearchivist
+      chmod +x $out/share/tubearchivist/run.sh
 
       sed --in-place \
-        's/^STATIC_ROOT\s*=.*/STATIC_ROOT = environ.get("TA_STATIC_ROOT")/' \
+        --expression='s:^STATIC_ROOT\s*=.*:STATIC_ROOT = environ.get("TA_STATIC_ROOT"):' \
+        --expression='s:^STATICFILES_DIRS\s*=.*:STATICFILES_DIRS = ("${frontend}",):' \
         $out/share/tubearchivist/config/settings.py
 
-
-      makeWrapper ${pythonEnv}/bin/python $out/libexec/tubearchivist/manage.py \
-        --add-flags $out/share/tubearchivist/manage.py
-      makeWrapper ${pythonEnv}/bin/python $out/libexec/tubearchivist/backend_start.py \
-        --add-flags $out/share/tubearchivist/backend_start.py
+      sed --in-place \
+        '1i cd "$(basename "$0")"' \
+        $out/share/tubearchivist/run.sh
+      makeWrapper $out/share/tubearchivist/run.sh $out/bin/tubearchivist \
+        --prefix PATH : ${pythonEnv}/bin \
+        --set TA_APP_DIR $out/share/tubearchivist
     '';
+
+    meta = {
+      description = "Your self hosted YouTube media server";
+      homepage = "https://tubearchivist.com";
+      license = lib.licenses.gpl3Only;
+      platforms = lib.platforms.linux;
+    };
   }

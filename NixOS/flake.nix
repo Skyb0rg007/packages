@@ -49,5 +49,13 @@
     packages = forAllSystems (system: import ./pkgs {pkgs = pkgsFor.${system};});
     overlays.default = final: prev: import ./pkgs {pkgs = final.pkgs;};
     nixosModules = {tubearchivist = ./modules/tubearchivist.nix;};
+    nixosConfigurations.ta-test = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        {nixpkgs.overlays = [self.overlays.default];}
+        ./modules/tubearchivist.nix
+        ./tests/ta-test.nix
+      ];
+    };
   };
 }
