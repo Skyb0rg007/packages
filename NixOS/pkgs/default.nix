@@ -1,4 +1,5 @@
 {pkgs ? import <nixpkgs> {}, ...}: {
+  anemoi = pkgs.callPackage ./anemoi.nix {};
   ascsaver = pkgs.callPackage ./ascsaver.nix {};
   # maybe = pkgs.callPackage ./maybe {};
   mlton-dev = pkgs.callPackage ./mlton.nix {};
