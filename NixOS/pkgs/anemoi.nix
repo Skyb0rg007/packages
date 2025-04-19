@@ -45,7 +45,7 @@
     ];
   };
 in
-python3Packages.buildPythonApplication {
+python3Packages.buildPythonPackage {
   pname = "anemoi";
   inherit version;
   pyproject = true;
