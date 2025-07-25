@@ -2,7 +2,7 @@
   anemoi = pkgs.callPackage ./anemoi.nix {};
   ascsaver = pkgs.callPackage ./ascsaver.nix {};
   # maybe = pkgs.callPackage ./maybe {};
-  # mlton-dev = pkgs.callPackage ./mlton.nix {};
+  mlton = pkgs.callPackage ./mlton.nix {};
   porkbun-ddns = pkgs.callPackage ./porkbun-ddns.nix {};
   # receipt-wrangler = pkgs.callPackage ./receipt-wrangler.nix {};
   # receipt-wrangler-desktop = pkgs.callPackage ./receipt-wrangler-desktop.nix {};
