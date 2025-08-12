@@ -21,6 +21,7 @@ in
     ];
     dependencies = [
       python3Packages.tomlkit
+      pkgs.debootstrap
     ];
     meta = {
       description = "Debian package builder and build helper using systemd-nspawn";
