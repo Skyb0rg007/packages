@@ -48,7 +48,10 @@
     formatter = forAllSystems (system: pkgsFor.${system}.alejandra);
     packages = forAllSystems (system: import ./pkgs {pkgs = pkgsFor.${system};});
     overlays.default = final: prev: import ./pkgs {pkgs = final.pkgs;};
-    nixosModules = {tubearchivist = ./modules/tubearchivist.nix;};
+    nixosModules = {
+      tubearchivist = ./modules/tubearchivist.nix;
+      debspawn = ./modules/debspawn.nix;
+    };
     nixosConfigurations.ta-test = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
