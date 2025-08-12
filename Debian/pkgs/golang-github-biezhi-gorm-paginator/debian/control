@@ -1,0 +1,65 @@
+Source: golang-github-biezhi-gorm-paginator
+Section: golang
+Priority: optional
+Maintainer: Debian Go Packaging Team <team+pkg-go@tracker.debian.org>
+Uploaders: TODO <TODO>,
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-golang,
+               golang-any,
+               golang-github-gin-gonic-gin-dev,
+Testsuite: autopkgtest-pkg-go
+Standards-Version: 4.7.0
+Vcs-Browser: https://salsa.debian.org/go-team/packages/golang-github-biezhi-gorm-paginator
+Vcs-Git: https://salsa.debian.org/go-team/packages/golang-github-biezhi-gorm-paginator.git
+Homepage: https://github.com/biezhi/gorm-paginator
+XS-Go-Import-Path: github.com/biezhi/gorm-paginator
+
+Package: golang-github-biezhi-gorm-paginator-dev
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends},
+Description: gorm pagination extension (library)
+ gorm-paginator
+ .
+ Usage
+ .
+   go get github.com/hellokaton/gorm-paginator/pagination
+ .
+   type User struct {
+   	ID       int
+   	UserName string `gorm:"not null;size:100;unique"`
+   }
+ .
+   var users []User
+   db = db.Where("id > ?", 0)
+ .
+   pagination.Paging(&pagination.Param{
+       DB:      db,
+       Page:    1,
+       Limit:   3,
+       OrderBy: []string{"id desc"},
+   }, &users)
+ .
+ With Gin
+ .
+   r := gin.Default()
+   r.GET("/", func(c *gin.Context) {
+       page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+       limit, _ := strconv.Atoi(c.DefaultQuery("limit", "3"))
+       var users []User
+ .
+       paginator := pagination.Paging(&pagination.Param{
+           DB:      db,
+           Page:    page,
+           Limit:   limit,
+           OrderBy: []string{"id desc"},
+           ShowSQL: true,
+       }, &users)
+       c.JSON(200, paginator)
+   })
+ .
+ License
+ .
+ MIT (/LICENSE)
+
