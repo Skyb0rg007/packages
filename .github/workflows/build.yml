@@ -1,0 +1,21 @@
+
+on: workflow_dispatch
+
+jobs:
+  build-gorm-paginator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt install -y \
+            dh-sequence-golang golang-any golang-github-gin-gonic-gin-dev \
+            build-essential dpkg-dev devscripts
+      - name: Build gorm-paginator
+        run: |
+          cd Debian/pkgs || exit 1
+          ./build.sh golang-github-biezhi-gorm-paginator
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Deb file
+          path: ./Debian/pkgs/_build/*/*.deb

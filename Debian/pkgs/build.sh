@@ -20,11 +20,8 @@ ok=
 for p in $packages; do
     if [ "$p" = "$package" ]; then ok=1; break; fi
 done
-if [ -z "$ok" ]; then
-    usage
-fi
+if [ -z "$ok" ]; then usage; fi
 
-echo "Setting up directory for $package"
 pkg_ver="$(dpkg-parsechangelog --file "$dir/$package/debian/changelog" --show-field Version)"
 src_ver="${pkg_ver%-*}"
 orig="${package}_${src_ver}.orig.tar.gz"
