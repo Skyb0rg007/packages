@@ -15,7 +15,7 @@ Homepage: https://github.com/biezhi/gorm-paginator
 XS-Go-Import-Path: github.com/biezhi/gorm-paginator
 
 Package: golang-github-biezhi-gorm-paginator-dev
-Architecture: all
+Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends},
 Description: gorm pagination extension (library)
