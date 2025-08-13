@@ -2,3 +2,5 @@ golang-github-biezhi-gorm-paginator/*
 !golang-github-biezhi-gorm-paginator/debian
 pwngrid/*
 !pwngrid/debian
+pwnagotchi/*
+!pwnagotchi/debian
