@@ -25,7 +25,6 @@ Package: pwngrid
 Section: net
 Architecture: any
 Depends: ${misc:Depends},
-         ${shlibs:Depends},
 Static-Built-Using: ${misc:Static-Built-Using}
 Description: API server for pwnagotchi.ai (program)
  PwnGRID
