@@ -5,15 +5,26 @@ Wants=network.target
 After=network.target
 
 [Service]
+Environment=ADDRESS=127.0.0.1
+Environment=PORT=8666
+
 Type=simple
-ExecStart=/usr/bin/pwngrid -log /var/log/pwngrid/pwngrid.log -env /etc/pwngrid/pwngrid.conf -address 127.0.0.1:8666
-LogsDirectory=pwngrid
-ConfigurationDirectory=pwngrid::ro
+ExecStartPre=/usr/bin/pwngrid \
+    -log ${LOGS_DIRECTORY}/pwngrid.log \
+    -keys ${STATE_DIRECTORY}/keys \
+    -generate
+ExecStart=/usr/bin/pwngrid \
+    -log ${LOGS_DIRECTORY}/pwngrid.log \
+    -peers ${STATE_DIRECTORY}/peers \
+    -keys ${STATE_DIRECTORY}/keys \
+    -address ${ADDRESS}:${PORT}
 Restart=always
 RestartSec=30
+User=pwngrid
+LogsDirectory=pwngrid
+StateDirectory=pwngrid
 
 # Hardening
-DynamicUser=true
 LockPersonality=true
 MemoryDenyWriteExecute=true
 PrivateDevices=true
