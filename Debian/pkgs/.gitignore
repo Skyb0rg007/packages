@@ -4,3 +4,4 @@ pwngrid/*
 !pwngrid/debian
 pwnagotchi/*
 !pwnagotchi/debian
+_build
