@@ -1,8 +1,7 @@
 Source: pwngrid
 Section: golang
 Priority: optional
-Maintainer: Debian Go Packaging Team <team+pkg-go@tracker.debian.org>
-Uploaders: TODO <TODO>,
+Maintainer: Skye Soss <skyler.soss@gmail.com>
 Rules-Requires-Root: no
 Build-Depends: debhelper-compat (= 13),
                dh-sequence-golang,
@@ -17,13 +16,13 @@ Build-Depends: debhelper-compat (= 13),
                golang-github-biezhi-gorm-paginator-dev,
 Testsuite: autopkgtest-pkg-go
 Standards-Version: 4.7.0
-Vcs-Browser: https://salsa.debian.org/go-team/packages/pwngrid
-Vcs-Git: https://salsa.debian.org/go-team/packages/pwngrid.git
+Vcs-Browser: https://github.com/jayofelony/pwngrid
+Vcs-Git: https://github.com/jayofelony/pwngrid.git
 Homepage: https://github.com/jayofelony/pwngrid
 XS-Go-Import-Path: github.com/jayofelony/pwngrid
 
 Package: pwngrid
-Section: TODO
+Section: net
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends},
@@ -31,6 +30,6 @@ Static-Built-Using: ${misc:Static-Built-Using}
 Description: API server for pwnagotchi.ai (program)
  PwnGRID
  .
- This is the source code of the API server for https://pwnagotchi.ai/
+ This is the API server for https://pwnagotchi.ai/
  (https://pwnagotchi.ai/)
 

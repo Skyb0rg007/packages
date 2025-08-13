@@ -1,5 +1,5 @@
-golang-github-biezhi-gorm-paginator (0.0.2-1) UNRELEASED; urgency=medium
+golang-github-biezhi-gorm-paginator (0.0.2-1) unstable; urgency=medium
 
-  * Initial release (Closes: TODO)
+  * Initial release
 
- -- TODO <TODO>  Tue, 12 Aug 2025 16:32:59 -0500
+ -- Skye Soss <skyler.soss@gmail.com>  Tue, 12 Aug 2025 16:32:59 -0500
