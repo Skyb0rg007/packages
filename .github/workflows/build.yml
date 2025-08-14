@@ -32,7 +32,7 @@ jobs:
           cd ../..
       - name: Install gorm-paginator
         run: |
-          sudo apt install -y ./Debian/pkgs/_build/golang-github-biezhi-gorm-paginator-*.deb
+          sudo apt install -y ./Debian/pkgs/_build/golang-github-biezhi-gorm-paginator-dev_*.deb
 
       - name: Install pwngrid dependencies
         run: |
@@ -45,7 +45,7 @@ jobs:
           cd ../..
       - name: Install pwngrid
         run: |
-          sudo apt install -y ./Debian/pkgs/_build/pwngrid-*.deb
+          sudo apt install -y ./Debian/pkgs/_build/pwngrid_*.deb
 
       - name: Install pwnagotchi dependencies
         run: |
@@ -58,7 +58,7 @@ jobs:
           cd ../..
       - name: Install pwnagotchi
         run: |
-          sudo apt install -y ./Debian/pkgs/_build/pwnagotchi-*.deb
+          sudo apt install -y ./Debian/pkgs/_build/pwnagotchi_*.deb
 
       # - uses: sigstore/gh-action-sigstore-python@v3.0.0
       #   with:
