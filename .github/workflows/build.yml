@@ -1,9 +1,18 @@
 
-on: workflow_dispatch
+on:
+  workflow_dispatch: ~
+  push: ~
 
 jobs:
   build-pwn:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-24.04
+          - ubuntu-22.04
+          - ubuntu-24.04-arm
+          - ubuntu-22.04-arm
+    runs-on: ${{ matrix.os }}
     # permissions:
     #   id-token: write
     steps:
@@ -57,7 +66,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Upload packaging outputs
+          name: Packaging outputs for ${{ matrix.os }}
           path: |
             Debian/pkgs/_build/*.deb
             Debian/pkgs/_build/*.buildinfo
