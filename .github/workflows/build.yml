@@ -16,10 +16,16 @@ jobs:
         run: |
           cd Debian/pkgs || exit 1
           ./build.sh golang-github-biezhi-gorm-paginator
+          ls _build
+          cd ../..
       # - uses: sigstore/gh-action-sigstore-python@v3.0.0
       #   with:
       #     inputs: ./Debian/pkgs/_build/*/*.deb
       - uses: actions/upload-artifact@v4
         with:
           name: Deb file
-          path: ./Debian/pkgs/_build/*/*.deb
+          path: |
+            Debian/pkgs/_build/*.deb
+            Debian/pkgs/_build/*.buildinfo
+            Debian/pkgs/_build/*.dsc
+            Debian/pkgs/_build/*.changes
