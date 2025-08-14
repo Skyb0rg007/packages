@@ -14,6 +14,7 @@ Build-Depends: debhelper-compat (= 13),
                golang-github-jinzhu-gorm-dev,
                golang-github-joho-godotenv-dev,
                golang-github-biezhi-gorm-paginator-dev,
+               libpcap0.8-dev,
 Testsuite: autopkgtest-pkg-go
 Standards-Version: 4.7.0
 Vcs-Browser: https://github.com/jayofelony/pwngrid
