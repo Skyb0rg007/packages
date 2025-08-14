@@ -2,15 +2,18 @@
 on: workflow_dispatch
 
 jobs:
-  build-gorm-paginator:
+  build-pwn:
     runs-on: ubuntu-latest
     # permissions:
     #   id-token: write
     steps:
       - uses: actions/checkout@v4
-      - name: Install dependencies
+      - name: Install generic dependencies
         run: |
           sudo apt install -y build-essential dpkg-dev devscripts
+
+      - name: Install gorm-paginator dependencies
+        run: |
           sudo apt build-dep -y ./Debian/pkgs/golang-github-biezhi-gorm-paginator
       - name: Build gorm-paginator
         run: |
@@ -18,12 +21,43 @@ jobs:
           ./build.sh golang-github-biezhi-gorm-paginator
           ls _build
           cd ../..
+      - name: Install gorm-paginator
+        run: |
+          sudo apt install -y ./Debian/pkgs/_build/golang-github-biezhi-gorm-paginator-*.deb
+
+      - name: Install pwngrid dependencies
+        run: |
+          sudo apt build-dep -y ./Debian/pkgs/pwngrid
+      - name: Build pwngrid
+        run: |
+          cd Debian/pkgs || exit 1
+          ./build.sh pwngrid
+          ls _build
+          cd ../..
+      - name: Install pwngrid
+        run: |
+          sudo apt install -y ./Debian/pkgs/_build/pwngrid-*.deb
+
+      - name: Install pwnagotchi dependencies
+        run: |
+          sudo apt build-dep -y ./Debian/pkgs/pwnagotchi
+      - name: Build pwnagotchi
+        run: |
+          cd Debian/pkgs || exit 1
+          ./build.sh pwnagotchi
+          ls _build
+          cd ../..
+      - name: Install pwnagotchi
+        run: |
+          sudo apt install -y ./Debian/pkgs/_build/pwnagotchi-*.deb
+
       # - uses: sigstore/gh-action-sigstore-python@v3.0.0
       #   with:
       #     inputs: ./Debian/pkgs/_build/*/*.deb
+
       - uses: actions/upload-artifact@v4
         with:
-          name: Deb file
+          name: Upload packaging outputs
           path: |
             Debian/pkgs/_build/*.deb
             Debian/pkgs/_build/*.buildinfo
