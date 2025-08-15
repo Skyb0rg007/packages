@@ -11,5 +11,4 @@
   tubearchivist = pkgs.callPackage ./tubearchivist.nix {};
   reddio = pkgs.callPackage ./reddio.nix {};
   cdash = pkgs.callPackage ./cdash.nix {};
-  debspawn = pkgs.callPackage ./debspawn.nix {};
 }
