@@ -25,18 +25,22 @@ jobs:
       - name: Download and extract python3-file-read-backwards sources
         run: |
           mkdir -p ./Debian/pkgs/_build
-          pushd ./Debian/pkgs/_build || exit 1
-          base="http://archive.ubuntu.com/ubuntu/pool/universe/f/file-read-backwards/file-read-backwards_3.1.0"
-          wget "$base-2.dsc"
-          wget "$base.orig.tar.gz"
-          wget "$base-2.debian.tar.xz"
-          dpkg-source -x file-read-backwards_3.1.0-2.dsc
-          popd
+          cd ./Debian/pkgs/_build || exit 1
+          pkg="file-read-backwards"
+          vsn="3.1.0"
+          rev="2"
+          base="http://archive.ubuntu.com/ubuntu/pool/universe"
+          wget "$base/${pkg:0:1}/$pkg/${pkg}_$vsn-$rev.dsc"
+          wget "$base/${pkg:0:1}/$pkg/${pkg}_$vsn.orig.tar.gz"
+          wget "$base/${pkg:0:1}/$pkg/${pkg}_$vsn-$rev.debian.tar.xz"
+          dpkg-source -x "./${pkg}_$vsn-$rev.dsc"
+      - name: Install python3-file-read-backwards dependencies
+        run: |
+          sudo apt build-dep -y ./Debian/pkgs/_build/file-read-backwards-3.1.0
       - name: Build python3-file-read-backwards
         run: |
-          pushd ./Debian/pkgs/_build/file-read-backwards-3.1.0 || exit 1
+          cd ./Debian/pkgs/_build/file-read-backwards-3.1.0 || exit 1
           dpkg-buildpackage -us -uc
-          popd
       - name: Install python3-file-read-backwards
         run: |
           sudo apt install -y ./Debian/pkgs/_build/file-read-backwards_3.1.0-2_all.deb
@@ -46,10 +50,9 @@ jobs:
           sudo apt build-dep -y ./Debian/pkgs/golang-github-biezhi-gorm-paginator
       - name: Build gorm-paginator
         run: |
-          pushd Debian/pkgs || exit 1
+          cd Debian/pkgs || exit 1
           ./build.sh golang-github-biezhi-gorm-paginator
           ls _build
-          popd
       - name: Install gorm-paginator
         run: |
           sudo apt install -y ./Debian/pkgs/_build/golang-github-biezhi-gorm-paginator-dev_*.deb
