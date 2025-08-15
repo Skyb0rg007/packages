@@ -107,6 +107,9 @@ jobs:
       - name: Delete repo directories that shouldn't be hosted
         run: |
           rm -rf Debian/repo/{conf,db}
+      - name: Generate directory listings
+        run: |
+          Debian/generate-indices.sh Debian/repo
       - name: Upload repository as artifact
         id: apt_repo_deployment
         uses: actions/upload-pages-artifact@v3
