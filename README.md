@@ -1,46 +1,54 @@
-# packages
+# Skyenet packages
 Repo for all different packages
 
 ## NixOS
 
-This subdirectory is a Nix flake
+This subdirectory is a Nix flake.
 
 Import with
 
 ```nix
 {
-    inputs.skye-packages.url = "github:Skyb0rg007/packages.git?dir=NixOS";
+    inputs.skyenet.url = "github:Skyb0rg007/packages.git?dir=NixOS";
     # If you're also depending on nixpkgs
-    inputs.skye-packages.inputs.nixpkgs.follows = "nixpkgs";
+    inputs.skyenet.inputs.nixpkgs.follows = "nixpkgs";
     # If you're also depending on cachix's git-hooks package
-    inputs.skye-packages.inputs.git-hooks.follows = "git-hooks";
+    inputs.skyenet.inputs.git-hooks.follows = "git-hooks";
 
     # ...
 }
 ```
 
-You can use the packages with `skye-packages.packages.package-name`,
-or can import them all with `skye-packages.overlays.default`:
+You can then the packages with `skyenet.packages.${system}.package-name`.
+For `NixOS` or `home-manager` modules, you can pass extra arguments through
+the `specialArgs` or `extraSpecialArgs` inputs respectively.
 
-```nix
-{
-    nixpkgs.overlays = [ skye-packages.overlays.default ];
+## Cachix substituter
 
-    # ...
-}
+Instead of building the packages on your machine, you can download
+pre-built derivations courtesy of [Cachix](https://cachix.org).
+Add the following to your `nix.conf`:
+
+```conf
+extra-substituters = https://skyenet.cachix.org
+extra-trusted-public-keys = skyenet.cachix.org-1:Pf1Kzvduw4vFW0jGH3Vvaxkv8RYk2EK5LyPzhpYBI5s=
 ```
+
+Note: the `extra-` prefix just means the line won't override previous configuration.
 
 ### Packages
 
-- `smlnj`: SML/NJ
-  - Version 110.99.6
-  - GitHub: https://github.com/smlnj/legacy
+- `anemoi`: Least-privilege Dynamic DNS
+  - GitHub: https://github.com/dayt0n/anemoi
+
+- `ascsaver`: ASCII screen saver
+  - GitLab: https://gitlab.com/mezantrop/ascsaver
 
 - `smlnj-dev`: SML/NJ development
   - Version 2024.2
   - GitHub: https://github.com/smlnj/smlnj
 
-- `mlton-dev`: MLton
+- `mlton`: MLton
   - Version 20240809
   - GitHub: https://github.com/MLton/mlton
 
@@ -48,15 +56,17 @@ or can import them all with `skye-packages.overlays.default`:
   - GitHub: https://github.com/mietzen/porkbun-ddns
 
 - `tmux-notify`: Tmux Notify
-  - GitHub: https://github.com
+  - GitHub: https://github.com/rickstaa/tmux-notify
 
-- `ascsaver`: ASCII screen saver
-  - GitLab: https://gitlab.com/mezantrop/ascsaver
+### In-Progress / Stalled
 
-- `receipt-wrangler`: Receipt Wrangler
-  - GitHub: https://github.com/Receipt-Wrangler/receipt-wrangler-api
-
-- `receipt-wrangler-desktop`: Receipt Wrangler Desktop
-  - GitHub: https://github.com/Receipt-Wrangler/receipt-wrangler-desktop
+- `recutils`
+  - The version on nixpkgs doesn't compile on Darwin.
+    I was trying to change things so this would be fixed
+- `reddio`
+- `cdash`
+- `tubearchivist`
+- `archivebox`
+- `paperless-ai`
 
 #### 
