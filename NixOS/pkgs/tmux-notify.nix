@@ -4,15 +4,16 @@
   fetchFromGitHub,
   ...
 }: let
+  version = "1.6.0";
 in
   pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "tmux-notify";
-    version = "1.5.1";
+    inherit version;
     src = fetchFromGitHub {
       owner = "rickstaa";
       repo = "tmux-notify";
-      rev = "v1.5.1";
-      hash = "sha256-0+Rydx4cVVHC916skJTXFZy0zHFaftB2p9ei6xS3MWY=";
+      rev = "v${version}";
+      hash = "sha256-J7RNQEfeEtWFe9AJ4dHN2d/sZvs0EtPwPG7f5DZg+tA=";
     };
     rtpFilePath = "tnotify.tmux";
     postInstall = ''
