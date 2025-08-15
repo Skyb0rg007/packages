@@ -4,7 +4,7 @@ on:
   push: ~
 
 jobs:
-  build-pwn:
+  build-apt:
     strategy:
       matrix:
         os:
@@ -86,7 +86,24 @@ jobs:
             Debian/pkgs/_build/*.dsc
             Debian/pkgs/_build/*.changes
 
-  build-cachix:
+      - name: Upload repository as artifact
+        id: apt_repo_deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: Debian/repo
+
+  deploy-apt:
+    environment:
+      name: github-pages
+      url: ${{ steps.apt_repo_deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build-apt
+    steps:
+      - name: Deploy to GitHub Pages
+        id: apt_repo_deployment
+        uses: actions/deploy-pages@v4
+
+  build-nix:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
