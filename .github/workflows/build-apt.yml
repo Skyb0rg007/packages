@@ -90,7 +90,7 @@ jobs:
 
       - name: Import gpg signing key
         run: |
-          gpg --import <<<"$APT_SIGNING_KEY"
+          gpg --batch --import <<<"$APT_SIGNING_KEY"
         env:
           APT_SIGNING_KEY: ${{ secrets.APT_SIGNING_KEY }}
       - name: Initialize the APT repository
