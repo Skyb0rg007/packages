@@ -31,5 +31,4 @@
       staticAuth = false;
     };
   };
-
 }

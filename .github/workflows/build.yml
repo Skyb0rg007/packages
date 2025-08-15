@@ -9,12 +9,10 @@ jobs:
       matrix:
         os:
           - ubuntu-24.04
-          # - ubuntu-22.04
-          # - ubuntu-24.04-arm
-          # - ubuntu-22.04-arm
+          - ubuntu-24.04-arm
     runs-on: ${{ matrix.os }}
-    permissions:
-      id-token: write
+    # permissions:
+    #   id-token: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,14 +25,15 @@ jobs:
         # python3-file-read-backwards was added in Ubuntu 24.10
       - name: Download and install python3-file-read-backwards
         run: |
-          mkdir -p ./Debian/pkgs/_build
-          cd ./Debian/pkgs/_build || exit 1
+          mkdir -p Debian/pkgs/_build
+          cd Debian/pkgs/_build || exit 1
           pkg="file-read-backwards"
           vsn="3.2.0-1"
           base="http://archive.ubuntu.com/ubuntu/pool/universe"
           wget "$base/${pkg:0:1}/$pkg/python3-${pkg}_${vsn}_all.deb"
           sudo apt install -y "./python3-${pkg}_${vsn}_all.deb"
 
+        # gorm-paginator
       - name: Install gorm-paginator dependencies
         run: |
           sudo apt build-dep -y ./Debian/pkgs/golang-github-biezhi-gorm-paginator
@@ -42,11 +41,11 @@ jobs:
         run: |
           cd Debian/pkgs || exit 1
           ./build.sh golang-github-biezhi-gorm-paginator
-          ls _build
       - name: Install gorm-paginator
         run: |
           sudo apt install -y ./Debian/pkgs/_build/golang-github-biezhi-gorm-paginator-dev_*.deb
 
+        # pwngrid
       - name: Install pwngrid dependencies
         run: |
           sudo apt build-dep -y ./Debian/pkgs/pwngrid
@@ -54,12 +53,11 @@ jobs:
         run: |
           cd Debian/pkgs || exit 1
           ./build.sh pwngrid
-          ls _build
-          cd ../..
       - name: Install pwngrid
         run: |
           sudo apt install -y ./Debian/pkgs/_build/pwngrid_*.deb
 
+        # pwnagotchi
       - name: Install pwnagotchi dependencies
         run: |
           sudo apt build-dep -y ./Debian/pkgs/pwnagotchi
@@ -67,25 +65,17 @@ jobs:
         run: |
           cd Debian/pkgs || exit 1
           ./build.sh pwnagotchi
-          ls _build
-          cd ../..
       - name: Install pwnagotchi
         run: |
           sudo apt install -y ./Debian/pkgs/_build/pwnagotchi_*.deb
 
-      - uses: sigstore/gh-action-sigstore-python@v3.0.0
-        with:
-          inputs: |
-            Debian/pkgs/_build/*.deb
-            Debian/pkgs/_build/*.buildinfo
-            Debian/pkgs/_build/*.dsc
-            Debian/pkgs/_build/*.changes
-
-      - run: |
-          echo
-          ls -lA Debian/pkgs/_build
-          echo
-          ls -lA .
+      # - uses: sigstore/gh-action-sigstore-python@v3.0.0
+      #   with:
+      #     inputs: |
+      #       Debian/pkgs/_build/*.deb
+      #       Debian/pkgs/_build/*.buildinfo
+      #       Debian/pkgs/_build/*.dsc
+      #       Debian/pkgs/_build/*.changes
 
       - uses: actions/upload-artifact@v4
         with:
@@ -95,7 +85,7 @@ jobs:
             Debian/pkgs/_build/*.buildinfo
             Debian/pkgs/_build/*.dsc
             Debian/pkgs/_build/*.changes
-  
+
   build-cachix:
     runs-on: ubuntu-latest
     steps:
