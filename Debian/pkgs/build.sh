@@ -5,6 +5,7 @@ BUILDDIR="$dir/_build"
 mkdir -p "$BUILDDIR"
 
 packages="golang-github-biezhi-gorm-paginator pwngrid pwnagotchi"
+export DEB_BUILD_OPTIONS=noautodbgsym
 
 usage () {
     echo >&2 "Usage: $0 <$(echo "$packages" | tr ' ' '|')>"
