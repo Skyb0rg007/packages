@@ -20,7 +20,7 @@ jobs:
 
       - name: Install generic dependencies
         run: |
-          sudo apt install -y build-essential dpkg-dev devscripts
+          sudo apt install -y build-essential dpkg-dev devscripts reprepro
 
         # python3-file-read-backwards was added in Ubuntu 24.10
       - name: Download and install python3-file-read-backwards
@@ -86,11 +86,30 @@ jobs:
             Debian/pkgs/_build/*.dsc
             Debian/pkgs/_build/*.changes
 
-      # - name: Upload repository as artifact
-      #   id: apt_repo_deployment
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     path: Debian/repo
+      - name: Import gpg signing key
+        run: |
+          gpg --import <<<"$APT_SIGNING_KEY"
+        env:
+          APT_SIGNING_KEY: ${{ secrets.APT_SIGNING_KEY }}
+      - name: Initialize the APT repository
+        run: |
+          reprepro -b Debian/repo createsymlinks
+          reprepro -b Debian/repo export
+      - name: Add packages to APT repository
+        run: |
+          reprepro -b Debian/repo includedeb noble ./python3-file-read-backwards_3.2.0-1_all.deb
+          reprepro -b Debian/repo include noble Debian/pkgs/_build/golang-github-biezhi-gorm-paginator_0.0.2-1_amd64.changes
+          reprepro -b Debian/repo include noble Debian/pkgs/_build/pwnagotchi_2.9.5.3-1_amd64.changes
+          reprepro -b Debian/repo include noble Debian/pkgs/_build/pwngrid_1.11.1-1_amd64.changes
+
+      - name: Delete repo directories that shouldn't be hosted
+        run: |
+          rm -rf Debian/repo/{conf,db}
+      - name: Upload repository as artifact
+        id: apt_repo_deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: Debian/repo
 
   deploy-apt:
     environment:
