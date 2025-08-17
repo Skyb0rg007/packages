@@ -36,6 +36,15 @@ jobs:
           wget "$base/${pkg:0:1}/$pkg/python3-${pkg}_${vsn}_all.deb"
           sudo apt install -y "./python3-${pkg}_${vsn}_all.deb"
 
+        # skyenet-archive-keyring
+      - name: Install skyenet-archive-keyring dependencies
+        run: |
+          sudo apt build-dep -y ./Debian/pkgs/skyenet-archive-keyring
+      - name: Build skyenet-archive-keyring
+        run: |
+          cd Debian/pkgs/skyenet-archive-keyring || exit 1
+          dpkg-buildpackage --no-sign
+
         # gorm-paginator
       - name: Install gorm-paginator dependencies
         run: |
@@ -100,10 +109,11 @@ jobs:
           reprepro -b Debian/repo export
       - name: Add packages to APT repository
         run: |
-          reprepro -b Debian/repo includedeb noble Debian/pkgs/_build/python3-file-read-backwards_3.2.0-1_all.deb
-          reprepro -b Debian/repo include noble Debian/pkgs/_build/golang-github-biezhi-gorm-paginator_0.0.2-1_amd64.changes
-          reprepro -b Debian/repo include noble Debian/pkgs/_build/pwnagotchi_2.9.5.3-1_amd64.changes
-          reprepro -b Debian/repo include noble Debian/pkgs/_build/pwngrid_1.11.1-1_amd64.changes
+          reprepro -b Debian/repo includedeb noble Debian/pkgs/_build/python3-file-read-backwards_*_all.deb
+          reprepro -b Debian/repo include noble Debian/pkgs/_build/golang-github-biezhi-gorm-paginator_*_*.changes
+          reprepro -b Debian/repo include noble Debian/pkgs/_build/pwnagotchi_*_*.changes
+          reprepro -b Debian/repo include noble Debian/pkgs/_build/pwngrid_*_*.changes
+          reprepro -b Debian/repo include noble Debian/pkgs/skyenet-archive-keyring_*_*.changes
 
       - name: Delete repo directories that shouldn't be hosted
         run: |
