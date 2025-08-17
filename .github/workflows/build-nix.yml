@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'NixOS/**.nix'
+      - '.github/workflows/build-nix.yml'
 
 jobs:
   build-nix:

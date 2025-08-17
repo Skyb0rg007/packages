@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'Debian/**'
+      - '.github/workflows/build-apt.yml'
 
 jobs:
   build-apt:
