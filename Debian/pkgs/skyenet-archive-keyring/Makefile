@@ -8,6 +8,7 @@ KEY_GPG := $(KEY_ARMOR:%.asc=%.gpg)
 all: $(KEY_GPG)
 
 $(KEY_GPG): $(KEY_ARMOR)
+	$(RM) $@
 	gpg --batch --output $@ --dearmor $<
 
 install: $(KEY_GPG)
