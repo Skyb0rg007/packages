@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS := optimize=-lto
+export DEB_BUILD_OPTIONS := noautodbgsym
 
 %:
 	dh $@ --builddirectory=_build --buildsystem=golang
