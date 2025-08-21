@@ -26,3 +26,6 @@ jobs:
       - name: Build anemoi
         run: |
           nix build ./NixOS#anemoi
+      - name: Build SML/NJ
+        run: |
+          nix build ./NixOS#smlnj-dev
