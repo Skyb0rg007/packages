@@ -57,6 +57,9 @@ in
 
     nativeBuildInputs = [pkgs.makeWrapper];
 
+    patchPhase = ''
+    '';
+
     # Override the /app/static path with the Nix path to the frontend
     # Also allow the STATIC_ROOT property to be set
     # through the environment variable TA_STATIC_ROOT
@@ -68,6 +71,12 @@ in
         $src/docker_assets/backend_start.py \
         $out/share/tubearchivist
       chmod +x $out/share/tubearchivist/run.sh
+
+      # Disable writing to the NGINX config
+      sed --in-place \
+        --expression='s/self\._disable_static_auth/# &/' \
+        --expression='s/self\._ta_[a-z_]*_overwrite/# &/' \
+        $out/share/tubearchivist/config/management/commands/ta_envcheck.py
 
       sed --in-place \
         --expression='s:^STATIC_ROOT\s*=.*:STATIC_ROOT = environ.get("TA_STATIC_ROOT"):' \

@@ -66,12 +66,19 @@ in {
         description = "The Redis namespace to use";
       };
       elasticsearch = {
+        password = lib.mkOption {
+          type = lib.types.str;
+          description = "Elasticsearch password";
+        };
       };
     };
   };
   config = lib.mkIf cfg.enable {
     systemd.services.tubearchivist = {
       description = "TubeArchivist, your self hosted YouTube media server";
+
+      requires = ["elasticsearch.service" "redis-tubearchivist.service"];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         # These are used to mutate nginx.conf and thus aren't supported on Nix
@@ -104,7 +111,7 @@ in {
         ES_URL = "http://${config.services.elasticsearch.listenAddress}:${toString config.services.elasticsearch.port}";
         ES_PASS = "";
         ES_USER = "elastic";
-        ELASTIC_PASSWORD = "";
+        ELASTIC_PASSWORD = cfg.settings.elasticsearch.password; # TODO
         ES_SNAPSHOT_DIR = "${config.services.elasticsearch.dataDir}/data/snapshot";
         ES_DISABLE_VERIFY_SSL = "False";
 
@@ -125,6 +132,10 @@ in {
 
     services.elasticsearch = {
       enable = lib.mkDefault true;
+      extraConf = ''
+        xpack.security.enabled: true
+        path.repo: /var/lib/elasticsearch/data/snapshot
+      '';
     };
 
     services.nginx = {
