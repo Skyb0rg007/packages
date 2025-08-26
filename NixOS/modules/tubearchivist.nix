@@ -66,9 +66,24 @@ in {
         description = "The Redis namespace to use";
       };
       elasticsearch = {
+        url = lib.mkOption {
+          type = lib.types.str;
+          description = "URL to reach Elasticsearch 8.0 instance";
+          example = "http://127.0.0.1:9200";
+        };
+        username = lib.mkOption {
+          type = lib.types.str;
+          default = "elastic";
+          description = "Elasticsearch username";
+        };
         password = lib.mkOption {
           type = lib.types.str;
           description = "Elasticsearch password";
+        };
+        snapshotDir = lib.mkOption {
+          type = lib.types.str;
+          example = "/var/lib/elasticsearch/data/snapshot";
+          description = "Elasticsearch snapshot directory";
         };
       };
     };
@@ -104,15 +119,14 @@ in {
         TA_PASSWORD = cfg.settings.password; # TODO
 
         # Redis
-        REDIS_CON = config.services.redis.servers.tubearchivist.unixSocket;
+        REDIS_CON = "unix://${config.services.redis.servers.tubearchivist.unixSocket}";
         REDIS_NAME_SPACE = cfg.settings.redis.namespace;
 
         # ElasticSearch
-        ES_URL = "http://${config.services.elasticsearch.listenAddress}:${toString config.services.elasticsearch.port}";
-        ES_PASS = "";
-        ES_USER = "elastic";
+        ES_URL = cfg.settings.elasticsearch.url;
+        ES_USER = cfg.settings.elasticsearch.username;
         ELASTIC_PASSWORD = cfg.settings.elasticsearch.password; # TODO
-        ES_SNAPSHOT_DIR = "${config.services.elasticsearch.dataDir}/data/snapshot";
+        ES_SNAPSHOT_DIR = cfg.settings.elasticsearch.snapshotDir;
         ES_DISABLE_VERIFY_SSL = "False";
 
         DJANGO_DEBUG = lib.mkIf cfg.settings.debug "True";
@@ -128,14 +142,6 @@ in {
 
     services.redis.servers.tubearchivist = {
       enable = lib.mkDefault true;
-    };
-
-    services.elasticsearch = {
-      enable = lib.mkDefault true;
-      extraConf = ''
-        xpack.security.enabled: true
-        path.repo: /var/lib/elasticsearch/data/snapshot
-      '';
     };
 
     services.nginx = {
