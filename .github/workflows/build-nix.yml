@@ -26,6 +26,9 @@ jobs:
       - name: Build anemoi
         run: |
           nix build ./NixOS#anemoi
-      - name: Build SML/NJ
+      - name: Build Tube Archivist
         run: |
-          nix build ./NixOS#smlnj-dev
+          nix build ./NixOS#tubearchivist
+      # - name: Build SML/NJ
+      #   run: |
+      #     nix build ./NixOS#smlnj-dev
