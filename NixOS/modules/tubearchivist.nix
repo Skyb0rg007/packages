@@ -83,15 +83,14 @@ in {
         # HOST_GUID
 
         # ENABLE_CAST = "False";
-        # TZ = "UTC";
+        TZ = config.time.timeZone or "UTC";
         TA_BACKEND_PORT = "${toString cfg.settings.port}";
         TA_HOST = "https://${cfg.hostName}";
 
         # Application paths
         TA_MEDIA_DIR = cfg.settings.mediaDir;
         TA_CACHE_DIR = cfg.settings.cacheDir;
-        # TODO
-        TA_STATIC_ROOT = "/var/lib/tubearchivist/staticfiles";
+        TA_STATIC_ROOT = cfg.settings.dataDir;
 
         # Initial credentials
         TA_USERNAME = cfg.settings.username;
@@ -106,7 +105,7 @@ in {
         ES_PASS = "";
         ES_USER = "elastic";
         ELASTIC_PASSWORD = "";
-        ES_SNAPSHOT_DIR = "/var/lib/elasticsearch/data/snapshot";
+        ES_SNAPSHOT_DIR = "${config.services.elasticsearch.dataDir}/data/snapshot";
         ES_DISABLE_VERIFY_SSL = "False";
 
         DJANGO_DEBUG = lib.mkIf cfg.settings.debug "True";
@@ -170,7 +169,7 @@ in {
             proxyPass = "http://localhost:${toString cfg.settings.port}";
           };
           "/static/" = {
-            alias = "/var/lib/tubearchivist/staticfiles/";
+            alias = "${cfg.settings.dataDir}/";
           };
         };
       };
