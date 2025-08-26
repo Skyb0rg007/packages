@@ -4,12 +4,12 @@
   config,
   ...
 }: let
-  version = "0.5.0";
+  version = "0.5.7";
   source = pkgs.fetchFromGitHub {
     owner = "tubearchivist";
     repo = "tubearchivist";
-    rev = "v0.5.0";
-    hash = "sha256-A2aMh+uflAZPKOqoChumVppDu0QDN7/C1BuoUOCPXLY=";
+    rev = "v${version}";
+    hash = "sha256-fmsRzR5GRA5pEBHuRwiysvIieTOaQYhEYJjg7l5jm2c=";
   };
 
   frontend = pkgs.buildNpmPackage {
@@ -17,7 +17,7 @@
     inherit version;
     buildInputs = [pkgs.nodejs];
     src = "${source}/frontend";
-    npmDepsHash = "sha256-luwl7dolzjXGmUWoB0JbPzQs0NnLVd5I+xeIY2z9u2w=";
+    npmDepsHash = "sha256-tyTg8wsNyWs54OqW2mbnXlrnBi8BGfG0Ja2+JD1c5ds=";
     npmBuildScript = "build:deploy";
     installPhase = ''
       mkdir -p $out
@@ -75,7 +75,7 @@ in
         $out/share/tubearchivist/config/settings.py
 
       sed --in-place \
-        '1i cd "$(basename "$0")"' \
+        '1i cd "$(dirname "$0")"' \
         $out/share/tubearchivist/run.sh
       makeWrapper $out/share/tubearchivist/run.sh $out/bin/tubearchivist \
         --prefix PATH : ${pythonEnv}/bin \
