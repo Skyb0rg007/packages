@@ -6,6 +6,7 @@
   smlnj-dev = pkgs.callPackage ./smlnj-dev.nix {};
   tmux-notify = pkgs.callPackage ./tmux-notify.nix {};
 
+  browsertrix-crawler = pkgs.callPackage ./browsertrix-crawler.nix {};
   archivebox = pkgs.callPackage ./archivebox.nix {};
   cdash = pkgs.callPackage ./cdash.nix {};
   paperless-ai = pkgs.callPackage ./paperless-ai/default.nix {};
