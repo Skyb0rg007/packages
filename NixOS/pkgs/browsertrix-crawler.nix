@@ -64,6 +64,14 @@ in
       vips
     ];
 
+    patchPhase = ''
+      substituteInPlace src/create-login-profile.ts \
+        --replace-fail 'default: "/crawls/profiles/profile.tar.gz"' 'default: "./profiles/profile.tar.gz"' \
+        --replace-fail '"/crawls/profiles/profile.tar.gz"' 'path.join(process.cwd(), "/profiles/profile.tar.gz")' \
+        --replace-fail '"/crawls/profiles/"' 'path.join(process.cwd(), "/profiles/")' \
+        --replace-fail ' /crawls/profiles ' ' ./profiles '
+    '';
+
     preBuild = ''
       mkdir -p $HOME/.node-gyp/${nodejs.version}
       echo 9 > $HOME/.node-gyp/${nodejs.version}/installVersion
@@ -102,7 +110,7 @@ in
 
       makeWrapper ${lib.getExe nodejs} $out/bin/browsertrix-create-login-profile \
         --add-flag $out/lib/node_modules/browsertrix-crawler/dist/create-login-profile.js \
-        --prefix PATH : ${lib.makeBinPath [x11vnc xorg.xvfb socat]} \
+        --prefix PATH : ${lib.makeBinPath [socat x11vnc xorg.xvfb]} \
         --set BROWSER_BIN ${lib.getExe google-chrome} \
         --set BROWSER_VERSION ${google-chrome.version} \
         --set-default GEOMETRY "1360x1020x16" \
