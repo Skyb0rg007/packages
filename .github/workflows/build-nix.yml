@@ -29,6 +29,9 @@ jobs:
       - name: Build Tube Archivist
         run: |
           nix build ./NixOS#tubearchivist
+      - name: Build Browsertrix Crawler
+        run: |
+          nix build ./NixOS#browsertrix-crawler
       # - name: Build SML/NJ
       #   run: |
       #     nix build ./NixOS#smlnj-dev
