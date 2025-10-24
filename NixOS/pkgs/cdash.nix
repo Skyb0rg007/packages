@@ -1,59 +1,69 @@
 {
-  pkgs,
-  cmake,
-  php,
-  nodejs,
+  lib,
   fetchFromGitHub,
   fetchNpmDeps,
+  fetchurl,
+  linkFarm,
+  npmHooks,
+  cypress,
+  nodejs,
+  php,
   ...
-}: let
-  version = "4.1.0";
+}:
+php.buildComposerProject2 (finalAttrs: {
+  pname = "cdash";
+  version = "4.5.0";
 
   src = fetchFromGitHub {
     owner = "Kitware";
     repo = "CDash";
-    rev = "v${version}";
-    hash = "sha256-ftJuEF7tALxw/k3JF5c0suS7TeC5tsrivkUYA6V9SX4=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-OYyOZtG8sPKKp+YSwm3RJUSHWajt6Ue7jY8uvniEKz8=";
   };
 
   npmDeps = fetchNpmDeps {
-    inherit src;
-    hash = "sha256-VLXLF/RDdbX4f2yvXXGsRckFkBdPUSQN3+iOIPdJNJM=";
+    name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
+    inherit (finalAttrs) src;
+    hash = "sha256-TQuJLwuuG7PyTP4Kh70PGBeXNxUo5qUVIzMlk5nhwHE=";
   };
-in
-  php.buildComposerProject2 (finalAttrs: {
-    pname = "cdash";
-    inherit version src;
 
-    npmDeps = npmDeps;
+  env = {
+    CYPRESS_INSTALL_BINARY = "0";
+    CYPRESS_RUN_BINARY = lib.getExe cypress;
+  };
 
-    php = php.buildEnv {
-      extensions = {
-        enabled,
-        all,
-      }:
-        enabled
-        ++ [
-          all.bcmath
-          all.curl
-          all.fileinfo
-          all.mbstring
-          all.pdo
-          all.posix
-          all.simplexml
-          all.xsl
-          all.zlib
-        ];
-    };
+  nativeBuildInputs = [
+    nodejs
+    npmHooks.npmConfigHook
+  ];
 
-    vendorHash = "sha256-FL0Z2642d272QgKXpQnreJEjodeIg7VTPR2VqwO+KNY=";
-  })
-# pkgs.stdenv.mkDerivation {
-# inherit pname version;
-# buildInputs = [
-#   cmake
-#   php
-#   nodejs
-# ];
-# }
+  postBuild = ''
+    npm run prod
+  '';
 
+  postInstall = ''
+    mkdir -p $out/bin
+    cat > $out/bin/artisan << EOF
+    #!/bin/sh
+    export QUEUE_CONNECTION="\''${QUEUE_CONNECTION-sync}"
+    export LARAVEL_STORAGE_PATH="\''${LARAVEL_STORAGE_PATH-"\$STATE_DIRECTORY"}"
+    export APP_SERVICES_CACHE="\$LARAVEL_STORAGE_PATH/bootstrap/cache/services.php"
+    export APP_PACKAGES_CACHE="\$LARAVEL_STORAGE_PATH/bootstrap/cache/packages.php"
+    export APP_CONFIG_CACHE="\$LARAVEL_STORAGE_PATH/bootstrap/cache/config.php"
+    export APP_ROUTES_CACHE="\$LARAVEL_STORAGE_PATH/bootstrap/cache/routes.php"
+    export APP_EVENTS_CACHE="\$LARAVEL_STORAGE_PATH/bootstrap/cache/events.php"
+    export LIGHTHOUSE_SCHEMA_CACHE_PATH="\$LARAVEL_STORAGE_PATH/bootstrap/cache/lighthouse-schema.php"
+    exec $out/share/php/cdash/artisan "\$@"
+    EOF
+    chmod +x $out/bin/artisan
+  '';
+
+  php = php.buildEnv {
+    extensions = {
+      enabled,
+      all,
+    }:
+      enabled ++ [all.xsl];
+  };
+  vendorHash = "sha256-R8UYCyhc+Cn7Q3Q1mjlNRmYyAP1Ub98JTQli8BlXj4c=";
+})
