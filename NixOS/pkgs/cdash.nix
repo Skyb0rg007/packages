@@ -2,8 +2,6 @@
   lib,
   fetchFromGitHub,
   fetchNpmDeps,
-  fetchurl,
-  linkFarm,
   npmHooks,
   cypress,
   nodejs,
