@@ -6,3 +6,4 @@ result
 *.buildinfo
 *.changes
 itp-*.txt
+/.pre-commit-config.yaml
