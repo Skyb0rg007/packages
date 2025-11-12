@@ -63,5 +63,6 @@ php.buildComposerProject2 (finalAttrs: {
     }:
       enabled ++ [all.xsl];
   };
-  vendorHash = "sha256-R8UYCyhc+Cn7Q3Q1mjlNRmYyAP1Ub98JTQli8BlXj4c=";
+  # vendorHash = "sha256-R8UYCyhc+Cn7Q3Q1mjlNRmYyAP1Ub98JTQli8BlXj4c=";
+  vendorHash = "sha256-6qiV1TolRhiJf1CQuQhv6BK54FF0Pa1l9/+awVQGLig=";
 })
