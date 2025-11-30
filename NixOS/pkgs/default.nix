@@ -7,6 +7,8 @@
   tmux-notify = pkgs.callPackage ./tmux-notify.nix {};
   romm = pkgs.callPackage ./romm.nix {};
 
+  barry = pkgs.callPackage ./barry.nix {};
+  bencher = pkgs.callPackage ./bencher.nix {};
   browsertrix-crawler = pkgs.callPackage ./browsertrix-crawler.nix {};
   archivebox = pkgs.callPackage ./archivebox.nix {};
   cdash = pkgs.callPackage ./cdash.nix {};
