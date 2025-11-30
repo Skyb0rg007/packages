@@ -8,6 +8,7 @@
   romm = pkgs.callPackage ./romm.nix {};
 
   ambient-ci = pkgs.callPackage ./ambient-ci.nix {};
+  radicle-ci-ambient = pkgs.callPackage ./radicle-ci-ambient.nix {};
   barry = pkgs.callPackage ./barry.nix {};
   bencher = pkgs.callPackage ./bencher.nix {};
   browsertrix-crawler = pkgs.callPackage ./browsertrix-crawler.nix {};
