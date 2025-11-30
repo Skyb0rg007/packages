@@ -7,6 +7,7 @@
   tmux-notify = pkgs.callPackage ./tmux-notify.nix {};
   romm = pkgs.callPackage ./romm.nix {};
 
+  radicle-woodpecker-addon = pkgs.callPackage ./radicle-woodpecker-addon.nix {};
   ambient-ci = pkgs.callPackage ./ambient-ci.nix {};
   radicle-ci-ambient = pkgs.callPackage ./radicle-ci-ambient.nix {};
   barry = pkgs.callPackage ./barry.nix {};
