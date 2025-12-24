@@ -3,6 +3,7 @@
   fetchCrate,
   rustPlatform,
   libisoburn,
+  qemu,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
@@ -21,10 +22,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   patchPhase = ''
     runHook prePatch
 
-    # substituteInPlace src/config.rs \
-    #   --replace-fail /usr/bin/kvm ""
-    # substituteInPlace src/config.rs \
-    #   --replace-fail /usr/share/ovmf/OVMF.fd ""
+    substituteInPlace src/config.rs \
+      --replace-fail /usr/bin/kvm "${lib.getExe' qemu "qemu-kvm"}" \
+      --replace-fail "executor: None" "executor: Some(TildePathBuf::new(\"$out/bin/ambient-execute-plan\".into()))"
 
     runHook postPatch
   '';
