@@ -17,24 +17,24 @@ jobs:
         with:
           name: skyenet
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - name: Build mlton
-        run: |
-          nix build ./NixOS#mlton
       - name: Build Porkbun-DDNS
         run: |
           nix build ./NixOS#porkbun-ddns
       - name: Build anemoi
         run: |
           nix build ./NixOS#anemoi
-      - name: Build Tube Archivist
+      - name: Build ambient-ci
         run: |
-          nix build ./NixOS#tubearchivist
-      - name: Build Browsertrix Crawler
+          nix build ./NixOS#ambient-ci
+      - name: Build radicle-ci-ambient
         run: |
-          nix build ./NixOS#browsertrix-crawler
+          nix build ./NixOS#radicle-ci-ambient
       - name: Build CDash
         run: |
           nix build ./NixOS#cdash
-      # - name: Build SML/NJ
+      # - name: Build Tube Archivist
       #   run: |
-      #     nix build ./NixOS#smlnj-dev
+      #     nix build ./NixOS#tubearchivist
+      # - name: Build Browsertrix Crawler
+      #   run: |
+      #     nix build ./NixOS#browsertrix-crawler

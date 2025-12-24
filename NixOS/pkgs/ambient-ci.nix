@@ -18,6 +18,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doCheck = true;
   nativeCheckInputs = [libisoburn];
 
+  patchPhase = ''
+    runHook prePatch
+
+    # substituteInPlace src/config.rs \
+    #   --replace-fail /usr/bin/kvm ""
+    # substituteInPlace src/config.rs \
+    #   --replace-fail /usr/share/ovmf/OVMF.fd ""
+
+    runHook postPatch
+  '';
+
   meta = {
     description = "Ambient continuous integration engine";
     longDescription = ''
