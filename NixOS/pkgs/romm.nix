@@ -297,6 +297,6 @@
       hash = "sha256-tETzrqkEBh1wLtvtWPlS5UShnc8g8u2EvYic9Ea4e30=";
     };
   };
-in 
+in
   # frontend
   backend

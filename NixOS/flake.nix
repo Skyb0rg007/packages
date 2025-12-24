@@ -52,13 +52,13 @@
       tubearchivist = ./modules/tubearchivist.nix;
       debspawn = ./modules/debspawn.nix;
     };
-    nixosConfigurations.ta-test = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        {nixpkgs.overlays = [self.overlays.default];}
-        ./modules/tubearchivist.nix
-        ./tests/ta-test.nix
-      ];
-    };
+    # nixosConfigurations.ta-test = nixpkgs.lib.nixosSystem {
+    #   system = "x86_64-linux";
+    #   modules = [
+    #     {nixpkgs.overlays = [self.overlays.default];}
+    #     ./modules/tubearchivist.nix
+    #     ./tests/ta-test.nix
+    #   ];
+    # };
   };
 }
