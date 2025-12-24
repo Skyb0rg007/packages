@@ -21,4 +21,14 @@ python3Packages.buildPythonApplication {
     rev = "bb7c44a18d7aa31f1446da8b4974674fcf4e28cc";
     hash = "sha256-xaeSus1nWOhcTmxL3mZzZQAGcQoiiVxyYwMjlwmRr5Q=";
   };
+
+  meta = {
+    description = "Debian virtual machine image builder";
+    longDescription = ''
+      vmdb2 is a program for producing a disk image with Debian installed.
+    '';
+    mainProgram = "vmdb2";
+    homepage = "https://vmdb2.liw.fi/";
+    license = lib.licenses.gpl3Plus;
+  };
 }
