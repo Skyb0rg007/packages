@@ -6,13 +6,13 @@
 }: let
   version = "1.6.0";
 in
-  pkgs.tmuxPlugins.mkTmuxPlugin {
+  pkgs.tmuxPlugins.mkTmuxPlugin (finalAttrs: {
     pluginName = "tmux-notify";
     inherit version;
     src = fetchFromGitHub {
       owner = "rickstaa";
       repo = "tmux-notify";
-      rev = "v${version}";
+      rev = "v${finalAttrs.version}";
       hash = "sha256-J7RNQEfeEtWFe9AJ4dHN2d/sZvs0EtPwPG7f5DZg+tA=";
     };
     rtpFilePath = "tnotify.tmux";
@@ -25,4 +25,4 @@ in
       license = lib.licenses.mit;
       platforms = lib.platforms.unix;
     };
-  }
+  })

@@ -5,14 +5,14 @@
   ...
 }: let
 in
-  pkgs.stdenv.mkDerivation {
+  pkgs.stdenv.mkDerivation (finalAttrs: {
     pname = "reddio";
     version = "0.52";
     src = pkgs.fetchFromGitLab {
       owner = "aaronNG";
       repo = "reddio";
-      rev = "eab05356847283725863886a66866090466dab52";
-      hash = "sha256-CghOOBT4QsNsFOslSVazjsFAswvsfQbvBTL6RnBo5zQ=";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-Bhe3icWycQXwwyBp9z1GpnTYAfAp3m79orfMITTU2Z8=";
     };
 
     dontBuild = true;
@@ -20,4 +20,4 @@ in
       mkdir -p $out
       make install PREFIX=$out
     '';
-  }
+  })
