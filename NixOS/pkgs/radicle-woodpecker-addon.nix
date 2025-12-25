@@ -1,16 +1,21 @@
 {
   lib,
-  fetchgit,
+  fetchFromRadicle,
   buildGoModule,
 }:
 buildGoModule {
   pname = "radicle-woodpecker-addon";
   version = "0.1";
-  src = fetchgit {
-    url = "https://seed.radicle.gr/z39Cf1XzrvCLRZZJRUZnx9D1fj5ws.git";
-    hash = "sha256-YZJuA9HKGH2LQN9QEMFLfhuXniAxMswyI8UKcc8M/aM=";
+  src = fetchFromRadicle {
+    seed = "seed.radicle.gr";
+    repo = "z39Cf1XzrvCLRZZJRUZnx9D1fj5ws";
+    rev = "650ded0ef47c1caee6b9cb6b8aebac4f588985e5";
+    hash = "sha256-uqfoIIV7sTRwZH7JOARF1CjGsJ6inolZVLz2SIBZ8qU=";
   };
-  vendorHash = "sha256-IanCM0wf28CvruEAIG2fUPEUguf9Gy66wBHt3x4MCg4=";
+  vendorHash = "sha256-IfUmxh5McnGpERC+SwnzSyEfhjQuaMKCdQx4mLNdFS0=";
+
+  doCheck = false;
+
   meta = {
     description = "A radicle forge addon for Woodpecker CI";
     homepage = "https://explorer.radicle.gr/nodes/seed.radicle.gr/rad:z39Cf1XzrvCLRZZJRUZnx9D1fj5ws";

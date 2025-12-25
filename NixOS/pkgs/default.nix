@@ -7,12 +7,13 @@
   tmux-notify = pkgs.callPackage ./tmux-notify.nix {};
   romm = pkgs.callPackage ./romm.nix {};
 
-  subplot = pkgs.callPackage ./subplot.nix {};
   radicle-woodpecker-addon = pkgs.callPackage ./radicle-woodpecker-addon.nix {};
+  radicle-ci-ambient = pkgs.callPackage ./radicle-ci-ambient.nix {};
   ambient-ci = pkgs.callPackage ./ambient-ci.nix {};
   ambient-build-vm = pkgs.callPackage ./ambient-build-vm.nix {};
   vmdb2 = pkgs.callPackage ./vmdb2.nix {};
-  radicle-ci-ambient = pkgs.callPackage ./radicle-ci-ambient.nix {};
+  subplot = pkgs.callPackage ./subplot.nix {};
+
   barry = pkgs.callPackage ./barry.nix {};
   bencher = pkgs.callPackage ./bencher.nix {};
   browsertrix-crawler = pkgs.callPackage ./browsertrix-crawler.nix {};
