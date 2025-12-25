@@ -3,6 +3,7 @@
   python3,
   stdenv,
   fetchFromRadicle,
+  installShellFiles,
 }: let
   python = python3.withPackages (ps: [ps.pyaml]);
 in
@@ -21,18 +22,23 @@ in
     dontBuild = true;
 
     buildInputs = [python];
+    nativeBuildInputs = [installShellFiles];
 
     # TODO: Substitute vmdb2 and qemu-img
     installPhase = ''
-      mkdir -pv $out/bin \
+      mkdir -pv \
         $out/share/doc/ambient-build-vm $out/share/ambient-build-vm
 
       substituteInPlace ambient-build-vm \
         --replace-fail "/usr/share" "$out/share"
 
-      cp ambient-build-vm $out/bin
-      cp README.md $out/share/doc/ambient-build-vm
-      cp ambient.service base.vmdb playbook.yml $out/share/ambient-build-vm
+      installBin ambient-build-vm
+      install -D --mode=755 \
+        --target-directory="$out/share/doc/ambient-build-vm" \
+        README.md
+      install -D --mode=755 \
+        --target-directory="$out/share/ambient-build-vm" \
+        ambient.service base.vmdb playbook.yml
     '';
 
     meta = {

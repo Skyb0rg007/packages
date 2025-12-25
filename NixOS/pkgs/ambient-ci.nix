@@ -1,9 +1,10 @@
 {
-  lib,
   fetchCrate,
-  rustPlatform,
+  installShellFiles,
+  lib,
   libisoburn,
   qemu,
+  rustPlatform,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
@@ -18,6 +19,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   doCheck = true;
   nativeCheckInputs = [libisoburn];
+  nativeBuildInputs = [installShellFiles];
 
   patchPhase = ''
     runHook prePatch
@@ -27,6 +29,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail "executor: None" "executor: Some(TildePathBuf::new(\"$out/bin/ambient-execute-plan\".into()))"
 
     runHook postPatch
+  '';
+
+  postInstall = ''
+    installManPage ambient.1
   '';
 
   meta = {
