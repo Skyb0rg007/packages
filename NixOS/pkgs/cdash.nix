@@ -10,19 +10,19 @@
 }:
 php.buildComposerProject2 (finalAttrs: {
   pname = "cdash";
-  version = "4.5.0";
+  version = "4.7.0";
 
   src = fetchFromGitHub {
     owner = "Kitware";
     repo = "CDash";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-OYyOZtG8sPKKp+YSwm3RJUSHWajt6Ue7jY8uvniEKz8=";
+    hash = "sha256-HxcSyIuDXwBxEYdGdkTtRz1iR7kBvobzaxwjXFZCnks=";
   };
 
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
     inherit (finalAttrs) src;
-    hash = "sha256-TQuJLwuuG7PyTP4Kh70PGBeXNxUo5qUVIzMlk5nhwHE=";
+    hash = "sha256-nZa+jnjuD+Q7uxWdIp/Zp4nfHlNgfdX7egAdQBkvqZg=";
   };
 
   env = {
@@ -63,6 +63,5 @@ php.buildComposerProject2 (finalAttrs: {
     }:
       enabled ++ [all.xsl];
   };
-  # vendorHash = "sha256-R8UYCyhc+Cn7Q3Q1mjlNRmYyAP1Ub98JTQli8BlXj4c=";
-  vendorHash = "sha256-6qiV1TolRhiJf1CQuQhv6BK54FF0Pa1l9/+awVQGLig=";
+  vendorHash = "sha256-Y1T+X4kOPB1k/sgxV9zXctaRR9oSAEQ+M7bB7eRumlU=";
 })
