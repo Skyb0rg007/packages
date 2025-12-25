@@ -5,12 +5,15 @@
   tmux-notify = pkgs.callPackage ./tmux-notify.nix {};
   romm = pkgs.callPackage ./romm.nix {};
 
-  radicle-woodpecker-addon = pkgs.callPackage ./radicle-woodpecker-addon.nix {};
+  # Radicle
   radicle-ci-ambient = pkgs.callPackage ./radicle-ci-ambient.nix {};
-  ambient-ci = pkgs.callPackage ./ambient-ci.nix {};
+  radicle-woodpecker-addon = pkgs.callPackage ./radicle-woodpecker-addon.nix {};
+
+  # Lars Wirzenius's Packages
   ambient-build-vm = pkgs.callPackage ./ambient-build-vm.nix {};
-  vmdb2 = pkgs.callPackage ./vmdb2.nix {};
+  ambient-ci = pkgs.callPackage ./ambient-ci.nix {};
   subplot = pkgs.callPackage ./subplot.nix {};
+  vmdb2 = pkgs.callPackage ./vmdb2.nix {};
 
   barry = pkgs.callPackage ./barry.nix {};
   bencher = pkgs.callPackage ./bencher.nix {};
