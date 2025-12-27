@@ -5,6 +5,8 @@
   tmux-notify = pkgs.callPackage ./tmux-notify.nix {};
   romm = pkgs.callPackage ./romm.nix {};
 
+  networkmanager-clat = pkgs.callPackage ./networkmanager-clat.nix {};
+
   # Radicle
   radicle-ci-ambient = pkgs.callPackage ./radicle-ci-ambient.nix {};
   radicle-woodpecker-addon = pkgs.callPackage ./radicle-woodpecker-addon.nix {};
