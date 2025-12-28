@@ -16,6 +16,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   meta = {
     description = "Radicle CI adapter for Ambient";
+    mainProgram = "radicle-ci-ambient";
     homepage = "https://ambient.liw.fi/";
     license = lib.licenses.mit;
   };

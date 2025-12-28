@@ -1,12 +1,11 @@
 {
-  lib,
+  cypress,
   fetchFromGitHub,
   fetchNpmDeps,
-  npmHooks,
-  cypress,
+  lib,
   nodejs,
+  npmHooks,
   php,
-  ...
 }:
 php.buildComposerProject2 (finalAttrs: {
   pname = "cdash";
@@ -64,4 +63,24 @@ php.buildComposerProject2 (finalAttrs: {
       enabled ++ [all.xsl];
   };
   vendorHash = "sha256-Y1T+X4kOPB1k/sgxV9zXctaRR9oSAEQ+M7bB7eRumlU=";
+
+  meta = {
+    description = "CDash is a web-based software testing server";
+    longDescription = ''
+      CDash is an open source, web-based software testing server. CDash
+      aggregates, analyzes and displays the results of software testing
+      processes submitted from clients located around the world.
+      Developers depend on CDash to convey the state of a software
+      system, and to continually improve its quality.
+      CDash is a part of a larger software process that integrates
+      Kitware’s CMake, CTest, and CPack tools, as well as other external
+      packages used to design, manage and maintain large-scale software
+      systems.
+    '';
+    homepage = "https://www.cdash.org";
+    changelog = "https://github.com/Kitware/CDash/releases";
+    mainProgram = "artisan";
+    license = lib.licenses.bsd3;
+    maintainers = [lib.maintainers.skyesoss];
+  };
 })
