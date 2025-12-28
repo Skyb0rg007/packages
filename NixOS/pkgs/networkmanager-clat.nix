@@ -36,7 +36,8 @@ in
         domain = "gitlab.freedesktop.org";
         repo = "NetworkManager";
         owner = "Mstrodl";
-        rev = "feature/mstrodl/clat";
+        # branch feature/mstrodl/clat
+        rev = "1abdbd42efcb7268e6702404544bc98a94246b0e";
         hash = "sha256-V890A9I9MoYjEYB3mSWf84Uh1k6Ne6s+1HzP6BMkh/s=";
       };
 

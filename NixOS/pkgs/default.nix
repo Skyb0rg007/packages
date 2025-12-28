@@ -1,10 +1,4 @@
 {pkgs ? import <nixpkgs> {}, ...}: {
-  anemoi = pkgs.callPackage ./anemoi.nix {};
-  ascsaver = pkgs.callPackage ./ascsaver.nix {};
-  porkbun-ddns = pkgs.callPackage ./porkbun-ddns.nix {};
-  tmux-notify = pkgs.callPackage ./tmux-notify.nix {};
-  romm = pkgs.callPackage ./romm.nix {};
-
   networkmanager-clat = pkgs.callPackage ./networkmanager-clat.nix {};
 
   # Radicle
@@ -17,13 +11,18 @@
   subplot = pkgs.callPackage ./subplot.nix {};
   vmdb2 = pkgs.callPackage ./vmdb2.nix {};
 
+  anemoi = pkgs.callPackage ./anemoi.nix {};
+  # archivebox = pkgs.callPackage ./archivebox.nix {};
+  ascsaver = pkgs.callPackage ./ascsaver.nix {};
   barry = pkgs.callPackage ./barry.nix {};
   bencher = pkgs.callPackage ./bencher.nix {};
   browsertrix-crawler = pkgs.callPackage ./browsertrix-crawler.nix {};
-  # archivebox = pkgs.callPackage ./archivebox.nix {};
   cdash = pkgs.callPackage ./cdash.nix {};
-  paperless-ai = pkgs.callPackage ./paperless-ai/default.nix {};
+  paperless-ai = pkgs.callPackage ./paperless-ai.nix {};
+  porkbun-ddns = pkgs.callPackage ./porkbun-ddns.nix {};
   recutils = pkgs.callPackage ./recutils.nix {};
   reddio = pkgs.callPackage ./reddio.nix {};
+  romm = pkgs.callPackage ./romm.nix {};
+  tmux-notify = pkgs.callPackage ./tmux-notify.nix {};
   tubearchivist = pkgs.callPackage ./tubearchivist.nix {};
 }

@@ -32,6 +32,9 @@ jobs:
       - name: Build CDash
         run: |
           nix build ./NixOS#cdash
+      - name: Build NetworkManager-clat
+        run: |
+          nix build ./NixOS#networkmanager-clat
       # - name: Build Tube Archivist
       #   run: |
       #     nix build ./NixOS#tubearchivist
