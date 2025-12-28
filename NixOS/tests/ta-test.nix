@@ -1,13 +1,14 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   system.stateVersion = "25.05";
   nixpkgs.config.allowUnfree = true;
   security.sudo.wheelNeedsPassword = false;
   users.users.nixos = {
     password = "nixos";
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = [ "wheel" ];
   };
-  users.groups.nixos = {};
+  users.groups.nixos = { };
 
   virtualisation.vmVariant.virtualisation = {
     memorySize = 4096;

@@ -5,7 +5,8 @@
   fetchPypi,
   python3Packages,
   stdenv,
-}: let
+}:
+let
   inherit (python3Packages) buildPythonPackage;
   version = "4.4.1";
   src = fetchFromGitHub {
@@ -111,7 +112,7 @@
       inherit version;
       hash = "sha256-vpvgEYE5m+ClS9vZyZG3DtbN46pS1UP/2Sr3YgLuEBM=";
     };
-    build-system = [python3Packages.hatchling];
+    build-system = [ python3Packages.hatchling ];
     dependencies = [
       python3Packages.fastapi
       python3Packages.pydantic
@@ -124,7 +125,7 @@
     inherit (python3Packages.opentelemetry-instrumentation) version src;
     pyproject = true;
     sourceRoot = "${src.name}/opentelemetry-distro";
-    build-system = [python3Packages.hatchling];
+    build-system = [ python3Packages.hatchling ];
     dependencies = [
       python3Packages.opentelemetry-api
       python3Packages.opentelemetry-instrumentation
@@ -143,7 +144,7 @@
       inherit pname version;
       hash = "sha256-LVoUoashf4aTGE66of4Dg47cvHC092VychwLMwWM0CM=";
     };
-    build-system = [python3Packages.setuptools];
+    build-system = [ python3Packages.setuptools ];
     dependencies = [
       python3Packages.rq
       python3Packages.crontab
@@ -181,8 +182,8 @@
       inherit version;
       hash = "sha256-gXLdUJpCrA0QM96x0TrLaPDLrn4UkiV9E68JIr3E3Zs=";
     };
-    build-system = [python3Packages.setuptools];
-    dependencies = [python3Packages.smart-open];
+    build-system = [ python3Packages.setuptools ];
+    dependencies = [ python3Packages.smart-open ];
   };
 
   strsimpy = buildPythonPackage rec {
@@ -193,7 +194,7 @@
       inherit pname version;
       hash = "sha256-CELrV/evhsiCpZobyHIewlgKJn5WP9BQPO0pcgQDcsk=";
     };
-    build-system = [python3Packages.setuptools];
+    build-system = [ python3Packages.setuptools ];
   };
 
   types-passlib = buildPythonPackage rec {
@@ -205,9 +206,9 @@
       inherit version;
       hash = "sha256-zyNQ5402trCeTbRChNlmUbVyhfSZz6vxEbYWBlq6t7M=";
     };
-    build-system = [python3Packages.setuptools];
-    dependencies = [];
-    pythonImportsCheck = ["passlib-stubs"];
+    build-system = [ python3Packages.setuptools ];
+    dependencies = [ ];
+    pythonImportsCheck = [ "passlib-stubs" ];
   };
 
   zipfile-inflate64 = buildPythonPackage rec {
@@ -223,5 +224,5 @@
     };
   };
 in
-  # frontend
-  backend
+# frontend
+backend

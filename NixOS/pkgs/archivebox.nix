@@ -4,9 +4,10 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   python3 = pkgs.python313.override {
-    packageOverrides = self: super: {django = super.django_5;};
+    packageOverrides = self: super: { django = super.django_5; };
   };
   pythonPackages = python3.pkgs;
 
@@ -34,7 +35,7 @@
       inherit version;
       hash = "sha256-YR92jXaMnKe0gnhXP+t8B5ZhdPXFCpMjq00C0MS3UB4=";
     };
-    build-system = [pythonPackages.poetry-core];
+    build-system = [ pythonPackages.poetry-core ];
   };
 
   django-charid-field = pythonPackages.buildPythonPackage rec {
@@ -46,8 +47,8 @@
       inherit version;
       hash = "sha256-PYoPQ5X0ybGWZ4ACVJJFAwFhYAUcFmxh6TXnNmA2zTg=";
     };
-    build-system = [pythonPackages.poetry-core];
-    dependencies = [pythonPackages.django_5];
+    build-system = [ pythonPackages.poetry-core ];
+    dependencies = [ pythonPackages.django_5 ];
   };
 
   sonic-client = pythonPackages.buildPythonPackage rec {
@@ -77,7 +78,7 @@
       inherit version;
       hash = "sha256-rojNIuR5MLkrmDohduYdgR5XG2mJe+JWjsgSwohfuTo=";
     };
-    build-system = [pythonPackages.hatchling];
+    build-system = [ pythonPackages.hatchling ];
   };
 
   base32-crockford = pythonPackages.buildPythonPackage rec {
@@ -98,8 +99,8 @@
       inherit version;
       hash = "sha256-+Wp4xdxtjfHQWLclmLzCwcW7jYND9T+RDgdNrgFFhBc=";
     };
-    build-system = [pythonPackages.poetry-core];
-    dependencies = [pythonPackages.uuid6];
+    build-system = [ pythonPackages.poetry-core ];
+    dependencies = [ pythonPackages.uuid6 ];
   };
 
   django-huey = pythonPackages.buildPythonPackage rec {
@@ -137,8 +138,11 @@
       inherit pname version;
       hash = "sha256-0E+pcDk90dBNQHIjJ+QfCElbmOdRpwdVgnbK6huAd5I=";
     };
-    build-system = [pythonPackages.setuptools pythonPackages.setuptools_scm];
-    dependencies = [pythonPackages.setuptools];
+    build-system = [
+      pythonPackages.setuptools
+      pythonPackages.setuptools_scm
+    ];
+    dependencies = [ pythonPackages.setuptools ];
   };
 
   bx_django_utils = pythonPackages.buildPythonPackage rec {
@@ -166,7 +170,7 @@
       inherit version;
       hash = "sha256-qJThoOJXP/cu11K5f1yLA82idFtk07r/gdtOvR5QWwM=";
     };
-    build-system = [pythonPackages.poetry-core];
+    build-system = [ pythonPackages.poetry-core ];
     dependencies = [
       pythonPackages.django_5
     ];
@@ -181,7 +185,7 @@
       inherit version;
       hash = "sha256-I9xDm+L96iS3RnJklesaellECAkFZILuvOsVPQUKP1s=";
     };
-    build-system = [pythonPackages.poetry-core];
+    build-system = [ pythonPackages.poetry-core ];
     dependencies = [
       pythonPackages.django_5
       pythonPackages.asgiref
@@ -230,7 +234,7 @@
       inherit version;
       hash = "sha256-vSh6XYdP69i1RPg7R9CEb797PgCn9mM5EmMAU8euQpg=";
     };
-    build-system = [pythonPackages.poetry-core];
+    build-system = [ pythonPackages.poetry-core ];
     dependencies = [
       pythonPackages.django_5
       django-settings-holder
@@ -247,7 +251,7 @@
       inherit version;
       hash = "sha256-UQrxnSgTwyolKSNKcOtra9jnX8xPU7ruUg95fLo0INA=";
     };
-    build-system = [pythonPackages.setuptools];
+    build-system = [ pythonPackages.setuptools ];
     dependencies = [
       pythonPackages.django_5
       pythonPackages.pydantic
@@ -264,7 +268,7 @@
       inherit version;
       hash = "sha256-40h7RjV7Hhtyk2M4VZA1XPrCYbGO0gf1npthPFqNRbI=";
     };
-    build-system = [pythonPackages.pdm-backend];
+    build-system = [ pythonPackages.pdm-backend ];
     dependencies = [
       pip
       pythonPackages.platformdirs
@@ -285,7 +289,7 @@
       hash = "sha256-gcGcvqzHOUXDXUyq9eDZitfGuHOCD68HursJ7wW6GPA=";
     };
 
-    build-system = [pythonPackages.hatchling];
+    build-system = [ pythonPackages.hatchling ];
     dependencies = [
       pip
       pythonPackages.platformdirs
@@ -303,8 +307,11 @@
       inherit pname version;
       hash = "sha256-hYWVL265RdhBZZPGwS00wW5IWV9BR9qO6il4kzTUGKo=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [pythonPackages.django_5 pythonPackages.pluggy];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      pythonPackages.django_5
+      pythonPackages.pluggy
+    ];
   };
 
   abx-spec-archivebox = pythonPackages.buildPythonApplication rec {
@@ -316,8 +323,11 @@
       inherit version;
       hash = "sha256-ipiCj3Q1GuNYdf+anYhmVHpkek6Ipw5TRFXYMPRK0rs=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx pythonPackages.django_5];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      pythonPackages.django_5
+    ];
   };
 
   abx-spec-django = pythonPackages.buildPythonApplication rec {
@@ -329,8 +339,11 @@
       inherit version;
       hash = "sha256-GapCBff11sczAWlpFb/CxW/vTGSj1luOWsb3Dv60tGM=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx pythonPackages.django_5];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      pythonPackages.django_5
+    ];
   };
 
   abx-spec-config = pythonPackages.buildPythonApplication rec {
@@ -342,8 +355,14 @@
       inherit version;
       hash = "sha256-ayD49os6If+gW783kexXT2/3K9KqUSNFk7dC66m9EYw=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx pythonPackages.python-benedict pythonPackages.pydantic pythonPackages.pydantic-settings pythonPackages.rich];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      pythonPackages.python-benedict
+      pythonPackages.pydantic
+      pythonPackages.pydantic-settings
+      pythonPackages.rich
+    ];
   };
 
   abx-spec-extractor = pythonPackages.buildPythonApplication rec {
@@ -355,8 +374,12 @@
       inherit version;
       hash = "sha256-8Le9p1Vu8hGhtLYHcTlLg+mXrfhVGswMjl6MjIKrpvo=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx pythonPackages.python-benedict pythonPackages.pydantic];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      pythonPackages.python-benedict
+      pythonPackages.pydantic
+    ];
   };
 
   abx-spec-searchbackend = pythonPackages.buildPythonApplication rec {
@@ -368,8 +391,12 @@
       inherit version;
       hash = "sha256-55Pk8LSqNhHncF/M1P05JMk1YqRgs2vK6Qs79ThnBGY=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx pythonPackages.python-benedict pythonPackages.pydantic];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      pythonPackages.python-benedict
+      pythonPackages.pydantic
+    ];
   };
 
   abx-spec-abx-pkg = pythonPackages.buildPythonApplication rec {
@@ -381,8 +408,11 @@
       inherit version;
       hash = "sha256-VfPX6zUsdzpjEwt/wzvDWHWjYW5i9Aubqf0/36h3U7Q=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-pkg];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-pkg
+    ];
   };
 
   abx-plugin-default-binproviders = pythonPackages.buildPythonPackage rec {
@@ -394,8 +424,12 @@
       inherit version;
       hash = "sha256-t+YK8dN7+QPP5vyC2MoRvCytbx6dO2SkGtvgMgcBGAc=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-pkg abx-spec-abx-pkg];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-pkg
+      abx-spec-abx-pkg
+    ];
   };
   abx-plugin-pip = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-pip";
@@ -406,8 +440,15 @@
       inherit version;
       hash = "sha256-rJNCgGnz31clbnJcRMHtWINvwqFudxlLnJvH6VB0sLE=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-pkg abx-spec-config abx-spec-abx-pkg abx-plugin-default-binproviders pythonPackages.django_5];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-pkg
+      abx-spec-config
+      abx-spec-abx-pkg
+      abx-plugin-default-binproviders
+      pythonPackages.django_5
+    ];
   };
   abx-plugin-npm = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-npm";
@@ -418,8 +459,14 @@
       inherit version;
       hash = "sha256-GROZMmehPKiKJlBKdFI9/Hyvxm7rJ4xIf6NtMRxRwY4=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-pkg abx-spec-abx-pkg abx-spec-config abx-plugin-default-binproviders];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-pkg
+      abx-spec-abx-pkg
+      abx-spec-config
+      abx-plugin-default-binproviders
+    ];
   };
   abx-plugin-playwright = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-playwright";
@@ -430,8 +477,14 @@
       inherit version;
       hash = "sha256-7EC6leXlH5vjmXnt0/KV7mXz518UQdNTt32RkncW48A=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx pythonPackages.pydantic abx-pkg abx-spec-abx-pkg abx-spec-config];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      pythonPackages.pydantic
+      abx-pkg
+      abx-spec-abx-pkg
+      abx-spec-config
+    ];
   };
   abx-plugin-puppeteer = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-puppeteer";
@@ -442,8 +495,13 @@
       inherit version;
       hash = "sha256-R0V8l8NoTcvOSoc6KcgFJ7mV2nyXDNdpPBMhRzo4fCQ=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-spec-abx-pkg abx-pkg];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-spec-abx-pkg
+      abx-pkg
+    ];
   };
   abx-plugin-ripgrep-search = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-ripgrep-search";
@@ -454,8 +512,12 @@
       inherit version;
       hash = "sha256-PfJlkX8LpjYPVAw16k5XkLoFFaRbIxIiMbGutBp6IJw=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-spec-searchbackend];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-spec-searchbackend
+    ];
   };
   abx-plugin-sqlitefts-search = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-sqlitefts-search";
@@ -466,8 +528,12 @@
       inherit version;
       hash = "sha256-ULf5yvBLq/Prt5ZErDJ5T3FXYR1520D3sP3g2J8TA+0=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-spec-searchbackend];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-spec-searchbackend
+    ];
   };
   abx-plugin-sonic-search = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-sonic-search";
@@ -478,8 +544,14 @@
       inherit version;
       hash = "sha256-L6B2n5BatzDNOB3EBdsue+AQ0qjRfN4nbOj/xEVLff4=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-spec-abx-pkg abx-spec-searchbackend abx-pkg];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-spec-abx-pkg
+      abx-spec-searchbackend
+      abx-pkg
+    ];
   };
   abx-plugin-ldap-auth = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-ldap-auth";
@@ -490,8 +562,12 @@
       inherit version;
       hash = "sha256-7E5iDCsbiunHmIh9tIm7JeBTXfOF8Qlw4uAefC3M+EA=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-spec-django];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-spec-django
+    ];
   };
   abx-plugin-curl = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-curl";
@@ -505,8 +581,12 @@
           --replace-fail 2024.10.24 2024.10.28
       '';
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-spec-abx-pkg];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-spec-abx-pkg
+    ];
   };
   abx-plugin-wget = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-wget";
@@ -517,8 +597,12 @@
       inherit version;
       hash = "sha256-G3MhN6ojNwuUHnAIxjS9eqxU8gBfp2UZDxh22gUtopY=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-spec-abx-pkg];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-spec-abx-pkg
+    ];
   };
   abx-plugin-git = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-git";
@@ -529,8 +613,13 @@
       inherit version;
       hash = "sha256-YXGAhTP96MQKUZhZmIcE6xWb/o4q1D1ofnpL0U7wJts=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-spec-abx-pkg abx-plugin-default-binproviders];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-spec-abx-pkg
+      abx-plugin-default-binproviders
+    ];
   };
   abx-plugin-chrome = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-chrome";
@@ -541,8 +630,12 @@
       inherit version;
       hash = "sha256-ih5EUtDp6SUPoR5GZEqkDd4wpmv24ZME+HrUixqvHmA=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-spec-abx-pkg];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-spec-abx-pkg
+    ];
   };
   abx-plugin-ytdlp = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-ytdlp";
@@ -553,8 +646,13 @@
       inherit version;
       hash = "sha256-aQPRICYHneMCQRH3b45fsxPEScKfG97plX3IlHGedc0=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-spec-abx-pkg abx-pkg];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-spec-abx-pkg
+      abx-pkg
+    ];
   };
   abx-plugin-title = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-title";
@@ -565,8 +663,12 @@
       inherit version;
       hash = "sha256-i3IWkdk4+eFL8stKzjdrHvyclSimn7y8GmNzzTsKtHM=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-plugin-curl];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-plugin-curl
+    ];
   };
   abx-plugin-favicon = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-favicon";
@@ -577,8 +679,12 @@
       inherit version;
       hash = "sha256-u6oVLZWuW/sxY9zT7KLoUm0KBfKv2ES7ykvr0I9RR7Q=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-plugin-curl];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-plugin-curl
+    ];
   };
   abx-plugin-archivedotorg = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-archivedotorg";
@@ -589,8 +695,12 @@
       inherit version;
       hash = "sha256-w3ZHihi/6gjn0iTLfbC7NxLlTBaHALnwiJZHdFIROnk=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-plugin-curl];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-plugin-curl
+    ];
   };
   abx-plugin-singlefile = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-singlefile";
@@ -601,8 +711,13 @@
       inherit version;
       hash = "sha256-ktgigT7cnPyT8jQkp0P0Q7l3AlzE+PGZoHkT10bw8NQ=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config abx-spec-abx-pkg abx-pkg];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+      abx-spec-abx-pkg
+      abx-pkg
+    ];
   };
   abx-plugin-readability = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-readability";
@@ -613,8 +728,11 @@
       inherit version;
       hash = "sha256-x9iXS3o8Od5od9yrA+0riJYZMzmtBQFSqQjx1YR2t5c=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+    ];
   };
   abx-plugin-mercury = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-mercury";
@@ -625,8 +743,11 @@
       inherit version;
       hash = "sha256-14CTJC7qjJUXR7Bm3AShHcx+qlxklhJzUf6KODcFbg4=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+    ];
   };
   abx-plugin-htmltotext = pythonPackages.buildPythonPackage rec {
     pname = "abx-plugin-htmltotext";
@@ -637,95 +758,98 @@
       inherit version;
       hash = "sha256-oFbKF1MA5TfKJ+Yyf99wbyMo+wjJOSMsAZHC5U/YRy0=";
     };
-    build-system = [pythonPackages.hatchling];
-    dependencies = [abx abx-spec-config];
+    build-system = [ pythonPackages.hatchling ];
+    dependencies = [
+      abx
+      abx-spec-config
+    ];
   };
 in
-  pythonPackages.buildPythonApplication rec {
-    pname = "archivebox";
-    version = "0.8.5rc51";
-    pyproject = true;
+pythonPackages.buildPythonApplication rec {
+  pname = "archivebox";
+  version = "0.8.5rc51";
+  pyproject = true;
 
-    src = pkgs.fetchPypi {
-      inherit pname version;
-      hash = "sha256-9ju/87zNRatt+dG02mFMV8Ol0EwyvArjt9wcSay+qbU=";
-    };
+  src = pkgs.fetchPypi {
+    inherit pname version;
+    hash = "sha256-9ju/87zNRatt+dG02mFMV8Ol0EwyvArjt9wcSay+qbU=";
+  };
 
-    build-system = [pythonPackages.pdm-backend];
-    dependencies = [
-      ### Django / Core libraries
-      pythonPackages.setuptools
-      pythonPackages.django_5
-      pythonPackages.django-ninja
-      django-extensions
-      pythonPackages.mypy-extensions
-      pythonPackages.channels
-      pythonPackages.daphne
-      django-signal-webhooks
-      django-admin-data-views
-      django-object-actions
-      django-charid-field
-      django-pydantic-field
-      django-jsonform
-      django-huey
-      django-huey-monitor
+  build-system = [ pythonPackages.pdm-backend ];
+  dependencies = [
+    ### Django / Core libraries
+    pythonPackages.setuptools
+    pythonPackages.django_5
+    pythonPackages.django-ninja
+    django-extensions
+    pythonPackages.mypy-extensions
+    pythonPackages.channels
+    pythonPackages.daphne
+    django-signal-webhooks
+    django-admin-data-views
+    django-object-actions
+    django-charid-field
+    django-pydantic-field
+    django-jsonform
+    django-huey
+    django-huey-monitor
 
-      ### Python Helper Libraries
-      pythonPackages.pluggy
-      pythonPackages.requests
-      python-statemachine
-      pythonPackages.dateparser
-      pythonPackages.tzdata
-      pythonPackages.feedparser
-      pythonPackages.w3lib
-      pythonPackages.rich
-      pythonPackages.rich-argparse
-      ulid-py
-      typeid-python
-      pythonPackages.psutil
-      (pythonPackages.supervisor.overrideAttrs {doInstallCheck = false;})
-      pythonPackages.python-crontab
-      pythonPackages.croniter
-      pythonPackages.ipython
-      pythonPackages.py-machineid
-      pythonPackages.python-benedict
-      pythonPackages.pydantic-settings
-      pythonPackages.atomicwrites
-      pythonPackages.django_taggit
-      base32-crockford
-      pydantic-pkgr
-      sonic-client
-      pythonPackages.yt-dlp
+    ### Python Helper Libraries
+    pythonPackages.pluggy
+    pythonPackages.requests
+    python-statemachine
+    pythonPackages.dateparser
+    pythonPackages.tzdata
+    pythonPackages.feedparser
+    pythonPackages.w3lib
+    pythonPackages.rich
+    pythonPackages.rich-argparse
+    ulid-py
+    typeid-python
+    pythonPackages.psutil
+    (pythonPackages.supervisor.overrideAttrs { doInstallCheck = false; })
+    pythonPackages.python-crontab
+    pythonPackages.croniter
+    pythonPackages.ipython
+    pythonPackages.py-machineid
+    pythonPackages.python-benedict
+    pythonPackages.pydantic-settings
+    pythonPackages.atomicwrites
+    pythonPackages.django_taggit
+    base32-crockford
+    pydantic-pkgr
+    sonic-client
+    pythonPackages.yt-dlp
 
-      ### Optional Dependencies
-      pythonPackages.python-ldap
-      pythonPackages.django-auth-ldap
+    ### Optional Dependencies
+    pythonPackages.python-ldap
+    pythonPackages.django-auth-ldap
 
-      pythonPackages.django-stubs
-    ];
+    pythonPackages.django-stubs
+  ];
 
-    makeWrapperArgs = [
-      "--set READABILITY_BINARY ${lib.getExe pkgs.readability-extractor}"
-      "--set MERCURY_BINARY ${lib.getExe pkgs.postlight-parser}"
-      "--set CURL_BINARY ${lib.getExe pkgs.curl}"
-      "--set RIPGREP_BINARY ${lib.getExe pkgs.ripgrep}"
-      "--set WGET_BINARY ${lib.getExe pkgs.wget}"
-      "--set GIT_BINARY ${lib.getExe pkgs.git}"
-      "--set YOUTUBEDL_BINARY ${lib.getExe pythonPackages.yt-dlp}"
-      "--set SINGLEFILE_BINARY ${lib.getExe pkgs.single-file-cli}"
-      "--set CHROME_BINARY ${pkgs.chromium}/bin/chromium-browser"
-      "--prefix PATH : ${pkgs.sonic-server}/bin"
-      "--prefix PATH : ${pkgs.puppeteer-cli}/bin"
-      "--prefix PATH : ${pkgs.playwright}/bin"
-      "--prefix PATH : ${pkgs.nodejs}/bin"
-      "--prefix PATH : ${pkgs.ffmpeg}/bin"
-      "--prefix PATH : ${pip}/bin"
-    ];
+  makeWrapperArgs = [
+    "--set READABILITY_BINARY ${lib.getExe pkgs.readability-extractor}"
+    "--set MERCURY_BINARY ${lib.getExe pkgs.postlight-parser}"
+    "--set CURL_BINARY ${lib.getExe pkgs.curl}"
+    "--set RIPGREP_BINARY ${lib.getExe pkgs.ripgrep}"
+    "--set WGET_BINARY ${lib.getExe pkgs.wget}"
+    "--set GIT_BINARY ${lib.getExe pkgs.git}"
+    "--set YOUTUBEDL_BINARY ${lib.getExe pythonPackages.yt-dlp}"
+    "--set SINGLEFILE_BINARY ${lib.getExe pkgs.single-file-cli}"
+    "--set CHROME_BINARY ${pkgs.chromium}/bin/chromium-browser"
+    "--prefix PATH : ${pkgs.sonic-server}/bin"
+    "--prefix PATH : ${pkgs.puppeteer-cli}/bin"
+    "--prefix PATH : ${pkgs.playwright}/bin"
+    "--prefix PATH : ${pkgs.nodejs}/bin"
+    "--prefix PATH : ${pkgs.ffmpeg}/bin"
+    "--prefix PATH : ${pip}/bin"
+  ];
 
-    meta = {
-      description = "Open source self-hosted web archiving";
-      homepage = "https://archivebox.io";
-      license = lib.licenses.mit;
-      platforms = lib.platforms.unix;
-    };
-  }
+  meta = {
+    description = "Open source self-hosted web archiving";
+    homepage = "https://archivebox.io";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
+  };
+}

@@ -56,11 +56,12 @@ php.buildComposerProject2 (finalAttrs: {
   '';
 
   php = php.buildEnv {
-    extensions = {
-      enabled,
-      all,
-    }:
-      enabled ++ [all.xsl];
+    extensions =
+      {
+        enabled,
+        all,
+      }:
+      enabled ++ [ all.xsl ];
   };
   vendorHash = "sha256-Y1T+X4kOPB1k/sgxV9zXctaRR9oSAEQ+M7bB7eRumlU=";
 
@@ -81,6 +82,6 @@ php.buildComposerProject2 (finalAttrs: {
     changelog = "https://github.com/Kitware/CDash/releases";
     mainProgram = "artisan";
     license = lib.licenses.bsd3;
-    maintainers = [lib.maintainers.skyesoss];
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

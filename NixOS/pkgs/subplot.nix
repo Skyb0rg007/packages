@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
   cargoHash = "sha256-RbAd21wCJRxDE9EqGgSdiP1LswAPH6rMsodDbNgQE5A=";
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
     wrapProgram $out/bin/subplot \

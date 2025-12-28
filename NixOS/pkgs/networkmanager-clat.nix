@@ -8,10 +8,11 @@
   networkmanager,
   runCommand,
   stdenv,
-}: let
+}:
+let
   # Headers needed for compiling eBPF,
   # that aren't included with the linuxHeaders package
-  bpf-headers = runCommand "bpf-headers" {} ''
+  bpf-headers = runCommand "bpf-headers" { } ''
     mkdir -p $out/include/sys
     cat > $out/include/sys/socket.h <<EOF
     #pragma once
@@ -29,32 +30,30 @@
     EOF
   '';
 in
-  networkmanager.overrideAttrs (finalAttrs: prevAttrs:
-    prevAttrs
-    // {
-      src = fetchFromGitLab {
-        domain = "gitlab.freedesktop.org";
-        repo = "NetworkManager";
-        owner = "Mstrodl";
-        # branch feature/mstrodl/clat
-        rev = "1abdbd42efcb7268e6702404544bc98a94246b0e";
-        hash = "sha256-V890A9I9MoYjEYB3mSWf84Uh1k6Ne6s+1HzP6BMkh/s=";
-      };
+networkmanager.overrideAttrs (
+  finalAttrs: prevAttrs: {
+    src = fetchFromGitLab {
+      domain = "gitlab.freedesktop.org";
+      repo = "NetworkManager";
+      owner = "Mstrodl";
+      # branch feature/mstrodl/clat
+      rev = "1abdbd42efcb7268e6702404544bc98a94246b0e";
+      hash = "sha256-V890A9I9MoYjEYB3mSWf84Uh1k6Ne6s+1HzP6BMkh/s=";
+    };
 
-      buildInputs = prevAttrs.buildInputs ++ [libbpf];
-      nativeBuildInputs =
-        prevAttrs.nativeBuildInputs
-        ++ [
-          llvmPackages_20.clang-unwrapped
-          bpftools
-          linuxHeaders
-        ];
+    buildInputs = prevAttrs.buildInputs ++ [ libbpf ];
+    nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
+      llvmPackages_20.clang-unwrapped
+      bpftools
+      linuxHeaders
+    ];
 
-      postPatch = ''
-        ${prevAttrs.postPatch}
-        substituteInPlace src/core/bpf/meson.build \
-          --replace-fail \
-            "bpf_o_unstripped_cmd += ['-I.']" \
-            "bpf_o_unstripped_cmd += ['-I.', '-I${stdenv.cc.libc.linuxHeaders}/include', '-I${bpf-headers}/include']"
-      '';
-    })
+    postPatch = ''
+      ${prevAttrs.postPatch}
+      substituteInPlace src/core/bpf/meson.build \
+        --replace-fail \
+          "bpf_o_unstripped_cmd += ['-I.']" \
+          "bpf_o_unstripped_cmd += ['-I.', '-I${stdenv.cc.libc.linuxHeaders}/include', '-I${bpf-headers}/include']"
+    '';
+  }
+)

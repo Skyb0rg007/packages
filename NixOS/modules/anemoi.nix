@@ -3,9 +3,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.services.anemoi;
-in {
+in
+{
   options.services.anemoi = {
     enable = lib.mkEnableOption "anemoi";
     package = lib.mkPackageOption pkgs "anemoi";
@@ -22,8 +24,8 @@ in {
   config = lib.mkIf cfg.enable {
     systemd.services.anemoi = {
       description = "Anemoi DDNS";
-      wantedBy = ["multi-user.target"];
-      after = ["network.target"];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
 
       serviceConfig = {
         DynamicUser = true;

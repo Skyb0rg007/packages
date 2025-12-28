@@ -18,8 +18,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-l4ZnhDtPwL5ofqOAIDqtiKGrNXk6b+3Cp6ucNWyCX0M=";
 
   doCheck = true;
-  nativeCheckInputs = [libisoburn];
-  nativeBuildInputs = [installShellFiles];
+  nativeCheckInputs = [ libisoburn ];
+  nativeBuildInputs = [ installShellFiles ];
 
   patchPhase = ''
     runHook prePatch

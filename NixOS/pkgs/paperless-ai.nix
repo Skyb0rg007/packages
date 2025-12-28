@@ -8,7 +8,8 @@
   nodejs,
   python3,
   python3Packages,
-}: let
+}:
+let
   version = "3.0.9";
 
   src = fetchFromGitHub {
@@ -22,8 +23,8 @@
   paperless-ai = buildNpmPackage {
     pname = "paperless-ai";
     inherit src version;
-    nativeBuildInputs = [makeWrapper];
-    buildInputs = [nodejs];
+    nativeBuildInputs = [ makeWrapper ];
+    buildInputs = [ nodejs ];
 
     npmDepsHash = "sha256-nAcI3L0fvVI/CdUxWYg8ZiPRDjF7dW+dcIKC3KlHjNQ=";
 
@@ -68,7 +69,10 @@
     pname = "paperless-ai-rag";
     inherit src version dependencies;
     pyproject = false;
-    nativeBuildInputs = [makeWrapper ninja];
+    nativeBuildInputs = [
+      makeWrapper
+      ninja
+    ];
     dontUseNinjaConfigure = true;
     dontUseNinjaBuild = true;
     dontUseNinjaInstall = true;
@@ -97,4 +101,4 @@
     };
   };
 in
-  paperless-ai
+paperless-ai

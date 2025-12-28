@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     git
   ];
 
-  buildFlags = ["barry"];
-  installFlags = ["datarootdir=$doc"];
-  installTargets = ["install_barry"];
+  buildFlags = [ "barry" ];
+  installFlags = [ "datarootdir=$doc" ];
+  installTargets = [ "install_barry" ];
 
   checkPhase = ''
     runHook preCheck

@@ -3,9 +3,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.services.tubearchivist;
-in {
+in
+{
   options.services.tubearchivist = {
     enable = lib.mkEnableOption "TubeArchivist, a self hosted YouTube media server";
 
@@ -92,8 +94,11 @@ in {
     systemd.services.tubearchivist = {
       description = "TubeArchivist, your self hosted YouTube media server";
 
-      requires = ["elasticsearch.service" "redis-tubearchivist.service"];
-      wantedBy = ["multi-user.target"];
+      requires = [
+        "elasticsearch.service"
+        "redis-tubearchivist.service"
+      ];
+      wantedBy = [ "multi-user.target" ];
 
       environment = {
         # These are used to mutate nginx.conf and thus aren't supported on Nix
@@ -149,46 +154,48 @@ in {
       virtualHosts.${cfg.hostName} = {
         root = "${cfg.package}/share/tubearchivist/static";
         # index = "index.html";
-        locations = let
-          authRequest = lib.optionalString cfg.settings.staticAuth "auth_request /api/ping/;";
-        in {
-          "/".tryFiles = "$uri $uri/ /index.html =404";
-          "/cache/videos/".extraConfig = ''
-            ${authRequest}
-            alias /cache/videos/;
-          '';
-          "/cache/channels/".extraConfig = ''
-            ${authRequest}
-            alias /cache/channels/;
-          '';
-          "/cache/playlists/".extraConfig = ''
-            ${authRequest}
-            alias /cache/playlists/;
-          '';
-          "/media/".extraConfig = ''
-            ${authRequest}
-            alias /youtube/;
-            types {
-              text/vtt vtt;
-            }
-          '';
-          "/youtube/".extraConfig = ''
-            ${authRequest}
-            alias /youtube/;
-            types {
-              video/mp4 mp4;
-            }
-          '';
-          "/api" = {
-            proxyPass = "http://localhost:${toString cfg.settings.port}";
+        locations =
+          let
+            authRequest = lib.optionalString cfg.settings.staticAuth "auth_request /api/ping/;";
+          in
+          {
+            "/".tryFiles = "$uri $uri/ /index.html =404";
+            "/cache/videos/".extraConfig = ''
+              ${authRequest}
+              alias /cache/videos/;
+            '';
+            "/cache/channels/".extraConfig = ''
+              ${authRequest}
+              alias /cache/channels/;
+            '';
+            "/cache/playlists/".extraConfig = ''
+              ${authRequest}
+              alias /cache/playlists/;
+            '';
+            "/media/".extraConfig = ''
+              ${authRequest}
+              alias /youtube/;
+              types {
+                text/vtt vtt;
+              }
+            '';
+            "/youtube/".extraConfig = ''
+              ${authRequest}
+              alias /youtube/;
+              types {
+                video/mp4 mp4;
+              }
+            '';
+            "/api" = {
+              proxyPass = "http://localhost:${toString cfg.settings.port}";
+            };
+            "/admin" = {
+              proxyPass = "http://localhost:${toString cfg.settings.port}";
+            };
+            "/static/" = {
+              alias = "${cfg.settings.dataDir}/";
+            };
           };
-          "/admin" = {
-            proxyPass = "http://localhost:${toString cfg.settings.port}";
-          };
-          "/static/" = {
-            alias = "${cfg.settings.dataDir}/";
-          };
-        };
       };
     };
   };

@@ -9,55 +9,69 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    git-hooks,
-    ...
-  } @ inputs: let
-    systems = ["x86_64-linux" "aarch64-darwin" "aarch64-linux"];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
-    pkgsFor = forAllSystems (system:
-      import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      });
-  in {
-    checks = forAllSystems (system: {
-      pre-commit-check = git-hooks.lib.${system}.run {
-        src = ./.;
-        hooks = {
-          editorconfig-checker.enable = true;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      git-hooks,
+      ...
+    }@inputs:
+    let
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+        "aarch64-linux"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+      pkgsFor = forAllSystems (
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        }
+      );
+    in
+    {
+      checks = forAllSystems (system: {
+        pre-commit-check = git-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            nixfmt.enable = true;
+            editorconfig-checker.enable = true;
+          };
         };
+      });
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = pkgsFor.${system};
+        in
+        {
+          default = pkgs.mkShellNoCC {
+            inherit (self.checks.${system}.pre-commit-check) shellHook;
+            buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
+            nativeBuildInputs = [
+              pkgs.git
+              pkgs.nix
+            ];
+            env.NIX_CONFIG = "extra-experimental-features = nix-command flakes";
+          };
+        }
+      );
+      formatter = forAllSystems (system: pkgsFor.${system}.nixfmt-tree);
+      packages = forAllSystems (system: import ./pkgs { pkgs = pkgsFor.${system}; });
+      overlays.default = final: prev: import ./pkgs { pkgs = final.pkgs; };
+      nixosModules = {
+        tubearchivist = ./modules/tubearchivist.nix;
+        debspawn = ./modules/debspawn.nix;
       };
-    });
-    devShells = forAllSystems (system: let
-      pkgs = pkgsFor.${system};
-    in {
-      default = pkgs.mkShellNoCC {
-        inherit (self.checks.${system}.pre-commit-check) shellHook;
-        buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
-        nativeBuildInputs = [
-          pkgs.git
-          pkgs.nix
-        ];
-        env.NIX_CONFIG = "extra-experimental-features = nix-command flakes";
-      };
-    });
-    formatter = forAllSystems (system: pkgsFor.${system}.alejandra);
-    packages = forAllSystems (system: import ./pkgs {pkgs = pkgsFor.${system};});
-    overlays.default = final: prev: import ./pkgs {pkgs = final.pkgs;};
-    nixosModules = {
-      tubearchivist = ./modules/tubearchivist.nix;
-      debspawn = ./modules/debspawn.nix;
+      # nixosConfigurations.ta-test = nixpkgs.lib.nixosSystem {
+      #   system = "x86_64-linux";
+      #   modules = [
+      #     {nixpkgs.overlays = [self.overlays.default];}
+      #     ./modules/tubearchivist.nix
+      #     ./tests/ta-test.nix
+      #   ];
+      # };
     };
-    # nixosConfigurations.ta-test = nixpkgs.lib.nixosSystem {
-    #   system = "x86_64-linux";
-    #   modules = [
-    #     {nixpkgs.overlays = [self.overlays.default];}
-    #     ./modules/tubearchivist.nix
-    #     ./tests/ta-test.nix
-    #   ];
-    # };
-  };
 }

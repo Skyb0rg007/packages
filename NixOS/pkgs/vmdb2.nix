@@ -9,7 +9,7 @@ python3Packages.buildPythonApplication {
   version = "0.41";
   pyproject = true;
 
-  build-system = [python3Packages.setuptools];
+  build-system = [ python3Packages.setuptools ];
   dependencies = [
     python3Packages.jinja2
     python3Packages.pyaml

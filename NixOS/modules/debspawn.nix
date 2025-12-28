@@ -3,9 +3,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.services.debspawn;
-in {
+in
+{
   options.services.debspawn = {
     enable = lib.mkEnableOption "debspawn";
   };
@@ -23,7 +25,7 @@ in {
     };
     systemd.timers.debspawn-clear-caches = {
       description = "Clear debspawn caches";
-      wantedBy = ["timers.target"];
+      wantedBy = [ "timers.target" ];
       timerConfig = {
         OnCalendar = "monthly";
         RandomizedDelaySec = "12h";
