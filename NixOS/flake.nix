@@ -27,7 +27,6 @@
       pre-commit-check = git-hooks.lib.${system}.run {
         src = ./.;
         hooks = {
-          alejandra.enable = true;
           editorconfig-checker.enable = true;
         };
       };
