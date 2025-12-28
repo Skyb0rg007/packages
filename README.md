@@ -64,9 +64,6 @@ Note: the `extra-` prefix just means the line won't override previous configurat
 
 ### In-Progress / Stalled
 
-- `recutils`
-  - The version on nixpkgs doesn't compile on Darwin.
-    I was trying to change things so this would be fixed
 - `reddio`
 - `cdash`
 - `tubearchivist`

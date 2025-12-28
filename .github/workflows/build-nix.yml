@@ -25,7 +25,6 @@ jobs:
           nix build ./NixOS#networkmanager-clat || echo "ERROR!"
           nix build ./NixOS#porkbun-ddns        || echo "ERROR!"
           nix build ./NixOS#radicle-ci-ambient  || echo "ERROR!"
-          nix build ./NixOS#recutils            || echo "ERROR!"
         # nix build ./NixOS#tubearchivist       || echo "ERROR!"
         # nix build ./NixOS#browsertrix-crawler || echo "ERROR!"
   build-nix-macos:
@@ -41,10 +40,8 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Build packages
         run: |
-          nix build --print-build-logs ./NixOS#recutils            || echo "ERROR!"
           nix build --print-build-logs ./NixOS#ambient-ci          || echo "ERROR!"
           nix build --print-build-logs ./NixOS#anemoi              || echo "ERROR!"
           nix build --print-build-logs ./NixOS#cdash               || echo "ERROR!"
           nix build --print-build-logs ./NixOS#porkbun-ddns        || echo "ERROR!"
           nix build --print-build-logs ./NixOS#radicle-ci-ambient  || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#recutils            || echo "ERROR!"

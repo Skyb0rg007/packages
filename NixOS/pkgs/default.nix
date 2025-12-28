@@ -20,7 +20,6 @@
   cdash = pkgs.callPackage ./cdash.nix {};
   paperless-ai = pkgs.callPackage ./paperless-ai.nix {};
   porkbun-ddns = pkgs.callPackage ./porkbun-ddns.nix {};
-  recutils = pkgs.callPackage ./recutils.nix {};
   reddio = pkgs.callPackage ./reddio.nix {};
   romm = pkgs.callPackage ./romm.nix {};
   tmux-notify = pkgs.callPackage ./tmux-notify.nix {};
