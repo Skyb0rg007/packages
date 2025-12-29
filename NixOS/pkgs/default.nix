@@ -4,6 +4,7 @@
 }:
 {
   networkmanager-clat = pkgs.callPackage ./networkmanager-clat.nix { };
+  sbuild = pkgs.callPackage ./sbuild.nix { };
 
   # Radicle
   radicle-ci-ambient = pkgs.callPackage ./radicle-ci-ambient.nix { };
