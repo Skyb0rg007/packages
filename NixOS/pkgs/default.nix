@@ -5,6 +5,11 @@
 {
   networkmanager-clat = pkgs.callPackage ./networkmanager-clat.nix { };
   sbuild = pkgs.callPackage ./sbuild.nix { };
+  keylime = pkgs.callPackage ./keylime.nix { };
+  rust-keylime = pkgs.callPackage ./rust-keylime.nix { };
+  # rsbinder = pkgs.callPackage ./rsbinder.nix { };
+  rsbinder-aidl = pkgs.callPackage ./rsbinder-aidl.nix { };
+  rsbinder-tools = pkgs.callPackage ./rsbinder-tools.nix { };
 
   # Radicle
   radicle-ci-ambient = pkgs.callPackage ./radicle-ci-ambient.nix { };
