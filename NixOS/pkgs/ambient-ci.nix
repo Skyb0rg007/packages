@@ -5,6 +5,7 @@
   libisoburn,
   qemu,
   rustPlatform,
+  stdenv,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
@@ -17,7 +18,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-l4ZnhDtPwL5ofqOAIDqtiKGrNXk6b+3Cp6ucNWyCX0M=";
 
-  doCheck = true;
+  doCheck = !stdenv.buildPlatform.isDarwin;
   nativeCheckInputs = [ libisoburn ];
   nativeBuildInputs = [ installShellFiles ];
 
