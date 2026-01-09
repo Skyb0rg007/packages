@@ -6,6 +6,7 @@
   mlkit,
   mlton,
   stdenv,
+# installShellFiles,
 }:
 stdenv.mkDerivation rec {
   pname = "barry";
@@ -18,12 +19,20 @@ stdenv.mkDerivation rec {
   ];
 
   buildFlags = [ "barry" ];
-  installFlags = [ "datarootdir=$doc" ];
-  installTargets = [ "install_barry" ];
+
+  installPhase = ''
+    runHook preInstall
+
+    make install_barry
+
+    runHook postInstall
+  '';
 
   checkPhase = ''
     runHook preCheck
+
     make -C test/barry
+
     runHook postCheck
   '';
 

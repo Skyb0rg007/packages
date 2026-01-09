@@ -10,6 +10,7 @@ rec {
   # rsbinder = pkgs.callPackage ./rsbinder.nix { };
   rsbinder-aidl = pkgs.callPackage ./rsbinder-aidl.nix { };
   rsbinder-tools = pkgs.callPackage ./rsbinder-tools.nix { };
+  brush-HEAD = pkgs.callPackage ./brush.nix { };
 
   # Radicle
   radicle-ci-ambient = pkgs.callPackage ./radicle-ci-ambient.nix { };
@@ -62,6 +63,7 @@ rec {
   };
   ascsaver = pkgs.callPackage ./ascsaver.nix { };
   barry = pkgs.callPackage ./barry.nix { };
+  smltojs = pkgs.callPackage ./smltojs.nix { };
   bencher = pkgs.callPackage ./bencher.nix { };
   browsertrix-crawler = pkgs.callPackage ./browsertrix-crawler.nix { };
   cdash = pkgs.callPackage ./cdash.nix { };
