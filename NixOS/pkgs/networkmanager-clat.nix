@@ -37,8 +37,8 @@ networkmanager.overrideAttrs (
       repo = "NetworkManager";
       owner = "Mstrodl";
       # branch feature/mstrodl/clat
-      rev = "12754c55d77eeb2baa00ae03ff74b45152a69970";
-      hash = "sha256-eVPlgsepESKDpjn96vJzMxnfXcOVt5NyBDa0VvCPiuk=";
+      rev = "caea9a91a7e0aa7b7b1b1ac5edbbb45a1a202bc2";
+      hash = "sha256-2+UoujEhOkFO7gb9jVp4NusLmEygqIDxblaV2kSrQgk=";
     };
 
     buildInputs = prevAttrs.buildInputs ++ [ libbpf ];
@@ -47,6 +47,10 @@ networkmanager.overrideAttrs (
       bpftools
       linuxHeaders
     ];
+
+    # TODO: Revisit the nixpkgs patches
+    # They might be necessary
+    patches = [ ];
 
     postPatch = ''
       ${prevAttrs.postPatch}
