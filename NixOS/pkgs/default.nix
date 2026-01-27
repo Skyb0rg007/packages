@@ -3,7 +3,6 @@
   ...
 }:
 rec {
-  networkmanager-clat = pkgs.callPackage ./networkmanager-clat.nix { };
   sbuild = pkgs.callPackage ./sbuild.nix { };
   keylime = pkgs.callPackage ./keylime.nix { };
   rust-keylime = pkgs.callPackage ./rust-keylime.nix { };
