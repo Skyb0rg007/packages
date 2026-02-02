@@ -9,14 +9,14 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
-  version = "0.11.0";
+  version = "0.11.1";
 
   src = fetchCrate {
     inherit (finalAttrs) pname version;
-    hash = "sha256-Wuircf360XcaUEG4viRYohtW7lJQ2vHim7AoYYyhAEg=";
+    hash = "sha256-vgvrinJFNA9K+sjYam/HFpgX3YCLc8EO8VR97D4evbQ=";
   };
 
-  cargoHash = "sha256-l4ZnhDtPwL5ofqOAIDqtiKGrNXk6b+3Cp6ucNWyCX0M=";
+  cargoHash = "sha256-d1E1Nzfwmyl/rEaetO1MpGP8EbtaTsaBt2L3BAczHrA=";
 
   doCheck = !stdenv.buildPlatform.isDarwin;
   nativeCheckInputs = [ libisoburn ];
