@@ -6,7 +6,7 @@
   ...
 }:
 let
-  version = "1.1.20";
+  version = "1.1.21";
 in
 python3Packages.buildPythonApplication {
   pname = "porkbun-ddns";
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication {
     owner = "mietzen";
     repo = "porkbun-ddns";
     rev = "v${version}";
-    hash = "sha256-UTqojMgxynZHxDphTGC/YWPuFjCZEeHztaSaIj1B998=";
+    hash = "sha256-M0Ry1zU/rsArYD2+Ynlhowkjg8bXw2BeehKXkpRYL78=";
   };
   pyproject = true;
   build-system = [ python3Packages.setuptools ];
