@@ -8,7 +8,7 @@
   setuptools,
   sqlparse,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "django";
   version = "6.0";
   pyproject = true;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "django";
     repo = "django";
-    tag = version;
+    tag = finalAttrs.version;
     hash = "sha256-n2hOl4WkEXIjQlah6BHMRbg5ECyD3sK1KPw2lo1QYYQ=";
   };
 
@@ -40,4 +40,4 @@ buildPythonPackage rec {
     homepage = "https://www.djangoproject.com";
     license = lib.licenses.bsd3;
   };
-}
+})

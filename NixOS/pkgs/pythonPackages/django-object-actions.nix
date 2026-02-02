@@ -4,12 +4,12 @@
   fetchPypi,
   setuptools,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "django-object-actions";
   version = "5.0.0";
   pyproject = true;
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "django_object_actions";
     hash = "sha256-6kVfdjRDFrYg+BXkEDwPUVFTAXfTUgJoL8FzQCe/ARY=";
   };
@@ -20,4 +20,4 @@ buildPythonPackage rec {
     changelog = "https://github.com/crccheck/django-object-actions/releases";
     license = lib.licenses.asl20;
   };
-}
+})

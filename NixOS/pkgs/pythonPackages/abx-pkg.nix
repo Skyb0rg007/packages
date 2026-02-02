@@ -13,12 +13,12 @@
   pyinfra,
   typing-extensions,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "abx-pkg";
   version = "0.6.0";
   pyproject = true;
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "abx_pkg";
     hash = "sha256-pM6uL/1hnmsNZVb8Hn82Gp710z4Vih2Frjm5dnfcmOo=";
   };
@@ -45,4 +45,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/ArchiveBox/abx-pkg";
     changelog = "https://github.com/ArchiveBox/abx-pkg/releases";
   };
-}
+})

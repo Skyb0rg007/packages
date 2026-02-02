@@ -6,12 +6,12 @@
   django,
   django-settings-holder,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "django-admin-data-views";
   version = "0.4.3";
   pyproject = true;
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "django_admin_data_views";
     hash = "sha256-vSh6XYdP69i1RPg7R9CEb797PgCn9mM5EmMAU8euQpg=";
   };
@@ -27,4 +27,4 @@ buildPythonPackage rec {
     changelog = "https://github.com/MrThearMan/django-admin-data-views/releases";
     license = lib.licenses.mit;
   };
-}
+})

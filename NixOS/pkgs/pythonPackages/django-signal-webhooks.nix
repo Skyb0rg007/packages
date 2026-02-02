@@ -9,12 +9,12 @@
   lib,
   poetry-core,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "django-signal-webhooks";
   version = "0.3.1";
   pyproject = true;
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "django_signal_webhooks";
     hash = "sha256-I9xDm+L96iS3RnJklesaellECAkFZILuvOsVPQUKP1s=";
   };
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     changelog = "https://github.com/MrThearMan/django-signal-webhooks/releases";
     license = lib.licenses.mit;
   };
-}
+})

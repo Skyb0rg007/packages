@@ -4,12 +4,12 @@
   lib,
   setuptools,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "base32-crockford";
   version = "0.3.0";
   pyproject = true;
   src = fetchPypi {
-    inherit pname version;
+    inherit (finalAttrs) pname version;
     hash = "sha256-EV9b0yrjK3JANcsC62UGmogk6gjAiFHrgMi59jRDqWk=";
   };
   build-system = [ setuptools ];
@@ -20,4 +20,4 @@ buildPythonPackage rec {
     license = lib.licenses.bsd3;
   };
   pythonImportsCheck = [ "base32_crockford" ];
-}
+})

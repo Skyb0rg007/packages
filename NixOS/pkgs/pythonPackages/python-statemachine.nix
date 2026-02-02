@@ -5,12 +5,12 @@
   pydot,
   fetchPypi,
 }:
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "python-statemachine";
   version = "2.5.0";
   pyproject = true;
   src = fetchPypi {
-    inherit version;
+    inherit (finalAttrs) version;
     pname = "python_statemachine";
     hash = "sha256-rojNIuR5MLkrmDohduYdgR5XG2mJe+JWjsgSwohfuTo=";
   };
@@ -25,4 +25,4 @@ buildPythonPackage rec {
     homepage = "https://github.com/fgmacedo/python-statemachine";
     changelog = "https://github.com/fgmacedo/python-statemachine/releases";
   };
-}
+})
