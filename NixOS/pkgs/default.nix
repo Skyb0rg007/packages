@@ -11,6 +11,7 @@ rec {
   rsbinder-tools = pkgs.callPackage ./rsbinder-tools.nix { };
   brush-HEAD = pkgs.callPackage ./brush.nix { };
   run0-wrappers = pkgs.callPackage ./run0-wrappers.nix { };
+  masque-go = pkgs.callPackage ./masque-go.nix { };
 
   # Radicle
   radicle-ci-ambient = pkgs.callPackage ./radicle-ci-ambient.nix { };
