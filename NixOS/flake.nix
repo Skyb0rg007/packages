@@ -59,7 +59,7 @@
         }
       );
       formatter = forAllSystems (system: pkgsFor.${system}.nixfmt-tree);
-      packages = forAllSystems (system: import ./pkgs { pkgs = pkgsFor.${system}; });
+      packages = forAllSystems (system: import ./default.nix { pkgs = pkgsFor.${system}; });
       # overlays.default = final: prev: import ./pkgs { pkgs = final.pkgs; };
       nixosModules = {
         tubearchivist = ./modules/tubearchivist.nix;
