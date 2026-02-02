@@ -9,8 +9,8 @@ buildPythonPackage (finalAttrs: {
   version = "5.0.0";
   pyproject = true;
   src = fetchPypi {
+    pname = builtins.replaceStrings [ "-" ] [ "_" ] finalAttrs.pname;
     inherit (finalAttrs) version;
-    pname = "django_object_actions";
     hash = "sha256-6kVfdjRDFrYg+BXkEDwPUVFTAXfTUgJoL8FzQCe/ARY=";
   };
   build-system = [ setuptools ];

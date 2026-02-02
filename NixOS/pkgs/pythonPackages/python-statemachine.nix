@@ -10,8 +10,8 @@ buildPythonPackage (finalAttrs: {
   version = "2.5.0";
   pyproject = true;
   src = fetchPypi {
+    pname = builtins.replaceStrings [ "-" ] [ "_" ] finalAttrs.pname;
     inherit (finalAttrs) version;
-    pname = "python_statemachine";
     hash = "sha256-rojNIuR5MLkrmDohduYdgR5XG2mJe+JWjsgSwohfuTo=";
   };
   build-system = [ hatchling ];

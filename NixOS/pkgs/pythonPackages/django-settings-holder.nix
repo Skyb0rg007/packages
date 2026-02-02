@@ -10,8 +10,8 @@ buildPythonPackage (finalAttrs: {
   version = "0.3.0";
   pyproject = true;
   src = fetchPypi {
+    pname = builtins.replaceStrings [ "-" ] [ "_" ] finalAttrs.pname;
     inherit (finalAttrs) version;
-    pname = "django_settings_holder";
     hash = "sha256-1B621gI9YcCOOV8kBv1vBH0e3/LwNG0EMj82gfEjcu8=";
   };
   build-system = [ poetry-core ];

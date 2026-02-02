@@ -14,8 +14,8 @@ buildPythonPackage (finalAttrs: {
   version = "0.3.1";
   pyproject = true;
   src = fetchPypi {
+    pname = builtins.replaceStrings [ "-" ] [ "_" ] finalAttrs.pname;
     inherit (finalAttrs) version;
-    pname = "django_signal_webhooks";
     hash = "sha256-I9xDm+L96iS3RnJklesaellECAkFZILuvOsVPQUKP1s=";
   };
   build-system = [ poetry-core ];

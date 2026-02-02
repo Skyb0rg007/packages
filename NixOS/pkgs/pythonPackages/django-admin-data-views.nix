@@ -11,8 +11,8 @@ buildPythonPackage (finalAttrs: {
   version = "0.4.3";
   pyproject = true;
   src = fetchPypi {
+    pname = builtins.replaceStrings [ "-" ] [ "_" ] finalAttrs.pname;
     inherit (finalAttrs) version;
-    pname = "django_admin_data_views";
     hash = "sha256-vSh6XYdP69i1RPg7R9CEb797PgCn9mM5EmMAU8euQpg=";
   };
   build-system = [ poetry-core ];

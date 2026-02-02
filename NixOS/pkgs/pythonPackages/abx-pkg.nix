@@ -18,8 +18,8 @@ buildPythonPackage (finalAttrs: {
   version = "0.6.0";
   pyproject = true;
   src = fetchPypi {
+    pname = builtins.replaceStrings [ "-" ] [ "_" ] finalAttrs.pname;
     inherit (finalAttrs) version;
-    pname = "abx_pkg";
     hash = "sha256-pM6uL/1hnmsNZVb8Hn82Gp710z4Vih2Frjm5dnfcmOo=";
   };
   build-system = [ hatchling ];
