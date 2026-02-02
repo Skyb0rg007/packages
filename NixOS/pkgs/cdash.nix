@@ -9,19 +9,19 @@
 }:
 php.buildComposerProject2 (finalAttrs: {
   pname = "cdash";
-  version = "4.7.0";
+  version = "4.8.0";
 
   src = fetchFromGitHub {
     owner = "Kitware";
     repo = "CDash";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-HxcSyIuDXwBxEYdGdkTtRz1iR7kBvobzaxwjXFZCnks=";
+    hash = "sha256-Bx70UPdhdwgUebHNyYdLOy0U253WMoAN0EMKGOcDPZI=";
   };
 
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
     inherit (finalAttrs) src;
-    hash = "sha256-nZa+jnjuD+Q7uxWdIp/Zp4nfHlNgfdX7egAdQBkvqZg=";
+    hash = "sha256-0+B/BR2irtv4c8VQteJRwtBR/NGyvlFE3NDjNKPEdcY=";
   };
 
   env = {
@@ -63,7 +63,7 @@ php.buildComposerProject2 (finalAttrs: {
       }:
       enabled ++ [ all.xsl ];
   };
-  vendorHash = "sha256-Y1T+X4kOPB1k/sgxV9zXctaRR9oSAEQ+M7bB7eRumlU=";
+  vendorHash = "sha256-HcWocKita4FFmXuNJaXRYfqQDP0RO/wWIUFEW40W8ME=";
 
   meta = {
     description = "CDash is a web-based software testing server";
