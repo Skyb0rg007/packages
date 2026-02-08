@@ -12,6 +12,7 @@ rec {
   brush-HEAD = pkgs.callPackage ./pkgs/brush.nix { };
   run0-wrappers = pkgs.callPackage ./pkgs/run0-wrappers.nix { };
   masque-go = pkgs.callPackage ./pkgs/masque-go.nix { };
+  flux9s = pkgs.callPackage ./pkgs/flux9s.nix { };
 
   # Radicle
   radicle-ci-ambient = pkgs.callPackage ./pkgs/radicle-ci-ambient.nix { };
