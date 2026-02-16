@@ -64,7 +64,8 @@ rec {
   #     }).pkgs;
   # };
   ascsaver = pkgs.callPackage ./pkgs/ascsaver.nix { };
-  barry = pkgs.callPackage ./pkgs/barry.nix { };
+  mlkit = pkgs.callPackage ./pkgs/mlkit.nix { };
+  barry = pkgs.callPackage ./pkgs/barry.nix { inherit mlkit; };
   smltojs = pkgs.callPackage ./pkgs/smltojs.nix { };
   bencher = pkgs.callPackage ./pkgs/bencher.nix { };
   browsertrix-crawler = pkgs.callPackage ./pkgs/browsertrix-crawler.nix { };
