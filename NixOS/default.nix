@@ -5,6 +5,7 @@
 rec {
   dnsi = pkgs.callPackage ./pkgs/dnsi.nix { };
   dnst = pkgs.callPackage ./pkgs/dnst.nix { };
+  cascade = pkgs.callPackage ./pkgs/cascade.nix { };
   sbuild = pkgs.callPackage ./pkgs/sbuild.nix { };
   keylime = pkgs.callPackage ./pkgs/keylime.nix { };
   rust-keylime = pkgs.callPackage ./pkgs/rust-keylime.nix { };
