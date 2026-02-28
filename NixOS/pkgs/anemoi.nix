@@ -4,13 +4,13 @@
   fetchPypi,
   ...
 }:
-python3Packages.buildPythonPackage (finalAttrs: {
+python3Packages.buildPythonPackage rec {
   pname = "anemoi";
   version = "1.0.5";
   pyproject = true;
   src = fetchPypi {
     pname = "anemoi_dns";
-    inherit (finalAttrs) version;
+    inherit version;
     hash = "sha256-/uqIWyy413UFKsZ3z0mESRLhvD04y0ysRhIjh13YwQU=";
   };
   build-system = with python3Packages; [
@@ -36,4 +36,4 @@ python3Packages.buildPythonPackage (finalAttrs: {
     license = lib.licenses.bsd3;
     mainProgram = "anemoi";
   };
-})
+}
