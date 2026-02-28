@@ -3,6 +3,8 @@
   ...
 }:
 rec {
+  dnsi = pkgs.callPackage ./pkgs/dnsi.nix { };
+  dnst = pkgs.callPackage ./pkgs/dnst.nix { };
   sbuild = pkgs.callPackage ./pkgs/sbuild.nix { };
   keylime = pkgs.callPackage ./pkgs/keylime.nix { };
   rust-keylime = pkgs.callPackage ./pkgs/rust-keylime.nix { };
