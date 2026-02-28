@@ -24,18 +24,17 @@ jobs:
           nix build --print-build-logs ./NixOS#ascsaver     || echo "ERROR!"
           nix build --print-build-logs ./NixOS#browsertrix-crawler || echo "ERROR!"
           nix build --print-build-logs ./NixOS#cdash        || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#networkmanager-clat || echo "ERROR!"
           nix build --print-build-logs ./NixOS#paperless-ai || echo "ERROR!"
           nix build --print-build-logs ./NixOS#porkbun-ddns || echo "ERROR!"
           nix build --print-build-logs ./NixOS#reddio       || echo "ERROR!"
           nix build --print-build-logs ./NixOS#romm         || echo "ERROR!"
           nix build --print-build-logs ./NixOS#sbuild       || echo "ERROR!"
           nix build --print-build-logs ./NixOS#tmux-notify  || echo "ERROR!"
+          nix build --print-build-logs ./NixOS#bencher      || echo "ERROR!"
 
           # These should
           nix build --print-build-logs ./NixOS#ambient-ci
           nix build --print-build-logs ./NixOS#barry
-          nix build --print-build-logs ./NixOS#bencher
           nix build --print-build-logs ./NixOS#radicle-ci-ambient
           nix build --print-build-logs ./NixOS#radicle-woodpecker-addon
           nix build --print-build-logs ./NixOS#subplot
@@ -64,18 +63,17 @@ jobs:
           nix build --print-build-logs ./NixOS#ascsaver     || echo "ERROR!"
           nix build --print-build-logs ./NixOS#browsertrix-crawler || echo "ERROR!"
           nix build --print-build-logs ./NixOS#cdash        || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#networkmanager-clat || echo "ERROR!"
           nix build --print-build-logs ./NixOS#paperless-ai || echo "ERROR!"
           nix build --print-build-logs ./NixOS#porkbun-ddns || echo "ERROR!"
           nix build --print-build-logs ./NixOS#reddio       || echo "ERROR!"
           nix build --print-build-logs ./NixOS#romm         || echo "ERROR!"
           nix build --print-build-logs ./NixOS#sbuild       || echo "ERROR!"
           nix build --print-build-logs ./NixOS#tmux-notify  || echo "ERROR!"
+          nix build --print-build-logs ./NixOS#bencher      || echo "ERROR!"
 
           # These should
           nix build --print-build-logs ./NixOS#ambient-ci
           nix build --print-build-logs ./NixOS#barry
-          nix build --print-build-logs ./NixOS#bencher
           nix build --print-build-logs ./NixOS#radicle-ci-ambient
           nix build --print-build-logs ./NixOS#radicle-woodpecker-addon
           nix build --print-build-logs ./NixOS#subplot
