@@ -3,7 +3,7 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-brush.overrideAttrs rec {
+brush.overrideAttrs (finalAttrs: {
   src = fetchFromGitHub {
     owner = "reubeno";
     repo = "brush";
@@ -12,7 +12,11 @@ brush.overrideAttrs rec {
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit src;
+    inherit (finalAttrs) src;
     hash = "sha256-83vRGvIgBu83z12e2lBGvXvhkQnIhZ7kjadp9jX8OXs=";
   };
-}
+
+  meta = finalAttrs.meta // {
+    changelog = "${finalAttrs.homepage}/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+  };
+})
