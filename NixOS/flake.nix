@@ -60,6 +60,9 @@
       );
       formatter = forAllSystems (system: pkgsFor.${system}.nixfmt-tree);
       packages = forAllSystems (system: import ./default.nix { pkgs = pkgsFor.${system}; });
+      hydraJobs = {
+        inherit (self) packages;
+      };
       # overlays.default = final: prev: import ./pkgs { pkgs = final.pkgs; };
       nixosModules = {
         tubearchivist = ./modules/tubearchivist.nix;
