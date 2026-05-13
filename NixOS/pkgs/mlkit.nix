@@ -10,4 +10,8 @@ mlkit.overrideAttrs (prevAttrs: {
     rev = "0321e9cfa494cb746b997e8e1fd1eb36fd2d6f5c";
     hash = "sha256-nEYFhFzc2Cep8A27nGVpEULaiZMwSGsvw07UNaJgf/Y=";
   };
+
+  meta = prevAttrs.meta // {
+    timeout = 1800; # 30 minutes
+  };
 })
