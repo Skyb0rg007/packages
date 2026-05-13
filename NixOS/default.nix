@@ -3,6 +3,10 @@
   ...
 }:
 rec {
+  example-test = pkgs.testers.runNixOSTest {
+    imports = [ ./tests/example.nix ];
+  };
+
   dnsi = pkgs.callPackage ./pkgs/dnsi.nix { };
   dnst = pkgs.callPackage ./pkgs/dnst.nix { };
   cascade = pkgs.callPackage ./pkgs/cascade.nix { };
