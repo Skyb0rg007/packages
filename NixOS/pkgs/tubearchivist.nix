@@ -58,7 +58,7 @@ pkgs.stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkgs.makeWrapper ];
 
-  patchPhase = '''';
+  patchPhase = "";
 
   # Override the /app/static path with the Nix path to the frontend
   # Also allow the STATIC_ROOT property to be set

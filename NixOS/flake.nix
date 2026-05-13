@@ -59,9 +59,12 @@
         }
       );
       formatter = forAllSystems (system: pkgsFor.${system}.nixfmt-tree);
-      packages = forAllSystems (system: import ./default.nix { pkgs = pkgsFor.${system}; });
+      packages = forAllSystems (
+        system:
+        builtins.removeAttrs (import ./default.nix { pkgs = pkgsFor.${system}; }) [ "pythonPackages" ]
+      );
       hydraJobs = {
-        inherit (self) packages;
+        inherit (self.packages) "x86_64-linux";
       };
       # overlays.default = final: prev: import ./pkgs { pkgs = final.pkgs; };
       nixosModules = {

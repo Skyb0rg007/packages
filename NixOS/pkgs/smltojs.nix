@@ -6,7 +6,7 @@
   mlkit,
   mlton,
   stdenv,
-# installShellFiles,
+  # installShellFiles,
 }:
 stdenv.mkDerivation rec {
   pname = "smltojs";
