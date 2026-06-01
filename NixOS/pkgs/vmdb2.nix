@@ -4,7 +4,7 @@
   stdenv,
   python3Packages,
 }:
-python3Packages.buildPythonApplication {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "vmdb2";
   version = "0.41";
   pyproject = true;
@@ -18,8 +18,9 @@ python3Packages.buildPythonApplication {
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";
     repo = "z2kxCtBwDQMPcaf9vGTNH5nYkp9qk";
-    rev = "bb7c44a18d7aa31f1446da8b4974674fcf4e28cc";
-    hash = "sha256-xaeSus1nWOhcTmxL3mZzZQAGcQoiiVxyYwMjlwmRr5Q=";
+    node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV";
+    tag = "vmdb2-${finalAttrs.version}";
+    hash = "sha256-XHcOKsKEIxHzm66iVfK0QoVYqIo79Je1Kq/tqyzdWEE=";
   };
 
   meta = {
@@ -31,4 +32,4 @@ python3Packages.buildPythonApplication {
     homepage = "https://vmdb2.liw.fi/";
     license = lib.licenses.gpl3Plus;
   };
-}
+})
