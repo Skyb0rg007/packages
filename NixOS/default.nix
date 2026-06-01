@@ -11,8 +11,7 @@ rec {
   sbuild = pkgs.callPackage ./pkgs/sbuild.nix { };
   keylime = pkgs.callPackage ./pkgs/keylime.nix { };
   rust-keylime = pkgs.callPackage ./pkgs/rust-keylime.nix { };
-  # rsbinder = pkgs.callPackage ./pkgs/rsbinder.nix { };
-  rsbinder-aidl = pkgs.callPackage ./pkgs/rsbinder-aidl.nix { };
+  rsbinder = pkgs.callPackage ./pkgs/rsbinder.nix { };
   rsbinder-tools = pkgs.callPackage ./pkgs/rsbinder-tools.nix { };
   brush-HEAD = pkgs.callPackage ./pkgs/brush.nix { };
   run0-wrappers = pkgs.callPackage ./pkgs/run0-wrappers.nix { };
