@@ -3,25 +3,30 @@
   pkgs,
   fetchFromGitHub,
   python3Packages,
-  ...
+  nix-update-script,
 }:
 let
-  version = "1.1.21";
+  version = "1.1.26";
 in
 python3Packages.buildPythonApplication {
   pname = "porkbun-ddns";
   inherit version;
+  pyproject = true;
+
   src = fetchFromGitHub {
     owner = "mietzen";
     repo = "porkbun-ddns";
     rev = "v${version}";
-    hash = "sha256-M0Ry1zU/rsArYD2+Ynlhowkjg8bXw2BeehKXkpRYL78=";
+    hash = "sha256-MBqblkT3hDRqInESuvnEZQqgrVe5e4Eq9uemE0f4SYc=";
   };
-  pyproject = true;
+
   build-system = [ python3Packages.setuptools ];
   dependencies = [ python3Packages.xdg-base-dirs ];
   nativeCheckInputs = [ python3Packages.pytestCheckHook ];
   enabledTestPaths = [ "porkbun_ddns/test" ];
+
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "An unofficial DDNS-Client for Porkbun Domains";
     longDescription = ''
