@@ -5,14 +5,14 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rsbinder-tools";
-  version = "0.5.0";
+  version = "0.8.0";
 
   src = fetchCrate {
     inherit (finalAttrs) pname version;
-    hash = "sha256-MIkpoy1+/ryi/JHuh0J77hHXbjfT4gcY4H9JmhYXzxE=";
+    hash = "sha256-g1rI0YbQyIOJR0B3qganKJDjDK2kwEo/LLarejAIQQ8=";
   };
 
-  cargoHash = "sha256-NjBu9ZrOiCC2wKqRtjRfIefM+7BOxSMEKOEXs1Gc9vQ=";
+  cargoHash = "sha256-nHSJpZLHaFTiYFUCPQWJg7hOXaSalvGGadzUw+hgtG0=";
 
   meta = {
     description = "CLI tools for Binder IPC on Linux";
