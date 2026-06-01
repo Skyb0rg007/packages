@@ -7,8 +7,6 @@ rec {
     imports = [ ./tests/example.nix ];
   };
 
-  dnsi = pkgs.callPackage ./pkgs/dnsi.nix { };
-  dnst = pkgs.callPackage ./pkgs/dnst.nix { };
   cascade = pkgs.callPackage ./pkgs/cascade.nix { };
   sbuild = pkgs.callPackage ./pkgs/sbuild.nix { };
   keylime = pkgs.callPackage ./pkgs/keylime.nix { };
@@ -19,7 +17,6 @@ rec {
   brush-HEAD = pkgs.callPackage ./pkgs/brush.nix { };
   run0-wrappers = pkgs.callPackage ./pkgs/run0-wrappers.nix { };
   masque-go = pkgs.callPackage ./pkgs/masque-go.nix { };
-  flux9s = pkgs.callPackage ./pkgs/flux9s.nix { };
   image-builder = pkgs.callPackage ./pkgs/image-builder.nix { };
 
   # Radicle
