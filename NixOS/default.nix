@@ -75,7 +75,6 @@ rec {
   cdash = pkgs.callPackage ./pkgs/cdash.nix { };
   porkbun-ddns = pkgs.callPackage ./pkgs/porkbun-ddns.nix { };
   reddio = pkgs.callPackage ./pkgs/reddio.nix { };
-  romm = pkgs.callPackage ./pkgs/romm.nix { };
   tmux-notify = pkgs.callPackage ./pkgs/tmux-notify.nix { };
   tubearchivist = pkgs.callPackage ./pkgs/tubearchivist.nix { };
 
