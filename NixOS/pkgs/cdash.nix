@@ -6,22 +6,23 @@
   nodejs,
   npmHooks,
   php,
+  nix-update-script,
 }:
 php.buildComposerProject2 (finalAttrs: {
   pname = "cdash";
-  version = "4.8.0";
+  version = "5.0.0";
 
   src = fetchFromGitHub {
     owner = "Kitware";
     repo = "CDash";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-Bx70UPdhdwgUebHNyYdLOy0U253WMoAN0EMKGOcDPZI=";
+    hash = "sha256-+Qww3Q1e0bcXsydY4bC0yGMqtkuyIarZC0SQcNl52dA=";
   };
 
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
     inherit (finalAttrs) src;
-    hash = "sha256-0+B/BR2irtv4c8VQteJRwtBR/NGyvlFE3NDjNKPEdcY=";
+    hash = "sha256-EfppBRGuJQKcyshSw/9bwasLV3b23f+IrEHltsFcQ7c=";
   };
 
   env = {
@@ -42,8 +43,8 @@ php.buildComposerProject2 (finalAttrs: {
     mkdir -p $out/bin
     cat > $out/bin/artisan << EOF
     #!/bin/sh
-    export QUEUE_CONNECTION="\''${QUEUE_CONNECTION-sync}"
-    export LARAVEL_STORAGE_PATH="\''${LARAVEL_STORAGE_PATH-"\$STATE_DIRECTORY"}"
+    export QUEUE_CONNECTION="\''${QUEUE_CONNECTION:-sync}"
+    export LARAVEL_STORAGE_PATH="\''${LARAVEL_STORAGE_PATH:-"\$STATE_DIRECTORY"}"
     export APP_SERVICES_CACHE="\$LARAVEL_STORAGE_PATH/bootstrap/cache/services.php"
     export APP_PACKAGES_CACHE="\$LARAVEL_STORAGE_PATH/bootstrap/cache/packages.php"
     export APP_CONFIG_CACHE="\$LARAVEL_STORAGE_PATH/bootstrap/cache/config.php"
@@ -63,7 +64,9 @@ php.buildComposerProject2 (finalAttrs: {
       }:
       enabled ++ [ all.xsl ];
   };
-  vendorHash = "sha256-HcWocKita4FFmXuNJaXRYfqQDP0RO/wWIUFEW40W8ME=";
+  vendorHash = "sha256-XaDxxn8UH6/TXmNim6ghO/2xCrW0UDNmwSlokM+H7Xs=";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "CDash is a web-based software testing server";
