@@ -2,10 +2,12 @@
   fetchFromGitHub,
   buildGoModule,
   lib,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
   pname = "masque-go";
   version = "0.3.0";
+
   src = fetchFromGitHub {
     owner = "quic-go";
     repo = "masque-go";
@@ -18,6 +20,8 @@ buildGoModule (finalAttrs: {
     mv $out/bin/{,masque-go-}client
     mv $out/bin/{,masque-go-}proxy
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Implementation of RFC 9298 based on quic-go";
