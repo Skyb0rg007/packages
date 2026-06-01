@@ -9,16 +9,17 @@
   libxcrypt,
   linuxHeaders,
   pkg-config,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
   pname = "image-builder";
-  version = "51";
+  version = "67";
 
   src = fetchFromGitHub {
     owner = "osbuild";
     repo = "image-builder-cli";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-WyXWw/fTMPV4tI4MZAQjZSU7vnHxpx1VEfrvjMWu2jw=";
+    hash = "sha256-6LygPo7KdmpKRD7WF0kaEJIFyl5pzJLmNjZEb33pnQ8=";
   };
 
   nativeBuildInputs = [ pkg-config ];
@@ -30,12 +31,14 @@ buildGoModule (finalAttrs: {
     linuxHeaders
   ];
 
-  vendorHash = "sha256-arF5LCkWwzYLFXn7l9oEG8ulRHYbOjttQnDYsWY3Ss0=";
+  vendorHash = "sha256-0DCUXW4T7ZUGHJCISIvvfZA5b/hdJQt9v24A/8oeyAg=";
 
   postPatch = ''
     substituteInPlace internal/testutil/testutil.go \
       --replace-fail '#!/bin/bash' "#!${stdenv.shell}"
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Tools to build and deploy disk-images";
