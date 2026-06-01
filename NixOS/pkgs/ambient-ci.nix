@@ -6,17 +6,18 @@
   qemu,
   rustPlatform,
   stdenv,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
-  version = "0.11.1";
+  version = "0.14.0";
 
   src = fetchCrate {
     inherit (finalAttrs) pname version;
-    hash = "sha256-vgvrinJFNA9K+sjYam/HFpgX3YCLc8EO8VR97D4evbQ=";
+    hash = "sha256-Z2RTnwdr/NLjUCa5nB0GYIkpbyuP6YmbFXQqV1LfqxM=";
   };
 
-  cargoHash = "sha256-d1E1Nzfwmyl/rEaetO1MpGP8EbtaTsaBt2L3BAczHrA=";
+  cargoHash = "sha256-SRuTsJGuFm9gei+va+4jlgqd9slqIXLLdF2iENds4yI=";
 
   doCheck = !stdenv.buildPlatform.isDarwin;
   nativeCheckInputs = [ libisoburn ];
@@ -35,6 +36,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = ''
     installManPage ambient.1
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Ambient continuous integration engine";
