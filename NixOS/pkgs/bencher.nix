@@ -7,11 +7,20 @@
   pkg-config,
   fontconfig,
   freetype,
-  ...
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bencher";
-  version = "0.5.10";
+  version = "0.6.6";
+
+  src = fetchFromGitHub {
+    owner = "bencherdev";
+    repo = "bencher";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-UytG3h6xc43Oly0LPDPK/owWGusegWHKU683YpI+2bA=";
+  };
+
+  cargoHash = "sha256-6EKTbtQyNv+PNOcp+rBFmoWI6H3iIcNEfkWBQR5BoaA=";
 
   nativeBuildInputs = [
     mold
@@ -25,13 +34,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     fontconfig.lib
   ];
 
-  src = fetchFromGitHub {
-    owner = "bencherdev";
-    repo = "bencher";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-XCWE2/9T81TH9cLOcoNuymTKYaO7YYL9/Z4zc7VmIDs=";
-  };
-
   # Only build open-source version
   buildNoDefaultFeatures = true;
   buildFeatures = [
@@ -41,7 +43,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   doCheck = false;
 
-  cargoHash = "sha256-Mq4YlEDGhVpgu8VsOzbpFj+o7EeEms7VxE4bV26Y00E=";
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Bencher - Continuous Benchmarking";
