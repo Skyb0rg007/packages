@@ -2,21 +2,24 @@
   lib,
   python3Packages,
   fetchPypi,
-  ...
+  nix-update-script,
 }:
 python3Packages.buildPythonPackage rec {
   pname = "anemoi";
   version = "1.0.5";
   pyproject = true;
+
   src = fetchPypi {
     pname = "anemoi_dns";
     inherit version;
     hash = "sha256-/uqIWyy413UFKsZ3z0mESRLhvD04y0ysRhIjh13YwQU=";
   };
+
   build-system = with python3Packages; [
     setuptools
     setuptools-scm
   ];
+
   dependencies = with python3Packages; [
     click
     flask
@@ -30,6 +33,9 @@ python3Packages.buildPythonPackage rec {
     jsonschema
     pyyaml
   ];
+
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "Anemoi is a least privilege dynamic DNS server";
     homepage = "https://github.com/dayt0n/anemoi";
