@@ -21,7 +21,6 @@ rec {
 
   # Radicle
   radicle-ci-ambient = pkgs.callPackage ./pkgs/radicle-ci-ambient.nix { };
-  radicle-woodpecker-addon = pkgs.callPackage ./pkgs/radicle-woodpecker-addon.nix { };
 
   # Lars Wirzenius's Packages
   ambient-build-vm = pkgs.callPackage ./pkgs/ambient-build-vm.nix { };
