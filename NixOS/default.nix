@@ -73,7 +73,6 @@ rec {
   bencher = pkgs.callPackage ./pkgs/bencher.nix { };
   browsertrix-crawler = pkgs.callPackage ./pkgs/browsertrix-crawler.nix { };
   cdash = pkgs.callPackage ./pkgs/cdash.nix { };
-  paperless-ai = pkgs.callPackage ./pkgs/paperless-ai.nix { };
   porkbun-ddns = pkgs.callPackage ./pkgs/porkbun-ddns.nix { };
   reddio = pkgs.callPackage ./pkgs/reddio.nix { };
   romm = pkgs.callPackage ./pkgs/romm.nix { };
