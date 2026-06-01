@@ -7,6 +7,7 @@
   plantuml,
   rustPlatform,
   stdenv,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "subplot-bin";
@@ -26,6 +27,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --set-default SUBPLOT_JAVA_PATH "${lib.getExe jre}" \
       --set-default SUBPLOT_DOT_PATH "${lib.getExe' graphviz-nox "dot"}"
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Automated tool for acceptance testing";
