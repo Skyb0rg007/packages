@@ -39,30 +39,4 @@ rec {
   reddio = pkgs.callPackage ./pkgs/reddio.nix { };
   tmux-notify = pkgs.callPackage ./pkgs/tmux-notify.nix { };
   tubearchivist = pkgs.callPackage ./pkgs/tubearchivist.nix { };
-
-  pythonPackages = rec {
-    python-statemachine =
-      pkgs.python3Packages.callPackage ./pkgs/pythonPackages/python-statemachine.nix
-        { };
-    sonic-client = pkgs.python3Packages.callPackage ./pkgs/pythonPackages/sonic-client.nix { };
-    abx-pkg = pkgs.python3Packages.callPackage ./pkgs/pythonPackages/abx-pkg.nix { };
-    base32-crockford = pkgs.python3Packages.callPackage ./pkgs/pythonPackages/base32-crockford.nix { };
-    django_6 = pkgs.python3Packages.callPackage ./pkgs/pythonPackages/django_6.nix { };
-    django-object-actions =
-      pkgs.python3Packages.callPackage ./pkgs/pythonPackages/django-object-actions.nix
-        { };
-    django-settings-holder =
-      pkgs.python3Packages.callPackage ./pkgs/pythonPackages/django-settings-holder.nix
-        { };
-    django-admin-data-views =
-      pkgs.python3Packages.callPackage ./pkgs/pythonPackages/django-admin-data-views.nix
-        {
-          inherit django-settings-holder;
-        };
-    django-signal-webhooks =
-      pkgs.python3Packages.callPackage ./pkgs/pythonPackages/django-signal-webhooks.nix
-        {
-          inherit django-settings-holder;
-        };
-  };
 }
