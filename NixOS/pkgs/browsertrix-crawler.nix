@@ -18,7 +18,7 @@
   stevenblack-blocklist,
   vips,
   x11vnc,
-  xorg,
+  xvfb,
   yarnBuildHook,
   yarnConfigHook,
 }:
@@ -103,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
       --prefix PATH : ${
         lib.makeBinPath [
           redis
-          xorg.xvfb
+          xvfb
         ]
       } \
       --set BROWSER_BIN ${lib.getExe google-chrome} \
@@ -120,7 +120,7 @@ stdenv.mkDerivation (finalAttrs: {
         lib.makeBinPath [
           socat
           x11vnc
-          xorg.xvfb
+          xvfb
         ]
       } \
       --set BROWSER_BIN ${lib.getExe google-chrome} \
