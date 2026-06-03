@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://radicle-ci.liw.fi";
     licenses = [
       lib.licenses.mit
-      lib.licenses.asl2
+      lib.licenses.asl20
     ];
     maintainers = [ lib.maintainers.skyesoss ];
   };
