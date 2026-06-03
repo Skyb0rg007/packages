@@ -4,7 +4,7 @@
   rustPlatform,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
-  pname = "rsbinder";
+  pname = "rsbinder-tools";
   version = "0.8.0";
 
   src = fetchFromGitHub {
