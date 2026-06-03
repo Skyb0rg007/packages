@@ -12,6 +12,6 @@ mlkit.overrideAttrs (prevAttrs: {
   };
 
   meta = prevAttrs.meta // {
-    timeout = 1800; # 30 minutes
+    timeout = 7200; # 2 hours
   };
 })

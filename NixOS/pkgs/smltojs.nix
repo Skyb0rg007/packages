@@ -98,5 +98,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
     mainProgram = "smltojs";
+    timeout = 7200; # 2 hours
   };
 }
