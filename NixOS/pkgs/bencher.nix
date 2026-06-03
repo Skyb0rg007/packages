@@ -30,9 +30,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildNoDefaultFeatures = true;
   checkNoDefaultFeatures = finalAttrs.buildNoDefaultFeatures;
 
-  doCheck = false;
-
   passthru.updateScript = nix-update-script { };
+
+  postPatch = ''
+    # Replaces the proprietary Rust files with empty files
+    # This is just a safeguard, the build shouldn't touch these files anyways
+    echo find . -path '*/plus/*' -type f ! -name Cargo.toml -print -exec truncate -s 0 {} +
+    find . -path '*/plus/*' -type f ! -name Cargo.toml -print -exec truncate -s 0 {} +
+  '';
 
   meta = {
     description = "Bencher - Continuous Benchmarking";
@@ -61,7 +66,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = [
       lib.licenses.asl20
       lib.licenses.mit
-      lib.licenses.unfree
     ];
   };
 })
