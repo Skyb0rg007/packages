@@ -7,6 +7,7 @@ rec {
     imports = [ ./tests/example.nix ];
   };
 
+  mxc = pkgs.callPackage ./pkgs/mxc.nix { };
   cascade = pkgs.callPackage ./pkgs/cascade.nix { };
   sbuild = pkgs.callPackage ./pkgs/sbuild.nix { };
   keylime = pkgs.callPackage ./pkgs/keylime.nix { };
