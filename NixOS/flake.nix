@@ -70,6 +70,7 @@
       nixosModules = {
         tubearchivist = ./modules/tubearchivist.nix;
         debspawn = ./modules/debspawn.nix;
+        keylime = ./modules/keylime.nix;
       };
     };
 }
