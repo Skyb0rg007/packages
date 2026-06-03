@@ -16,6 +16,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-3HK7fDmm0cyGf2Hq2OlOc3rk5QpLsosz9xYIUQ1eCY4=";
 
+  cargoBuildFlags = [ "--package=rsbinder-tools" ];
+
   checkFlags = [
     # These tests require a mounted binderfs
     "--skip=test_client::"
