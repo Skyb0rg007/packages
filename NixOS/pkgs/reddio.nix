@@ -1,15 +1,16 @@
 {
-  pkgs,
+  stdenv,
+  fetchFromGitLab,
   lib,
   config,
-  ...
+  nix-update-script,
 }:
 let
 in
-pkgs.stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   pname = "reddio";
   version = "0.52";
-  src = pkgs.fetchFromGitLab {
+  src = fetchFromGitLab {
     owner = "aaronNG";
     repo = "reddio";
     rev = "v${finalAttrs.version}";
@@ -17,8 +18,8 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
   };
 
   dontBuild = true;
-  installPhase = ''
-    mkdir -p $out
-    make install PREFIX=$out
-  '';
+
+  makeFlags = [ "PREFIX=$(out)" ];
+
+  passthru.updateScript = nix-update-script { };
 })
