@@ -8,16 +8,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rust-keylime";
-  version = "0.2.8";
+  version = "0.2.9";
 
   src = fetchFromGitHub {
     owner = "keylime";
     repo = "rust-keylime";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-TUS1goiU/DecC3HKk72fshyMQr3zLkvn72hFb0x9Ot4=";
+    hash = "sha256-/8ZvIhv/Z177Svv/h81zq9uz5NnPHEDA3B49Fn57Pz8=";
   };
 
-  doCheck = true;
+  cargoHash = "sha256-Fg07/C3rbFeJWtvhX2UJuWmWDh4XCDuoDyEUZSsuzX8=";
 
   nativeBuildInputs = [
     pkg-config
@@ -29,12 +29,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     tpm2-tss.dev
   ];
 
-  cargoHash = "sha256-AcaCmlwNkA0TO3OprAKDILeFa7xepT1q8N9ZUVYx4M0=";
-
   meta = {
-    description = "Rust implementation of a keylime agent";
+    description = "Rust implementation of the keylime agent";
     longDescription = ''
-      This is a Rust implementation of keylime agent.
+      This is a Rust implementation of the keylime agent.
       Keylime is system integrity monitoring system that has the following features:
 
       - Exposes TPM trust chain for higher-level use
