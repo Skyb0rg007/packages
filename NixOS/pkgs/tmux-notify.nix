@@ -18,7 +18,7 @@ tmuxPlugins.mkTmuxPlugin {
   };
   rtpFilePath = "tnotify.tmux";
   postInstall = ''
-    find $target -type f -exec sed -i 's|notify-send |${libnotify}/bin/notify-send |g' {} +
+    find $target -type f -exec sed -i 's|notify-send |${lib.getExe libnotify} |g' {} +
   '';
   meta = {
     homepage = "https://github.com/rickstaa/tmux-notify";
