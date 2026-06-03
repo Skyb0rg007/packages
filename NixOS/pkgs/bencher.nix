@@ -22,24 +22,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-6EKTbtQyNv+PNOcp+rBFmoWI6H3iIcNEfkWBQR5BoaA=";
 
-  nativeBuildInputs = [
-    mold
-    pkg-config
-  ];
-  buildInputs = [
-    fontconfig
-    freetype
-  ];
-  checkInputs = [
-    fontconfig.lib
-  ];
+  nativeBuildInputs = [ mold ];
 
-  # Only build open-source version
+  cargoBuildFlags = [ "--package=bencher_cli" ];
+  cargoTestFlags = [ "--package=bencher_cli" ];
+  # Build the open-source version
   buildNoDefaultFeatures = true;
-  buildFeatures = [
-    "client"
-    "server"
-  ];
+  checkNoDefaultFeatures = finalAttrs.buildNoDefaultFeatures;
 
   doCheck = false;
 
@@ -66,7 +55,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       as the Cargo feature "plus".
       Files in the plus directories are proprietary, while the other files
       are dual Apache-2.0/MIT licensed.
-      The default Nix derivation does not have proprietary features compiled.
+      The Nix derivation does not have proprietary features compiled.
     '';
     homepage = "https://bencher.dev";
     license = [
