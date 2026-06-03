@@ -37,13 +37,7 @@ let
     "bwrap_common"
     "linux_test_proxy"
   ];
-  buildFeatures =
-    lib.optional withHyperlight [
-      "hyperlight"
-    ]
-    ++ lib.optional withMicrovm [
-      "microvm"
-    ];
+  buildFeatures = lib.optional withHyperlight "hyperlight" ++ lib.optional withMicrovm "microvm";
 
   # Nanvix - taken from ./src/backends/nanvix/binaries/versions.json
   # XXX: Some of these fields are unused in the build
