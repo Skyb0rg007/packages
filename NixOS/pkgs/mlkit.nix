@@ -3,12 +3,12 @@
   fetchFromGitHub,
 }:
 mlkit.overrideAttrs (prevAttrs: {
-  version = "${prevAttrs.version}-0321e9c";
+  version = "${prevAttrs.version}-8561fe6";
   src = fetchFromGitHub {
     owner = "melsman";
     repo = "mlkit";
-    rev = "0321e9cfa494cb746b997e8e1fd1eb36fd2d6f5c";
-    hash = "sha256-nEYFhFzc2Cep8A27nGVpEULaiZMwSGsvw07UNaJgf/Y=";
+    rev = "8561fe6ad949b84f83e8b78508b720ceccabe902";
+    hash = "sha256-aHB+KEEhAsI7H1O1hBiuE4evZvqNsIaX2qSld3ybMuw=";
   };
 
   meta = prevAttrs.meta // {
