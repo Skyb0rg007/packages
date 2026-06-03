@@ -30,7 +30,7 @@ let
     maintainers = [ lib.maintainers.skyesoss ];
   };
 
-  lxcPackages = [
+  lxcPackages = lib.map (p: "--package=${p}") [
     "lxc"
     "lxc_common"
     "wxc_common"
@@ -45,24 +45,26 @@ let
       "microvm"
     ];
 
-  # Nanvix
-  nanvixPython = {
+  # Nanvix - taken from ./src/backends/nanvix/binaries/versions.json
+  # XXX: Some of these fields are unused in the build
+  nanvixVersions = {
     tag = "3.12.3-nanvix-0.15.4-ac76d40";
     asset = "microvm-standalone-256mb.zip";
-    assetLinux = "microvm-standalone-256mb.tar.gz";
+    asset_linux = "microvm-standalone-256mb.tar.gz";
     binaries = [
       "nanvixd.exe"
       "nanvix_rootfs.img"
       "python3.initrd"
     ];
-    binariesLinux = [
+    binaries_linux = [
       "nanvixd.elf"
       "nanvix_rootfs.img"
       "python3.initrd"
     ];
   };
+
   nanvixLinux = fetchzip {
-    url = "https://github.com/nanvix/nanvix-python/releases/download/${nanvixPython.tag}/${nanvixPython.assetLinux}";
+    url = "https://github.com/nanvix/nanvix-python/releases/download/${nanvixVersions.tag}/${nanvixVersions.asset_linux}";
     hash = "sha256-WkqLdz1ttxe5MVYJHRJunoneEiUESfDDpmw4HxqMndc=";
   };
 
@@ -101,10 +103,12 @@ let
       runHook postPatch
     '';
 
-    cargoBuildFlags = lib.map (p: "--package=${p}") lxcPackages ++ [
+    cargoBuildFlags = lxcPackages ++ [
       "--features=${lib.concatStringsSep "," buildFeatures}"
     ];
-    cargoTestFlags = lib.map (p: "--package=${p}") lxcPackages;
+    cargoTestFlags = lxcPackages;
+
+    passthru.sdk = mxc-sdk;
 
     meta = meta // {
       mainProgram = "lxc-exec";
@@ -122,6 +126,4 @@ let
     meta = meta;
   };
 in
-# nanvixLinux
 lxc-exec
-# mxc-sdk
