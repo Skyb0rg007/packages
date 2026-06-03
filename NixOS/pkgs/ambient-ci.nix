@@ -1,5 +1,5 @@
 {
-  fetchCrate,
+  fetchFromRadicle,
   installShellFiles,
   lib,
   libisoburn,
@@ -12,9 +12,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
   version = "0.14.0";
 
-  src = fetchCrate {
-    inherit (finalAttrs) pname version;
-    hash = "sha256-Z2RTnwdr/NLjUCa5nB0GYIkpbyuP6YmbFXQqV1LfqxM=";
+  src = fetchFromRadicle {
+    seed = "radicle.liw.fi";
+    repo = "zwPaQSTBX8hktn22F6tHAZSFH2Fh"; # ambient-ci
+    node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV"; # liw
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-9lYEvnF+eCqAu4YQSD7aSNp/IbPdg9vt2lVPW+YFJwQ=";
   };
 
   cargoHash = "sha256-SRuTsJGuFm9gei+va+4jlgqd9slqIXLLdF2iENds4yI=";
