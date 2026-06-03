@@ -7,6 +7,7 @@ rec {
     imports = [ ./tests/example.nix ];
   };
 
+  keylime = pkgs.callPackage ./pkgs/keylime.nix { };
   rust-keylime = pkgs.callPackage ./pkgs/rust-keylime.nix { };
   mxc = pkgs.callPackage ./pkgs/mxc.nix { };
   cascade = pkgs.callPackage ./pkgs/cascade.nix { };
