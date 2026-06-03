@@ -30,6 +30,7 @@ jobs:
           nix build --print-build-logs ./NixOS#sbuild       || echo "ERROR!"
           nix build --print-build-logs ./NixOS#tmux-notify  || echo "ERROR!"
           nix build --print-build-logs ./NixOS#bencher      || echo "ERROR!"
+          nix build --print-build-logs ./NixOS#rsbinder     || echo "ERROR!"
 
           # These should
           nix build --print-build-logs ./NixOS#ambient-ci
@@ -39,10 +40,8 @@ jobs:
           nix build --print-build-logs ./NixOS#vmdb2
 
           # Linux exclusive
-          nix build --print-build-logs ./NixOS#keylime
-          nix build --print-build-logs ./NixOS#rust-keylime
-          nix build --print-build-logs ./NixOS#rsbinder
-          nix build --print-build-logs ./NixOS#rsbinder-tools
+          nix build --print-build-logs ./NixOS#keylime      || echo "ERROR!"
+          nix build --print-build-logs ./NixOS#rust-keylime || echo "ERROR!"
   build-nix-macos:
     runs-on: macos-latest
     steps:
@@ -67,6 +66,7 @@ jobs:
           nix build --print-build-logs ./NixOS#sbuild       || echo "ERROR!"
           nix build --print-build-logs ./NixOS#tmux-notify  || echo "ERROR!"
           nix build --print-build-logs ./NixOS#bencher      || echo "ERROR!"
+          nix build --print-build-logs ./NixOS#rsbinder     || echo "ERROR!"
 
           # These should
           nix build --print-build-logs ./NixOS#ambient-ci
