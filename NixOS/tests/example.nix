@@ -1,6 +1,7 @@
 {
   name = "example";
   meta = {
+    timeout = 1800; # 30 min
   };
 
   nodes.machine = { ... }: { };
