@@ -1,12 +1,11 @@
 {
+  lib,
   stdenv,
   fetchFromGitLab,
-  lib,
-  ...
 }:
 stdenv.mkDerivation {
   pname = "ascsaver";
-  version = "0.1";
+  version = "0.0.0-cba337b5";
 
   src = fetchFromGitLab {
     owner = "mezantrop";
@@ -15,9 +14,5 @@ stdenv.mkDerivation {
     hash = "sha256-D/bvkQ9s18sxnmzqxn4H5RHVe0UVFiVXhOJsnSJ9Rh0=";
   };
 
-  installPhase = ''
-    mkdir -p $out/bin $out/share/ascsaver.art
-    cp ascsaver $out/bin
-    cp ascsaver.art/* $out/share/ascsaver.art
-  '';
+  makeFlags = [ "PREFIX=$(out)" ];
 }
