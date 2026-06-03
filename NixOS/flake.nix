@@ -60,10 +60,7 @@
         }
       );
       formatter = forAllSystems (system: pkgsFor.${system}.nixfmt-tree);
-      packages = forAllSystems (
-        system:
-        builtins.removeAttrs (import ./default.nix { pkgs = pkgsFor.${system}; }) [ "pythonPackages" ]
-      );
+      packages = forAllSystems (system: import ./default.nix { pkgs = pkgsFor.${system}; });
       hydraJobs = {
         inherit (self.packages) "x86_64-linux";
       };
