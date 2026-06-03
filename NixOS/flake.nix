@@ -53,6 +53,7 @@
             nativeBuildInputs = [
               pkgs.git
               pkgs.nix
+              pkgs.nix-update
             ];
             env.NIX_CONFIG = "extra-experimental-features = nix-command flakes";
           };
