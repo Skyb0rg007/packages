@@ -6,81 +6,107 @@
 }:
 let
   cfg = config.services.cascade;
-
-  format = lib.formats.toml { };
-
+  format = pkgs.formats.toml { };
   configFile = format.generate "cascade.toml" cfg.settings;
-  hsmConfigFile = format.generate "cascade-hsm-bridge.toml" cfg.hsm-bridge.settings;
+  hsmConfigFile = format.generate "cascade-hsm-bridge.toml" cfg.hsmBridge.settings;
 in
 {
   options.services.cascade = {
-    enable = lib.mkEnableOption "cascade";
+    enable = lib.mkEnableOption "Cascade DNSSEC signing daemon";
     package = lib.mkPackageOption pkgs "cascade" { };
     dnstPackage = lib.mkPackageOption pkgs "dnst" { };
     settings = lib.mkOption {
       inherit (format) type;
-      default = {
-        version = "v1";
-        policy-dir = "/etc/cascade/policies";
-        zone-state-dir = "/var/lib/cascade/zone-state";
-        tsig-store-path = "/var/lib/cascade/tsig-keys.db";
-        kmip-credentials-store-path = "/var/lib/cascade/kmip/credentials.db";
-        keys-dir = "/var/lib/cascade/keys";
-        kmip-server-state-dir = "/var/lib/cascade/kmip";
-        dnst-binary-path = "dnst";
-
-        daemon = {
-          log-level = "info";
-          log-target.type = "syslog";
-          daemonize = false;
-        };
-
-        remote-control.servers = [
-          "127.0.0.1:4539"
-          "[::1]:4539"
-        ];
-
-        loader.review.servers = [
-          "127.0.0.1:4540"
-          "[::1]:4540"
-        ];
-
-        signer.review.servers = [
-          "127.0.0.1:4541"
-          "[::1]:4541"
-        ];
-
-        server.servers = [
-          "127.0.0.1:4542"
-          "[::1]:4542"
-        ];
-      };
+      default = { };
+      description = ''
+        Settings for cascaded. See {manpage}`cascaded-config.toml(5)` for supported
+        values. Note that `version` is required and defaults to `"v1"`.
+      '';
+      example = lib.literalExpression ''
+        {
+          daemon.log-level = "debug";
+          server.servers = [ "0.0.0.0:53" "[::]:53" ];
+        }
+      '';
     };
-    hsm-bridge = {
-      enable = lib.mkEnableOption "cascade-hsm-bridge";
+    hsmBridge = {
+      enable = lib.mkEnableOption "cascade-hsm-bridge, a KMIP to PKCS#11 bridge";
       package = lib.mkPackageOption pkgs "cascade-hsm-bridge" { };
       settings = lib.mkOption {
         inherit (format) type;
-        default = {
-          version = "v1";
-          pkcs11.lib-path = "";
-          daemon = {
-            log-level = "info";
-            log-target.type = "syslog";
-            daemonize = false;
-          };
-        };
+        default = { };
+        description = "Settings for cascade-hsm-bridge.";
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
+    services.cascade.settings = {
+      version = lib.mkDefault "v1";
+      policy-dir = lib.mkDefault "/etc/cascade/policies";
+      zone-state-dir = lib.mkDefault "/var/lib/cascade/zone-state";
+      tsig-store-path = lib.mkDefault "/var/lib/cascade/tsig-keys.db";
+      kmip-credentials-store-path = lib.mkDefault "/var/lib/cascade/kmip/credentials.db";
+      keys-dir = lib.mkDefault "/var/lib/cascade/keys";
+      kmip-server-state-dir = lib.mkDefault "/var/lib/cascade/kmip";
+      dnst-binary-path = lib.mkDefault (lib.getExe' cfg.dnstPackage "dnst");
+
+      daemon = lib.mkDefault {
+        log-level = "info";
+        log-target.type = "stdout";
+        daemonize = false;
+      };
+
+      remote-control = lib.mkDefault {
+        servers = [
+          "127.0.0.1:4539"
+          "[::1]:4539"
+        ];
+      };
+
+      loader = lib.mkDefault {
+        notify-listeners = [
+          "127.0.0.1:4540"
+          "[::1]:4540"
+        ];
+        review.servers = [
+          "127.0.0.1:4541"
+          "[::1]:4541"
+        ];
+      };
+
+      signer = lib.mkDefault {
+        review.servers = [
+          "127.0.0.1:4542"
+          "[::1]:4542"
+        ];
+      };
+
+      server = lib.mkDefault {
+        servers = [
+          "127.0.0.1:4543"
+          "[::1]:4543"
+        ];
+      };
+    };
+
+    services.cascade.hsmBridge.settings = lib.mkIf cfg.hsmBridge.enable {
+      version = lib.mkDefault "v1";
+      daemon = lib.mkDefault {
+        log-level = "info";
+        log-target.type = "stdout";
+        daemonize = false;
+      };
+    };
+
     systemd.services.cascaded = {
       description = "Cascade DNSSEC Signer";
-      documentation = "man:cascade(1)";
+      documentation = [
+        "man:cascaded(1)"
+        "man:cascaded-config.toml(5)"
+      ];
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = [ cfg.dnstPackage ];
       serviceConfig = {
         Type = "exec";
         ExecStart = "${lib.getExe' cfg.package "cascaded"} --state=\${STATE_DIRECTORY}/state.db --config=${configFile}";
@@ -111,17 +137,19 @@ in
       };
     };
 
-    systemd.services.cascade-hsm-bridge = lib.mkIf cfg.hsm-bridge.enable {
-      description = "A KMIP to PKCS#11 bridge";
-      documentation = "man:cascade-hsm-bridge(1)";
-      after = [ "network.target" ];
+    systemd.services.cascade-hsm-bridge = lib.mkIf cfg.hsmBridge.enable {
+      description = "KMIP to PKCS#11 bridge for Cascade";
+      documentation = [ "man:cascade-hsm-bridge(1)" ];
+      after = [
+        "network.target"
+        "cascaded.service"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "exec";
-        ExecStart = "${lib.getExe cfg.hsm-bridge.package} --config=${hsmConfigFile}";
+        ExecStart = "${lib.getExe cfg.hsmBridge.package} --config=${hsmConfigFile}";
         Restart = "on-failure";
         DynamicUser = true;
-        # XXX: CAP_DAC_OVERRIDE?
       };
     };
   };

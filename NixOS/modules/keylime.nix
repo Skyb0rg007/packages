@@ -10,7 +10,7 @@ in
 {
   options.services.keylime = {
     enable = lib.mkEnableOption "keylime";
-    package = lib.mkPackageOption pkgs "keylime";
+    package = lib.mkPackageOption pkgs "keylime" { };
   };
 
   config = lib.mkIf cfg.enable {
