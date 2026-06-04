@@ -1,26 +1,41 @@
 {
   lib,
-  python3Packages,
-  fetchPypi,
+  fetchFromGitHub,
+  buildPythonPackage,
   nix-update-script,
+  testers,
+  setuptools,
+  setuptools-scm,
+  click,
+  flask,
+  arrow,
+  tinydb,
+  requests,
+  cloudflare,
+  bcrypt,
+  peewee,
+  psycopg2,
+  jsonschema,
+  pyyaml,
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "anemoi";
   version = "1.0.5";
   pyproject = true;
 
-  src = fetchPypi {
-    pname = "anemoi_dns";
-    inherit version;
-    hash = "sha256-/uqIWyy413UFKsZ3z0mESRLhvD04y0ysRhIjh13YwQU=";
+  src = fetchFromGitHub {
+    owner = "dayt0n";
+    repo = "anemoi";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-V8evm5eNxUhQVY9xvLkq2jLBpLXdTIvcPH/VbIU6+NU=";
   };
 
-  build-system = with python3Packages; [
+  build-system = [
     setuptools
     setuptools-scm
   ];
 
-  dependencies = with python3Packages; [
+  dependencies = [
     click
     flask
     arrow
@@ -34,7 +49,12 @@ python3Packages.buildPythonPackage rec {
     pyyaml
   ];
 
-  passthru.updateScript = nix-update-script { };
+  pythonImportsCheck = [ "anemoi" ];
+
+  passthru = {
+    updateScript = nix-update-script { };
+    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  };
 
   meta = {
     description = "Anemoi is a least privilege dynamic DNS server";
@@ -42,4 +62,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.bsd3;
     mainProgram = "anemoi";
   };
-}
+})

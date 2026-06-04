@@ -23,7 +23,7 @@ rec {
   subplot = pkgs.callPackage ./pkgs/subplot { };
   vmdb2 = pkgs.callPackage ./pkgs/vmdb2 { };
 
-  anemoi = pkgs.callPackage ./pkgs/anemoi { };
+  anemoi = pkgs.python3Packages.callPackage ./pkgs/anemoi { };
   ascsaver = pkgs.callPackage ./pkgs/ascsaver { };
   mlkit = pkgs.callPackage ./pkgs/mlkit { };
   barry = pkgs.callPackage ./pkgs/barry { inherit mlkit; };
