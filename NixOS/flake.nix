@@ -15,14 +15,11 @@
       nixpkgs,
       git-hooks,
       ...
-    }@inputs:
+    }:
     let
-      systems = [
-        "x86_64-linux"
-        "aarch64-darwin"
-        "aarch64-linux"
-      ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
+      inherit (nixpkgs) lib;
+      systems = lib.systems.flakeExposed;
+      forAllSystems = lib.genAttrs systems;
       pkgsFor = forAllSystems (
         system:
         import nixpkgs {
@@ -60,7 +57,15 @@
         }
       );
       formatter = forAllSystems (system: pkgsFor.${system}.nixfmt-tree);
-      packages = forAllSystems (system: import ./default.nix { pkgs = pkgsFor.${system}; });
+      legacyPackages = forAllSystems (
+        system:
+        import ./default.nix {
+          pkgs = pkgsFor.${system};
+        }
+      );
+      packages = forAllSystems (
+        system: lib.filterAttrs (_: v: lib.isDerivation v) self.legacyPackages.${system}
+      );
       hydraJobs = {
         inherit (self.packages) "x86_64-linux";
       };
