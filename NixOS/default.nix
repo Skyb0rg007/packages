@@ -11,6 +11,7 @@ rec {
   rust-keylime = pkgs.callPackage ./pkgs/rust-keylime.nix { };
   mxc = pkgs.callPackage ./pkgs/mxc.nix { };
   cascade = pkgs.callPackage ./pkgs/cascade.nix { };
+  cascade-hsm-bridge = pkgs.callPackage ./pkgs/cascade-hsm-bridge.nix { };
   sbuild = pkgs.callPackage ./pkgs/sbuild.nix { };
   rsbinder-tools = pkgs.callPackage ./pkgs/rsbinder-tools.nix { };
   run0-wrappers = pkgs.callPackage ./pkgs/run0-wrappers.nix { };
