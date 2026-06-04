@@ -3,7 +3,7 @@
   ...
 }:
 rec {
-  nixosModules = import ./modules;
+  nixosModules = import ./modules/nixos;
 
   keylime = pkgs.callPackage ./pkgs/keylime { };
   rust-keylime = pkgs.callPackage ./pkgs/rust-keylime { };

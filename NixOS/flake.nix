@@ -69,6 +69,6 @@
       hydraJobs = {
         inherit (self.packages) "x86_64-linux";
       };
-      nixosModules = import ./modules;
+      nixosModules = import ./modules/nixos;
     };
 }
