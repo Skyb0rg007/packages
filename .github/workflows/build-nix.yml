@@ -1,5 +1,8 @@
 on:
   workflow_dispatch: ~
+  schedule:
+    # 7:25 on Sundays
+    - cron: '25 7 * * 0'
   push:
     paths:
       - 'NixOS/**.nix'
@@ -22,29 +25,10 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Build packages
         run: |
-          # These shouldn't trigger an action failure
-          nix build --print-build-logs ./NixOS#anemoi       || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#ascsaver     || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#browsertrix-crawler || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#cdash        || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#porkbun-ddns || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#reddio       || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#romm         || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#sbuild       || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#tmux-notify  || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#bencher      || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#rsbinder     || echo "ERROR!"
-
-          # These should
-          nix build --print-build-logs ./NixOS#ambient-ci
-          nix build --print-build-logs ./NixOS#barry
-          nix build --print-build-logs ./NixOS#radicle-ci-ambient
-          nix build --print-build-logs ./NixOS#subplot
-          nix build --print-build-logs ./NixOS#vmdb2
-
-          # Linux exclusive
-          nix build --print-build-logs ./NixOS#keylime      || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#rust-keylime || echo "ERROR!"
+          nix-build ci.nix -A cacheOutputs
+      # TODO: Add to NUR
+      # - name: Trigger NUR update
+      #   run: curl -X POST "https://nur-update.nix-community.org/update?repo=skyenet"
   build-nix-macos:
     runs-on: macos-latest
     steps:
@@ -61,23 +45,4 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Build packages
         run: |
-          # These shouldn't trigger an action failure
-          nix build --print-build-logs ./NixOS#anemoi       || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#ascsaver     || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#browsertrix-crawler || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#cdash        || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#porkbun-ddns || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#reddio       || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#romm         || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#sbuild       || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#tmux-notify  || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#bencher      || echo "ERROR!"
-          nix build --print-build-logs ./NixOS#rsbinder     || echo "ERROR!"
-
-          # These should
-          nix build --print-build-logs ./NixOS#ambient-ci
-          nix build --print-build-logs ./NixOS#barry
-          nix build --print-build-logs ./NixOS#radicle-ci-ambient
-          nix build --print-build-logs ./NixOS#subplot
-          nix build --print-build-logs ./NixOS#vmdb2
-
+          nix-build ci.nix -A cacheOutputs
