@@ -68,6 +68,7 @@
         tubearchivist = ./modules/tubearchivist.nix;
         debspawn = ./modules/debspawn.nix;
         keylime = ./modules/keylime.nix;
+        cascade = ./modules/cascade.nix;
       };
     };
 }
