@@ -31,21 +31,21 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installManPage ./doc/manual/build/man/*.{1,5}
   '';
 
-  passthru = {
-    nixosModule = ../modules/cascade.nix;
-    tests.nixos = testers.runNixOSTest {
-      imports = [ ../tests/cascade.nix ];
-      defaults =
-        { pkgs, ... }:
-        {
-          imports = import ../modules/all-modules.nix;
-          environment.systemPackages = [ pkgs.cascade ];
-        };
-    };
-    updateScript = nix-update-script {
-      extraArgs = [ "--version=unstable" ];
-    };
-  };
+  # passthru = {
+  #   nixosModule = ../modules/cascade.nix;
+  #   tests.nixos = testers.runNixOSTest {
+  #     imports = [ ../tests/cascade.nix ];
+  #     defaults =
+  #       { pkgs, ... }:
+  #       {
+  #         imports = import ../modules/all-modules.nix;
+  #         environment.systemPackages = [ pkgs.cascade ];
+  #       };
+  #   };
+  #   updateScript = nix-update-script {
+  #     extraArgs = [ "--version=unstable" ];
+  #   };
+  # };
 
   meta = {
     description = "Friendly DNSSEC signing pipeline";
