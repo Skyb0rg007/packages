@@ -4,6 +4,7 @@
   fetchFromGitHub,
   openssl,
   pkg-config,
+  installShellFiles,
   nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -17,10 +18,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-i3eKuiZj6fVUxTLLVI75BG+rwh35pjiqPJHelS65ueU=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  cargoHash = "sha256-0Vpa4C5dNZMLAuOffenK4F9cFaFdRlAsqaDu4oeRScs=";
+
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ];
   buildInputs = [ openssl ];
 
-  cargoHash = "sha256-0Vpa4C5dNZMLAuOffenK4F9cFaFdRlAsqaDu4oeRScs=";
+  postInstall = ''
+    installManPage ./doc/manual/build/man/*.{1,5}
+  '';
 
   passthru.updateScript = nix-update-script {
     extraArgs = [ "--version=unstable" ];
