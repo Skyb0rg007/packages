@@ -3,9 +3,7 @@
   ...
 }:
 rec {
-  example-test = pkgs.testers.runNixOSTest {
-    imports = [ ./tests/example.nix ];
-  };
+  nixosModules = import ./modules;
 
   keylime = pkgs.callPackage ./pkgs/keylime { };
   rust-keylime = pkgs.callPackage ./pkgs/rust-keylime { };

@@ -64,11 +64,6 @@
       hydraJobs = {
         inherit (self.packages) "x86_64-linux";
       };
-      nixosModules = {
-        tubearchivist = ./modules/tubearchivist.nix;
-        debspawn = ./modules/debspawn.nix;
-        keylime = ./modules/keylime.nix;
-        cascade = ./modules/cascade.nix;
-      };
+      nixosModules = import ./modules;
     };
 }
