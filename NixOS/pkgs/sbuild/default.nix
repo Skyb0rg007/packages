@@ -11,6 +11,8 @@
   perlPackages,
   stdenv,
   system-sendmail,
+  man-db,
+  testers,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "sbuild";
@@ -35,13 +37,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteInPlace bin/* tools/* \
-      --replace /usr/bin/perl ${lib.getExe perl}
+      --replace-quiet /usr/bin/perl ${lib.getExe perl}
     substituteInPlace lib/Buildd.pm \
       --replace-fail /bin/hostname ${lib.getExe hostname}
     substituteInPlace bin/check-old-builds \
       --replace-fail /usr/sbin/sendmail ${lib.getExe system-sendmail}
     substituteInPlace etc/Makefile.am man/Makefile.am \
       --replace-fail PERL5LIB= 'PERL5LIB=$(PERL5LIB):'
+    substituteInPlace lib/Sbuild.pm \
+      --replace-fail "system('man', '--', \$section, \$page);" \
+        "system('${lib.getExe man-db}', \"$out/share/man/man\$section/\$page.\$section.gz\");"
   '';
 
   postInstall = ''
@@ -67,6 +72,11 @@ stdenv.mkDerivation (finalAttrs: {
         --prefix PATH : ${dpkg}/bin:${apt}/bin --prefix PERL5LIB : "$perlPath"
     done
   '';
+
+  passthru.tests.version = testers.testVersion {
+    package = finalAttrs.finalPackage;
+    version = builtins.replaceStrings [ "_" ] [ "~" ] finalAttrs.version;
+  };
 
   meta = {
     description = "Tool for building Debian binary packages from Debian sources";
