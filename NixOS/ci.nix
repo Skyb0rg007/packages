@@ -11,6 +11,7 @@
 
 {
   pkgs ? import <nixpkgs> { },
+  lib ? pkgs.lib,
 }:
 
 let
@@ -29,7 +30,9 @@ let
       licenseFromMeta = p.meta.license or [ ];
       licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [ licenseFromMeta ];
     in
-    !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
+    !(p.meta.broken or false)
+    && builtins.all (license: license.free or true) licenseList
+    && lib.meta.availableOn pkgs.stdenv.hostPlatform p;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: builtins.isAttrs p && p.recurseForDerivations or false;
 
