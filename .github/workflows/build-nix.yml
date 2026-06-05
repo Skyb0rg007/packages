@@ -25,7 +25,7 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Build packages
         run: |
-          nix-build ci.nix -A cacheOutputs
+          nix-build ./NixOS/ci.nix -A cacheOutputs
       # TODO: Add to NUR
       # - name: Trigger NUR update
       #   run: curl -X POST "https://nur-update.nix-community.org/update?repo=skyenet"
@@ -45,4 +45,4 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Build packages
         run: |
-          nix-build ci.nix -A cacheOutputs
+          nix-build ./NixOS/ci.nix -A cacheOutputs
