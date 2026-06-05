@@ -4,11 +4,12 @@
   stdenv,
   fetchFromRadicle,
   installShellFiles,
+  testers,
 }:
 let
   python = python3.withPackages (ps: [ ps.pyaml ]);
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ambient-build-vm";
   version = "0.1.0-550381a";
 
@@ -34,13 +35,18 @@ stdenv.mkDerivation {
       --replace-fail "/usr/share" "$out/share"
 
     installBin ambient-build-vm
-    install -D --mode=755 \
+    install -D --mode=644 \
       --target-directory="$out/share/doc/ambient-build-vm" \
       README.md
-    install -D --mode=755 \
+    install -D --mode=644 \
       --target-directory="$out/share/ambient-build-vm" \
       ambient.service base.vmdb playbook.yml
   '';
+
+  passthru.tests.version = testers.testVersion {
+    package = finalAttrs.finalPackage;
+    version = "0.1.0";
+  };
 
   meta = {
     description = "Build VM images for Ambient CI";
@@ -51,6 +57,7 @@ stdenv.mkDerivation {
     mainProgram = "ambient-build-vm";
     homepage = "https://ambient.liw.fi/";
     license = lib.licenses.gpl3Plus;
+    platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.skyesoss ];
   };
-}
+})
