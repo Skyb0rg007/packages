@@ -1,4 +1,5 @@
 {
+  lib,
   mlkit,
   fetchFromGitHub,
 }:
@@ -12,6 +13,12 @@ mlkit.overrideAttrs (prevAttrs: {
   };
 
   meta = prevAttrs.meta // {
+    platforms = [
+      "aarch64-darwin"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "x86_64-linux"
+    ];
     timeout = 7200; # 2 hours
   };
 })

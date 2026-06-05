@@ -60,6 +60,8 @@ buildPythonPackage (finalAttrs: {
     description = "Anemoi is a least privilege dynamic DNS server";
     homepage = "https://github.com/dayt0n/anemoi";
     license = lib.licenses.bsd3;
+    platforms = lib.platforms.unix;
+    badPlatforms = lib.platforms.freebsd;
     mainProgram = "anemoi";
     maintainers = [ lib.maintainers.skyesoss ];
   };

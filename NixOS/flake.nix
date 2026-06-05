@@ -18,8 +18,15 @@
     }:
     let
       inherit (nixpkgs) lib;
-      systems = lib.systems.flakeExposed;
-      forAllSystems = lib.genAttrs systems;
+      allSystems = lib.systems.flakeExposed;
+      defaultSystems = [
+        "x86_64-linux"
+        "x86_64-darwin"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+      forAllSystems = lib.genAttrs allSystems;
+      forDefaultSystems = lib.genAttrs defaultSystems;
       pkgsFor = forAllSystems (
         system:
         import nixpkgs {
@@ -29,7 +36,7 @@
       );
     in
     {
-      checks = forAllSystems (system: {
+      checks = forDefaultSystems (system: {
         pre-commit-check = git-hooks.lib.${system}.run {
           src = ./.;
           hooks = {
@@ -38,7 +45,7 @@
           };
         };
       });
-      devShells = forAllSystems (
+      devShells = forDefaultSystems (
         system:
         let
           pkgs = pkgsFor.${system};
@@ -56,7 +63,7 @@
           };
         }
       );
-      formatter = forAllSystems (system: pkgsFor.${system}.nixfmt-tree);
+      formatter = forDefaultSystems (system: pkgsFor.${system}.nixfmt-tree);
       legacyPackages = forAllSystems (
         system:
         import ./default.nix {
@@ -64,7 +71,13 @@
         }
       );
       packages = forAllSystems (
-        system: lib.filterAttrs (_: v: lib.isDerivation v) self.legacyPackages.${system}
+        system:
+        let
+          hostPlatform = pkgsFor.${system}.stdenv.hostPlatform;
+          isBuildable =
+            v: lib.isDerivation v && !(v.meta.broken or false) && lib.meta.availableOn hostPlatform v;
+        in
+        lib.filterAttrs (_: isBuildable) self.legacyPackages.${system}
       );
       hydraJobs = {
         inherit (self.packages) "x86_64-linux";

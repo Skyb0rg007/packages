@@ -45,6 +45,7 @@ buildGoModule (finalAttrs: {
     mainProgram = "image-builder";
     homepage = "https://osbuild.org";
     license = lib.licenses.asl20;
+    platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.skyesoss ];
   };
 })

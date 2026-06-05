@@ -96,7 +96,12 @@ stdenv.mkDerivation rec {
     homepage = "https://elsman.com/mlkit/";
     changelog = "https://github.com/melsman/mlkit/blob/v${version}/NEWS.md";
     license = lib.licenses.gpl2Plus;
-    platforms = lib.platforms.unix;
+    platforms = [
+      "aarch64-darwin"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "x86_64-linux"
+    ];
     mainProgram = "smltojs";
     timeout = 7200; # 2 hours
     maintainers = [ lib.maintainers.skyesoss ];

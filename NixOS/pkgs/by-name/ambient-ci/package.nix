@@ -61,6 +61,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     '';
     mainProgram = "ambient";
     homepage = "https://ambient.liw.fi/";
+    platforms = lib.platforms.unix;
+    badPlatforms = lib.platforms.freebsd;
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.skyesoss ];
   };

@@ -138,6 +138,7 @@ stdenv.mkDerivation (finalAttrs: {
       lib.licenses.agpl3Plus
       lib.licenses.unfree
     ];
+    platforms = [ "x86_64-linux" ];
     mainProgram = "browsertrix-crawl";
     maintainers = [ lib.maintainers.skyesoss ];
   };

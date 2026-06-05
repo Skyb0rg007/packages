@@ -14,14 +14,19 @@ let
   # These override nixpkgs
   # XXX: Give mlkit, etc. different names from nixpkgs
   mlkit = callPackage ./pkgs/mlkit/default.nix { };
-  barry = callPackage ./pkgs/barry/default.nix { inherit mlkit; };
-  smltojs = callPackage ./pkgs/smltojs/default.nix { inherit mlkit; };
+  barry = callPackage ./pkgs/barry/default.nix { };
+  smltojs = callPackage ./pkgs/smltojs/default.nix { };
   brush = callPackage ./pkgs/brush/default.nix { };
 
-  packages = lib.filesystem.packagesFromDirectoryRecursive {
-    inherit callPackage;
-    directory = ./pkgs/by-name;
-  };
+  packages =
+    lib.filesystem.packagesFromDirectoryRecursive {
+      inherit callPackage;
+      directory = ./pkgs/by-name;
+    }
+    // lib.filesystem.packagesFromDirectoryRecursive {
+      callPackage = callPython3Package;
+      directory = ./pkgs/python-packages;
+    };
 in
 {
   inherit
@@ -33,7 +38,3 @@ in
     ;
 }
 // packages
-// lib.filesystem.packagesFromDirectoryRecursive {
-  callPackage = callPython3Package;
-  directory = ./pkgs/python-packages;
-}

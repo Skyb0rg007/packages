@@ -51,9 +51,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     for h in syscall.h sys/syscall.h asm/unistd.h asm/unistd_32.h asm/unistd_64.h bits/wordsize.h bits/syscall.h; do
-      ${lib.getExe' perl "h2ph"} -d . ${stdenv.cc.libc.dev}/include/$h
+      ${lib.getExe' perl "h2ph"} -d . ${lib.getDev stdenv.cc.libc}/include/$h
       mkdir -p $out/share/perl5/$(dirname $h)
-      mv .${stdenv.cc.libc.dev}/include/''${h%.h}.ph $out/share/perl5/$(dirname $h)
+      mv .${lib.getDev stdenv.cc.libc}/include/''${h%.h}.ph $out/share/perl5/$(dirname $h)
     done
     mv *.ph $out/share/perl5
     perlPath="$out/share/perl5:${
@@ -82,6 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tool for building Debian binary packages from Debian sources";
     homepage = "https://salsa.debian.org/debian/sbuild";
     license = lib.licenses.gpl2Plus;
+    platforms = lib.platforms.linux;
     mainProgram = "sbuild";
     maintainers = [ lib.maintainers.skyesoss ];
   };
