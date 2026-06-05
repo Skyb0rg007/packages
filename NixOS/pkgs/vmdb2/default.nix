@@ -1,26 +1,33 @@
 {
   lib,
+  buildPythonApplication,
   fetchFromRadicle,
-  stdenv,
-  python3Packages,
+  setuptools,
+  jinja2,
+  pyaml,
+  testers,
 }:
-python3Packages.buildPythonApplication (finalAttrs: {
+buildPythonApplication (finalAttrs: {
   pname = "vmdb2";
   version = "0.41";
   pyproject = true;
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [ setuptools ];
   dependencies = [
-    python3Packages.jinja2
-    python3Packages.pyaml
+    jinja2
+    pyaml
   ];
 
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";
-    repo = "z2kxCtBwDQMPcaf9vGTNH5nYkp9qk";
-    node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV";
+    repo = "z2kxCtBwDQMPcaf9vGTNH5nYkp9qk"; # vmdb2
+    node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV"; # liw
     tag = "vmdb2-${finalAttrs.version}";
     hash = "sha256-XHcOKsKEIxHzm66iVfK0QoVYqIo79Je1Kq/tqyzdWEE=";
+  };
+
+  passthru.tests.version = testers.testVersion {
+    package = finalAttrs.finalPackage;
   };
 
   meta = {

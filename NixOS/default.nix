@@ -21,7 +21,7 @@ rec {
   ambient-ci = pkgs.callPackage ./pkgs/ambient-ci { };
   radicle-ci-ambient = pkgs.callPackage ./pkgs/radicle-ci-ambient { };
   subplot = pkgs.callPackage ./pkgs/subplot { };
-  vmdb2 = pkgs.callPackage ./pkgs/vmdb2 { };
+  vmdb2 = pkgs.python3Packages.callPackage ./pkgs/vmdb2 { };
 
   anemoi = pkgs.python3Packages.callPackage ./pkgs/anemoi { };
   ascsaver = pkgs.callPackage ./pkgs/ascsaver { };
