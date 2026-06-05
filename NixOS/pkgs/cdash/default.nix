@@ -84,6 +84,8 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://www.cdash.org";
     changelog = "https://github.com/Kitware/CDash/releases";
     mainProgram = "artisan";
+    # Needs modification
+    broken = true;
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.skyesoss ];
   };
