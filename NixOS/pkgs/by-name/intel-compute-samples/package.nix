@@ -113,6 +113,7 @@ stdenv.mkDerivation {
     description = "Sample applications for Intel Compute APIs (OpenCL, Level Zero)";
     homepage = "https://github.com/intel/compute-samples";
     license = lib.licenses.mit;
+    broken = true;
     maintainers = [ lib.maintainers.skyesoss ];
   };
 }
