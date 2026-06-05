@@ -52,6 +52,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "cascade";
     homepage = "https://blog.nlnetlabs.nl/cascade/";
     license = lib.licenses.bsd3;
-    maintainer = [ lib.maintainers.skyesoss ];
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

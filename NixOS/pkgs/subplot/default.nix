@@ -51,5 +51,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "subplot";
     homepage = "https://subplot.tech/";
     license = lib.licenses.mit0;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

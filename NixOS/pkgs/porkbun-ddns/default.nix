@@ -41,5 +41,6 @@ buildPythonApplication {
     homepage = "https://github.com/mietzen/porkbun-ddns";
     license = lib.licenses.mit;
     mainProgram = "porkbun-ddns";
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 }

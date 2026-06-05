@@ -42,5 +42,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/hiking90/rsbinder";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

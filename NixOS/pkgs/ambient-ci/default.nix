@@ -53,5 +53,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "ambient";
     homepage = "https://ambient.liw.fi/";
     license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

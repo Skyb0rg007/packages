@@ -47,5 +47,6 @@ buildGoModule (finalAttrs: {
     '';
     homepage = "https://quic-go.net";
     license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

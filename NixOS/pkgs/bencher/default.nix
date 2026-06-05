@@ -73,5 +73,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       lib.licenses.asl20
       lib.licenses.mit
     ];
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

@@ -96,5 +96,6 @@ pkgs.stdenv.mkDerivation {
     homepage = "https://tubearchivist.com";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 }

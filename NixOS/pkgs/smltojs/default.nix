@@ -99,5 +99,6 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     mainProgram = "smltojs";
     timeout = 7200; # 2 hours
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 }

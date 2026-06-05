@@ -135,5 +135,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://crawler.docs.browsertrix.com";
     license = lib.licenses.agpl3Plus;
     mainProgram = "browsertrix-crawl";
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

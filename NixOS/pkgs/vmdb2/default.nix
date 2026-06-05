@@ -31,5 +31,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     mainProgram = "vmdb2";
     homepage = "https://vmdb2.liw.fi/";
     license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

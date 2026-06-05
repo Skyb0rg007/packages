@@ -73,5 +73,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://salsa.debian.org/debian/sbuild";
     license = lib.licenses.gpl2Plus;
     mainProgram = "sbuild";
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

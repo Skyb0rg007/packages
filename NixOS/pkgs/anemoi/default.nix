@@ -61,5 +61,6 @@ buildPythonPackage (finalAttrs: {
     homepage = "https://github.com/dayt0n/anemoi";
     license = lib.licenses.bsd3;
     mainProgram = "anemoi";
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })
