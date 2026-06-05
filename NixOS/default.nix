@@ -31,7 +31,7 @@ rec {
   bencher = pkgs.callPackage ./pkgs/bencher { };
   browsertrix-crawler = pkgs.callPackage ./pkgs/browsertrix-crawler { };
   cdash = pkgs.callPackage ./pkgs/cdash { };
-  porkbun-ddns = pkgs.callPackage ./pkgs/porkbun-ddns { };
+  porkbun-ddns = pkgs.python3Packages.callPackage ./pkgs/porkbun-ddns { };
   reddio = pkgs.callPackage ./pkgs/reddio { };
   tmux-notify = pkgs.callPackage ./pkgs/tmux-notify { };
   tubearchivist = pkgs.callPackage ./pkgs/tubearchivist { };

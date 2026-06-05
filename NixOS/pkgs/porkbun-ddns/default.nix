@@ -2,13 +2,16 @@
   lib,
   pkgs,
   fetchFromGitHub,
-  python3Packages,
+  buildPythonApplication,
   nix-update-script,
+  setuptools,
+  xdg-base-dirs,
+  pytestCheckHook,
 }:
 let
   version = "1.1.26";
 in
-python3Packages.buildPythonApplication {
+buildPythonApplication {
   pname = "porkbun-ddns";
   inherit version;
   pyproject = true;
@@ -20,9 +23,9 @@ python3Packages.buildPythonApplication {
     hash = "sha256-MBqblkT3hDRqInESuvnEZQqgrVe5e4Eq9uemE0f4SYc=";
   };
 
-  build-system = [ python3Packages.setuptools ];
-  dependencies = [ python3Packages.xdg-base-dirs ];
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  build-system = [ setuptools ];
+  dependencies = [ xdg-base-dirs ];
+  nativeCheckInputs = [ pytestCheckHook ];
   enabledTestPaths = [ "porkbun_ddns/test" ];
 
   passthru.updateScript = nix-update-script { };
