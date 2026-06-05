@@ -2,10 +2,11 @@
   lib,
   stdenv,
   fetchFromGitLab,
+  testers,
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ascsaver";
-  version = "0.0.0-cba337b5";
+  version = "1.0.8.11";
 
   src = fetchFromGitLab {
     owner = "mezantrop";
@@ -15,4 +16,17 @@ stdenv.mkDerivation {
   };
 
   makeFlags = [ "PREFIX=$(out)" ];
-}
+
+  passthru.tests.version = testers.testVersion {
+    package = finalAttrs.finalPackage;
+    version = "v${finalAttrs.version}";
+    command = "ascsaver";
+  };
+
+  meta = {
+    description = "Screensaver for terminals";
+    homepage = "https://gitlab.com/mezantrop/ascsaver";
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.skyesoss ];
+  };
+})
