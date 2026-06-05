@@ -1,22 +1,25 @@
 {
-  pkgs,
   lib,
-  config,
-  ...
+  fetchFromGitHub,
+  buildNpmPackage,
+  nodejs,
+  python3,
+  stdenv,
+  makeWrapper,
 }:
 let
   version = "0.5.7";
-  source = pkgs.fetchFromGitHub {
+  source = fetchFromGitHub {
     owner = "tubearchivist";
     repo = "tubearchivist";
     rev = "v${version}";
     hash = "sha256-fmsRzR5GRA5pEBHuRwiysvIieTOaQYhEYJjg7l5jm2c=";
   };
 
-  frontend = pkgs.buildNpmPackage {
+  frontend = buildNpmPackage {
     pname = "tubearchivist-frontend";
     inherit version;
-    buildInputs = [ pkgs.nodejs ];
+    buildInputs = [ nodejs ];
     src = "${source}/frontend";
     npmDepsHash = "sha256-tyTg8wsNyWs54OqW2mbnXlrnBi8BGfG0Ja2+JD1c5ds=";
     npmBuildScript = "build:deploy";
@@ -26,7 +29,7 @@ let
     '';
   };
 
-  python = pkgs.python3.override {
+  python = python3.override {
     self = python;
     packageOverrides = final: prev: {
       django = prev.django_5;
@@ -51,12 +54,12 @@ let
     ps.yt-dlp
   ]);
 in
-pkgs.stdenv.mkDerivation {
+stdenv.mkDerivation {
   pname = "tubearchivist";
   inherit version;
   src = source;
 
-  nativeBuildInputs = [ pkgs.makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
   patchPhase = "";
 
