@@ -123,7 +123,7 @@ jobs:
           Debian/scripts/generate-indices.sh Debian/repo
       - name: Upload repository as artifact
         id: apt_repo_deployment
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: Debian/repo
 
