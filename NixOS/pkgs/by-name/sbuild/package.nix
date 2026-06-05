@@ -12,6 +12,7 @@
   stdenv,
   system-sendmail,
   man-db,
+  shadow,
   testers,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -47,10 +48,17 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace lib/Sbuild.pm \
       --replace-fail "system('man', '--', \$section, \$page);" \
         "system('${lib.getExe man-db}', \"$out/share/man/man\$section/\$page.\$section.gz\");"
+    substituteInPlace lib/Sbuild/ChrootUnshare.pm \
+      --replace-fail '/usr/libexec' "$out/libexec" \
+      --replace-fail '/usr/sbin/groupadd' '${lib.getExe' shadow "groupadd"}'
   '';
 
   postInstall = ''
-    for h in syscall.h sys/syscall.h asm/unistd.h asm/unistd_32.h asm/unistd_64.h bits/wordsize.h bits/syscall.h; do
+    for h in syscall.h sys/syscall.h sys/ioctl.h sys/ttydefaults.h sys/cdefs.h \
+        asm/unistd.h asm/unistd_32.h asm/unistd_64.h bits/wordsize.h \
+        bits/syscall.h features.h features-time64.h bits/timesize.h \
+        stdc-predef.h gnu/stubs.h gnu/stubs-64.h bits/long-double.h \
+        bits/ioctls.h asm/ioctls.h asm-generic/ioctls.h; do
       ${lib.getExe' perl "h2ph"} -d . ${lib.getDev stdenv.cc.libc}/include/$h
       mkdir -p $out/share/perl5/$(dirname $h)
       mv .${lib.getDev stdenv.cc.libc}/include/''${h%.h}.ph $out/share/perl5/$(dirname $h)
@@ -83,6 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://salsa.debian.org/debian/sbuild";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
+    badPlatforms = [ "aarch64-linux" ];
     mainProgram = "sbuild";
     maintainers = [ lib.maintainers.skyesoss ];
   };
