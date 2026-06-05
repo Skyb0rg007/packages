@@ -8,6 +8,7 @@
   fontconfig,
   freetype,
   nix-update-script,
+  testers,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bencher";
@@ -30,7 +31,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildNoDefaultFeatures = true;
   checkNoDefaultFeatures = finalAttrs.buildNoDefaultFeatures;
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+    };
+  };
 
   postPatch = ''
     # Replaces the proprietary Rust files with empty files
