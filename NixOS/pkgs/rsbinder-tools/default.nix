@@ -2,6 +2,7 @@
   fetchFromGitHub,
   lib,
   rustPlatform,
+  testers,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rsbinder-tools";
@@ -27,6 +28,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=tests::process_state"
     "--skip=thread_state::tests::test_process_pending_derefs_handles_reentrant_push_from_drop"
   ];
+
+  passthru.tests.rsb_hub-version = testers.testVersion {
+    package = finalAttrs.finalPackage;
+    command = "rsb_hub --version";
+  };
+  passthru.tests.rsb_device-version = testers.testVersion {
+    package = finalAttrs.finalPackage;
+    command = "rsb_device --version";
+  };
 
   meta = {
     description = "CLI tools for Binder IPC on Linux";
