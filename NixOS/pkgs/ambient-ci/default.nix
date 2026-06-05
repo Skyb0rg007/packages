@@ -7,6 +7,7 @@
   rustPlatform,
   stdenv,
   nix-update-script,
+  testers,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
@@ -29,6 +30,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   patchPhase = ''
     runHook prePatch
 
+    substituteInPlace build.rs \
+      --replace-fail 'VERSION={}@{hash}' 'VERSION={}'
+
     substituteInPlace src/config.rs \
       --replace-fail /usr/bin/kvm "${lib.getExe' qemu "qemu-kvm"}" \
       --replace-fail "executor: None" "executor: Some(TildePathBuf::new(\"$out/bin/ambient-execute-plan\".into()))"
@@ -37,10 +41,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   postInstall = ''
-    installManPage ambient.1
+    installManPage *.1
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+    };
+  };
 
   meta = {
     description = "Ambient continuous integration engine";
