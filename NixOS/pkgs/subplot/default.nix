@@ -6,6 +6,7 @@
   makeWrapper,
   plantuml,
   rustPlatform,
+  testers,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "subplot";
@@ -38,6 +39,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --set-default SUBPLOT_JAVA_PATH "$SUBPLOT_JAVA_PATH" \
       --set-default SUBPLOT_DOT_PATH "$SUBPLOT_DOT_PATH"
   '';
+
+  passthru.tests.version = testers.testVersion {
+    package = finalAttrs.finalPackage;
+  };
 
   meta = {
     description = "Automated tool for acceptance testing";
