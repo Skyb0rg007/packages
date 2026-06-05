@@ -1,38 +1,51 @@
 {
   pkgs ? import <nixpkgs> { config.allowUnfree = true; },
+  lib ? pkgs.lib,
   ...
 }:
-rec {
+let
   nixosModules = import ./modules/nixos;
+  nixosTests = import ./tests/all-tests.nix {
+    inherit pkgs;
+    modules = nixosModules;
+    packages = { inherit cascade; };
+  };
+  callPackage = lib.callPackageWith (pkgs // { inherit nixosTests; });
+  callPython3Package = lib.callPackageWith (pkgs // pkgs.python3Packages // { inherit nixosTests; });
+  mlkit = callPackage ./pkgs/mlkit { };
+  cascade = callPackage ./pkgs/cascade { };
+in
+{
+  inherit nixosModules;
 
-  keylime = pkgs.callPackage ./pkgs/keylime { };
-  rust-keylime = pkgs.callPackage ./pkgs/rust-keylime { };
-  mxc = pkgs.callPackage ./pkgs/mxc { };
-  cascade = pkgs.callPackage ./pkgs/cascade { };
-  cascade-hsm-bridge = pkgs.callPackage ./pkgs/cascade-hsm-bridge { };
-  sbuild = pkgs.callPackage ./pkgs/sbuild { };
-  rsbinder-tools = pkgs.callPackage ./pkgs/rsbinder-tools { };
-  run0-wrappers = pkgs.callPackage ./pkgs/run0-wrappers { };
-  masque-go = pkgs.callPackage ./pkgs/masque-go { };
-  image-builder = pkgs.callPackage ./pkgs/image-builder { };
+  keylime = callPackage ./pkgs/keylime { };
+  rust-keylime = callPackage ./pkgs/rust-keylime { };
+  mxc = callPackage ./pkgs/mxc { };
+  inherit cascade;
+  cascade-hsm-bridge = callPackage ./pkgs/cascade-hsm-bridge { };
+  sbuild = callPackage ./pkgs/sbuild { };
+  rsbinder-tools = callPackage ./pkgs/rsbinder-tools { };
+  run0-wrappers = callPackage ./pkgs/run0-wrappers { };
+  masque-go = callPackage ./pkgs/masque-go { };
+  image-builder = callPackage ./pkgs/image-builder { };
 
   # Lars Wirzenius's Packages
-  ambient-build-vm = pkgs.callPackage ./pkgs/ambient-build-vm { };
-  ambient-ci = pkgs.callPackage ./pkgs/ambient-ci { };
-  radicle-ci-ambient = pkgs.callPackage ./pkgs/radicle-ci-ambient { };
-  subplot = pkgs.callPackage ./pkgs/subplot { };
-  vmdb2 = pkgs.python3Packages.callPackage ./pkgs/vmdb2 { };
+  ambient-build-vm = callPackage ./pkgs/ambient-build-vm { };
+  ambient-ci = callPackage ./pkgs/ambient-ci { };
+  radicle-ci-ambient = callPackage ./pkgs/radicle-ci-ambient { };
+  subplot = callPackage ./pkgs/subplot { };
+  vmdb2 = callPython3Package ./pkgs/vmdb2 { };
 
-  anemoi = pkgs.python3Packages.callPackage ./pkgs/anemoi { };
-  ascsaver = pkgs.callPackage ./pkgs/ascsaver { };
-  mlkit = pkgs.callPackage ./pkgs/mlkit { };
-  barry = pkgs.callPackage ./pkgs/barry { inherit mlkit; };
-  smltojs = pkgs.callPackage ./pkgs/smltojs { inherit mlkit; };
-  bencher = pkgs.callPackage ./pkgs/bencher { };
-  browsertrix-crawler = pkgs.callPackage ./pkgs/browsertrix-crawler { };
-  cdash = pkgs.callPackage ./pkgs/cdash { };
-  porkbun-ddns = pkgs.python3Packages.callPackage ./pkgs/porkbun-ddns { };
-  reddio = pkgs.callPackage ./pkgs/reddio { };
-  tmux-notify = pkgs.callPackage ./pkgs/tmux-notify { };
-  tubearchivist = pkgs.callPackage ./pkgs/tubearchivist { };
+  anemoi = callPython3Package ./pkgs/anemoi { };
+  ascsaver = callPackage ./pkgs/ascsaver { };
+  inherit mlkit;
+  barry = callPackage ./pkgs/barry { inherit mlkit; };
+  smltojs = callPackage ./pkgs/smltojs { inherit mlkit; };
+  bencher = callPackage ./pkgs/bencher { };
+  browsertrix-crawler = callPackage ./pkgs/browsertrix-crawler { };
+  cdash = callPackage ./pkgs/cdash { };
+  porkbun-ddns = callPython3Package ./pkgs/porkbun-ddns { };
+  reddio = callPackage ./pkgs/reddio { };
+  tmux-notify = callPackage ./pkgs/tmux-notify { };
+  tubearchivist = callPackage ./pkgs/tubearchivist { };
 }

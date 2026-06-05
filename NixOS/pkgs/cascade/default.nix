@@ -7,6 +7,7 @@
   installShellFiles,
   nix-update-script,
   testers,
+  nixosTests,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cascade";
@@ -35,8 +36,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     updateScript = nix-update-script {
       extraArgs = [ "--version=unstable" ];
     };
-    tests.version = testers.testVersion {
-      package = finalAttrs.finalPackage;
+    tests = {
+      version = testers.testVersion {
+        package = finalAttrs.finalPackage;
+      };
+      nixos = nixosTests.cascade;
     };
   };
 

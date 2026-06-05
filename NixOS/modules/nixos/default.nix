@@ -1,6 +1,6 @@
 {
-  cascade = ./cascade.nix;
-  debspawn = ./debspawn.nix;
-  keylime = ./keylime.nix;
-  tubearchivist = ./tubearchivist.nix;
+  cascade = ./cascade;
+  debspawn = ./debspawn;
+  keylime = ./keylime;
+  tubearchivist = ./tubearchivist;
 }
