@@ -1,0 +1,12 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Source: https://github.com/hellokaton/gorm-paginator
+
+Files:
+ *
+Copyright: 2018 王爵nice
+License: Expat
+
+Files:
+ debian/*
+Copyright: 2026 Skye Soss
+License: Expat
