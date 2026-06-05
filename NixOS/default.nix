@@ -14,8 +14,6 @@ let
   # These override nixpkgs
   # XXX: Give mlkit, etc. different names from nixpkgs
   mlkit = callPackage ./pkgs/mlkit/default.nix { };
-  barry = callPackage ./pkgs/barry/default.nix { };
-  smltojs = callPackage ./pkgs/smltojs/default.nix { };
   brush = callPackage ./pkgs/brush/default.nix { };
 
   packages =
@@ -32,8 +30,6 @@ in
   inherit
     nixosModules
     mlkit
-    barry
-    smltojs
     brush
     ;
 }
