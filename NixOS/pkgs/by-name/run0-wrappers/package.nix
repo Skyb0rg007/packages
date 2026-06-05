@@ -29,6 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Wrappers for systemd's run0 to replace sudo";
     homepage = "https://github.com/thkukuk/run0-wrappers";
     license = lib.licenses.bsd2;
+    platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.skyesoss ];
   };
 })

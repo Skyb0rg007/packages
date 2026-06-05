@@ -37,6 +37,7 @@ buildPythonApplication (finalAttrs: {
     '';
     mainProgram = "vmdb2";
     homepage = "https://vmdb2.liw.fi/";
+    platforms = lib.platforms.linux;
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.skyesoss ];
   };

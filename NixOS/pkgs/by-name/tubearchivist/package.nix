@@ -104,6 +104,7 @@ stdenv.mkDerivation {
       "x86_64-darwin"
       "aarch64-darwin"
     ];
+    badPlatforms = lib.platforms.darwin;
     maintainers = [ lib.maintainers.skyesoss ];
   };
 }

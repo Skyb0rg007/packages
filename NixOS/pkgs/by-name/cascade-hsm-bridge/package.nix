@@ -52,6 +52,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/NLnetLabs/cascade-hsm-bridge";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.skyesoss ];
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
   };
 })
