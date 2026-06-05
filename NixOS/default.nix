@@ -8,8 +8,10 @@ let
   nixosTests = import ./tests/all-tests.nix {
     inherit pkgs nixosModules packages;
   };
-  callPackage = lib.callPackageWith (pkgs // { inherit nixosTests; });
-  callPython3Package = lib.callPackageWith (pkgs // pkgs.python3Packages // { inherit nixosTests; });
+  callPackage = lib.callPackageWith (pkgs // packages // { inherit nixosTests; });
+  callPython3Package = lib.callPackageWith (
+    pkgs // pkgs.python3Packages // packages // { inherit nixosTests; }
+  );
 
   # These override nixpkgs
   # XXX: Give mlkit, etc. different names from nixpkgs

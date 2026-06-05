@@ -7,6 +7,7 @@
   hostname,
   lib,
   makeWrapper,
+  mmdebstrap,
   perl,
   perlPackages,
   stdenv,
@@ -51,19 +52,21 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace lib/Sbuild/ChrootUnshare.pm \
       --replace-fail '/usr/libexec' "$out/libexec" \
       --replace-fail '/usr/sbin/groupadd' '${lib.getExe' shadow "groupadd"}'
+    substituteInPlace lib/Sbuild/Conf.pm \
+      --replace-fail "DEFAULT => 'mmdebstrap'" "DEFAULT => '${lib.getExe mmdebstrap}'"
   '';
 
   postInstall = ''
-    for h in syscall.h sys/syscall.h sys/ioctl.h sys/ttydefaults.h sys/cdefs.h \
-        asm/unistd.h asm/unistd_32.h asm/unistd_64.h bits/wordsize.h \
-        bits/syscall.h features.h features-time64.h bits/timesize.h \
-        stdc-predef.h gnu/stubs.h gnu/stubs-64.h bits/long-double.h \
-        bits/ioctls.h asm/ioctls.h asm-generic/ioctls.h; do
-      ${lib.getExe' perl "h2ph"} -d . ${lib.getDev stdenv.cc.libc}/include/$h
-      mkdir -p $out/share/perl5/$(dirname $h)
-      mv .${lib.getDev stdenv.cc.libc}/include/''${h%.h}.ph $out/share/perl5/$(dirname $h)
+    pushd ${lib.getDev stdenv.cc.libc}/include
+    for h in $(cc -M syscall.h sys/ioctl.h 2>/dev/null \
+        | grep -oE '[^ \\]+\.h' \
+        | grep '^${lib.getDev stdenv.cc.libc}/include/' \
+        | sed 's|^${lib.getDev stdenv.cc.libc}/include/||' \
+        | sort -u); do
+      ${lib.getExe' perl "h2ph"} -d $out/share/perl5 "$h"
     done
-    mv *.ph $out/share/perl5
+    ${lib.getExe' perl "h2ph"} -d $out/share/perl5 syscall.h sys/ioctl.h
+    popd
     perlPath="$out/share/perl5:${
       perlPackages.makePerlPath [
         dpkg
