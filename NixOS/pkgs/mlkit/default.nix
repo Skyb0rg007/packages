@@ -21,6 +21,7 @@ mlkit.overrideAttrs (prevAttrs: {
     ];
     badPlatforms = [
       "aarch64-linux"
+      "aarch64-darwin"
     ];
     timeout = 7200; # 2 hours
   };
