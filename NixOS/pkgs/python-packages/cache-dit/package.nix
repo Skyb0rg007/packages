@@ -1,6 +1,6 @@
 {
   lib,
-  fetchPypi,
+  fetchFromGitHub,
   buildPythonPackage,
   setuptools,
   setuptools-scm,
@@ -13,13 +13,14 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "cache-dit";
-  version = "0.1.0";
+  version = "1.3.12";
   pyproject = true;
 
-  src = fetchPypi {
-    pname = "cache_dit";
-    inherit (finalAttrs) version;
-    hash = "sha256-cFRE8NllfjxJrhT0RFkA+g5YTOk3TvEsRdcJ9ewAB50=";
+  src = fetchFromGitHub {
+    owner = "vipshop";
+    repo = "cache-dit";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-hHHpsE1hKQL+0ALbA+yTyXaG10r5xFZdWGpjyJJRBkc=";
   };
 
   build-system = [
@@ -28,16 +29,16 @@ buildPythonPackage (finalAttrs: {
   ];
 
   dependencies = [
+    diffusers
     packaging
     pyyaml
     torch
-    diffusers
     transformers
   ];
 
   meta = {
     description = "Cache-DiT: Accelerating Diffusion Transformers with Dynamic Feature Caching";
-    homepage = "https://github.com/vlpshop/cache-dit";
+    homepage = "https://github.com/vipshop/cache-dit";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.skyesoss ];
     broken = lib.strings.versionAtLeast python.version "3.15"; # Broken on 3.15
