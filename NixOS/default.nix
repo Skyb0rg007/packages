@@ -28,19 +28,19 @@ let
     // {
       python3Packages = lib.filesystem.packagesFromDirectoryRecursive {
         callPackage = callPython3PackageWith "python3Packages";
-        directory = ./pkgs/python-packages;
+        directory = ./pkgs/python-modules;
       };
       python313Packages = lib.filesystem.packagesFromDirectoryRecursive {
         callPackage = callPython3PackageWith "python313Packages";
-        directory = ./pkgs/python-packages;
+        directory = ./pkgs/python-modules;
       };
       python314Packages = lib.filesystem.packagesFromDirectoryRecursive {
         callPackage = callPython3PackageWith "python314Packages";
-        directory = ./pkgs/python-packages;
+        directory = ./pkgs/python-modules;
       };
       python315Packages = lib.filesystem.packagesFromDirectoryRecursive {
         callPackage = callPython3PackageWith "python315Packages";
-        directory = ./pkgs/python-packages;
+        directory = ./pkgs/python-modules;
       };
     };
 in
