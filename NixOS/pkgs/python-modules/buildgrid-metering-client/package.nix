@@ -9,6 +9,7 @@
   pydantic,
   requests,
   tenacity,
+  python,
 }:
 
 buildPythonPackage (finalAttrs: {
@@ -40,5 +41,6 @@ buildPythonPackage (finalAttrs: {
     homepage = "https://gitlab.com/BuildGrid/buildgrid-metering-client";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.skyesoss ];
+    broken = lib.strings.versionAtLeast python.version "3.15";
   };
 })
