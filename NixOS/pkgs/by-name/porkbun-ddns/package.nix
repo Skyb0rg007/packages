@@ -2,29 +2,24 @@
   lib,
   pkgs,
   fetchFromGitHub,
-  buildPythonApplication,
+  python3,
   nix-update-script,
-  setuptools,
-  xdg-base-dirs,
   pytestCheckHook,
 }:
-let
-  version = "1.1.26";
-in
-buildPythonApplication {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "porkbun-ddns";
-  inherit version;
+  version = "1.1.26";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mietzen";
     repo = "porkbun-ddns";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-MBqblkT3hDRqInESuvnEZQqgrVe5e4Eq9uemE0f4SYc=";
   };
 
-  build-system = [ setuptools ];
-  dependencies = [ xdg-base-dirs ];
+  build-system = with python3.pkgs; [ setuptools ];
+  dependencies = with python3.pkgs; [ xdg-base-dirs ];
   nativeCheckInputs = [ pytestCheckHook ];
   enabledTestPaths = [ "porkbun_ddns/test" ];
 
@@ -43,4 +38,4 @@ buildPythonApplication {
     mainProgram = "porkbun-ddns";
     maintainers = [ lib.maintainers.skyesoss ];
   };
-}
+})
