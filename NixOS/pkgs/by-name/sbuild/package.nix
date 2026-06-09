@@ -5,6 +5,7 @@
   fetchFromGitLab,
   groff,
   hostname,
+  iproute2,
   lib,
   makeWrapper,
   mmdebstrap,
@@ -51,36 +52,41 @@ stdenv.mkDerivation (finalAttrs: {
         "system('${lib.getExe man-db}', \"$out/share/man/man\$section/\$page.\$section.gz\");"
     substituteInPlace lib/Sbuild/ChrootUnshare.pm \
       --replace-fail '/usr/libexec' "$out/libexec" \
-      --replace-fail '/usr/sbin/groupadd' '${lib.getExe' shadow "groupadd"}'
+      --replace-fail '/usr/sbin/groupadd' '${lib.getExe' shadow "groupadd"}' \
+      --replace-fail '/usr/sbin/useradd' '${lib.getExe' shadow "useradd"}'
     substituteInPlace lib/Sbuild/Conf.pm \
       --replace-fail "DEFAULT => 'mmdebstrap'" "DEFAULT => '${lib.getExe mmdebstrap}'"
   '';
 
   postInstall = ''
     pushd ${lib.getDev stdenv.cc.libc}/include
-    for h in $(cc -M syscall.h sys/ioctl.h 2>/dev/null \
-        | grep -oE '[^ \\]+\.h' \
-        | grep '^${lib.getDev stdenv.cc.libc}/include/' \
-        | sed 's|^${lib.getDev stdenv.cc.libc}/include/||' \
-        | sort -u); do
-      ${lib.getExe' perl "h2ph"} -d $out/share/perl5 "$h"
+    for h in syscall.h sys/ioctl.h $(cc -M syscall.h sys/ioctl.h | \
+        sed -n 's:^\s\+${lib.getDev stdenv.cc.libc}/include/\(\S\+\)\s*\\\?$:\1:p' | \
+        sort -u); do
+      h2ph -d $out/share/perl5 "$h"
     done
-    ${lib.getExe' perl "h2ph"} -d $out/share/perl5 syscall.h sys/ioctl.h
     popd
-    perlPath="$out/share/perl5:${
-      perlPackages.makePerlPath [
-        dpkg
-        perlPackages.ClassDataInheritable
-        perlPackages.DevelStackTrace
-        perlPackages.ExceptionClass
-        perlPackages.FilesysDf
-        perlPackages.MIMELite
-        perlPackages.YAMLTiny
-      ]
-    }"
-    for f in $out/bin/*; do
+    for f in $out/bin/* $out/libexec/*; do
       test -f $f && wrapProgram $f \
-        --prefix PATH : ${dpkg}/bin:${apt}/bin --prefix PERL5LIB : "$perlPath"
+        --prefix PERL5LIB : "$out/share/perl5:${
+          perlPackages.makePerlPath [
+            dpkg
+            perlPackages.ClassDataInheritable
+            perlPackages.DevelStackTrace
+            perlPackages.ExceptionClass
+            perlPackages.FilesysDf
+            perlPackages.MIMELite
+            perlPackages.YAMLTiny
+          ]
+        }" \
+        --prefix PATH : "/run/wrappers/bin:${
+          lib.makeBinPath [
+            apt
+            dpkg
+            hostname
+            iproute2
+          ]
+        }"
     done
   '';
 

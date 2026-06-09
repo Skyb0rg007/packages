@@ -9,6 +9,8 @@
   makeWrapper,
   dpkg,
   apt,
+  debian-archive-keyring,
+  help2man,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "mmdebstrap";
@@ -25,7 +27,9 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     installShellFiles
     perl
+    python3
     makeWrapper
+    help2man
   ];
 
   buildInputs = [
@@ -33,11 +37,36 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ];
 
+  postPatch = ''
+        python3 - << 'PYTHON'
+    with open('mmdebstrap') as f:
+        src = f.read()
+
+    old = '    print $conf "Dir \\"$options->{root}\\";\\n";\n'
+    add = (
+        '    print $conf "Dir::State \\"var/lib/apt\\";\\n";\n'
+        '    print $conf "Dir::Cache \\"var/cache/apt\\";\\n";\n'
+        '    print $conf "Dir::Etc \\"etc/apt\\";\\n";\n'
+        '    print $conf "Dir::Log \\"var/log/apt\\";\\n";\n'
+    )
+    assert old in src, repr(old) + ' not found in mmdebstrap source'
+    src = src.replace(old, old + add, 1)
+
+    with open('mmdebstrap', 'w') as f:
+        f.write(src)
+    PYTHON
+  '';
+
   buildPhase = ''
     runHook preBuild
 
+    mv tarfilter mmtarfilter
+    patchShebangs mmtarfilter
+
     pod2man mmdebstrap > mmdebstrap.1
     pod2man mmdebstrap-autopkgtest-build-qemu > mmdebstrap-autopkgtest-build-qemu.1
+    help2man --no-info --name "filter a tarball like dpkg does" \
+      --version-string="${finalAttrs.version}" ./mmtarfilter > ./mmtarfilter.1
 
     runHook postBuild
   '';
@@ -45,7 +74,6 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mv tarfilter mmtarfilter
     installBin mmdebstrap mmtarfilter mmdebstrap-autopkgtest-build-qemu
 
     mkdir -p $out/lib/apt/solvers
@@ -59,21 +87,24 @@ stdenv.mkDerivation (finalAttrs: {
     cp -a ldconfig.fakechroot $out/libexec/mmdebstrap
 
     mkdir -p $out/share/perl5
+
     pushd ${lib.getDev stdenv.cc.libc}/include
-    for h in $(cc -M syscall.h sys/ioctl.h 2>/dev/null \
-        | grep -oE '[^ \\]+\.h' \
-        | grep '^${lib.getDev stdenv.cc.libc}/include/' \
-        | sed 's|^${lib.getDev stdenv.cc.libc}/include/||' \
-        | sort -u); do
+    for h in syscall.h sys/ioctl.h $(cc -M syscall.h sys/ioctl.h | \
+        sed -n 's:^\s\+${lib.getDev stdenv.cc.libc}/include/\(\S\+\)\s*\\\?$:\1:p' | \
+        sort -u); do
       h2ph -d $out/share/perl5 "$h"
     done
-    h2ph -d $out/share/perl5 syscall.h sys/ioctl.h
     popd
 
     wrapProgram $out/bin/mmdebstrap \
-      --prefix PATH : "${lib.getBin dpkg}/bin:${lib.getBin apt}/bin" \
       --prefix PERL5LIB : "$out/share/perl5" \
-      --run 'export DPKG_ADMINDIR=$(mktemp -d); touch "$DPKG_ADMINDIR/status"'
+      --prefix PATH : "${
+        lib.makeBinPath [
+          apt
+          dpkg
+        ]
+      }" \
+      --run '_mm_tmp=$(mktemp -d); touch "$_mm_tmp/dpkg-status"; printf "Dir::State::Status \"%s/dpkg-status\";\nDir::Etc::TrustedParts \"${debian-archive-keyring}/etc/apt/trusted.gpg.d\";\n" "$_mm_tmp" > "$_mm_tmp/apt.conf"; export APT_CONFIG="$_mm_tmp/apt.conf"'
 
     wrapProgram $out/bin/mmdebstrap-autopkgtest-build-qemu \
       --prefix PATH : "${lib.getBin dpkg}/bin"
