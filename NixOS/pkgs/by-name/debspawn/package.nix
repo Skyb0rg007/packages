@@ -1,21 +1,17 @@
 {
   lib,
   fetchFromGitHub,
-  buildPythonPackage,
-  setuptools,
-  tomlkit,
+  python3,
   apt,
   dpkg,
   zstd,
   util-linux,
+  systemd,
   debootstrap,
-  pkgconfig,
-  python,
-  pkgs,
   nix-update-script,
   testers,
 }:
-buildPythonPackage (finalAttrs: {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "debspawn";
   version = "0.6.5";
   pyproject = true;
@@ -28,13 +24,14 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-cDc9xmZZd7cU72HqcNQI1ej6A1GSAmMJiRB6y9WTRoQ=";
   };
 
-  build-system = [
+  build-system = with python3.pkgs; [
     setuptools
     pkgconfig
   ];
 
-  dependencies = [ tomlkit ];
+  dependencies = with python3.pkgs; [ tomlkit ];
 
+  # systemd-nspawn keeps the PATH variable intact, which is a problem for Nix
   postPatch = ''
     substituteInPlace debspawn/dsrun \
       --replace-fail \
@@ -42,8 +39,9 @@ buildPythonPackage (finalAttrs: {
         "os.environ['SHELL'] = '/bin/sh'; os.environ['PATH'] = '/usr/sbin:/usr/bin:/sbin:/bin'"
   '';
 
+  # dsrun is mounted inside the container, so it must keep its shebang
   postFixup = ''
-    sed -i '1s|.*|#!/usr/bin/python3|' $out/${python.sitePackages}/debspawn/dsrun
+    sed -i '1s|.*|#!/usr/bin/python3|' $out/${python3.sitePackages}/debspawn/dsrun
   '';
 
   makeWrapperArgs = [
@@ -51,11 +49,11 @@ buildPythonPackage (finalAttrs: {
     "PATH"
     ":"
     (lib.makeBinPath [
-      pkgs.dpkg
-      pkgs.debootstrap
-      pkgs.util-linux # findmnt
-      pkgs.zstd
-      pkgs.systemd # systemd-nspawn
+      dpkg
+      debootstrap
+      util-linux # findmnt
+      zstd
+      systemd # systemd-nspawn
     ])
   ];
 
@@ -71,5 +69,6 @@ buildPythonPackage (finalAttrs: {
     mainProgram = "debspawn";
     license = lib.licenses.lgpl3Plus;
     maintainers = [ lib.maintainers.skyesoss ];
+    platforms = lib.platforms.linux;
   };
 })
