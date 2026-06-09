@@ -49,13 +49,13 @@ python3.pkgs.buildPythonApplication rec {
   nativeBuildInputs =
     with python3.pkgs;
     [
-      python3Packages.sphinxcontrib-httpdomain
-      python3Packages.sphinxcontrib-bibtex
-      python3Packages.sphinx-tabs
-      python3Packages.sphinx-rtd-theme
-      python3Packages.sphinx-prompt
-      python3Packages.recommonmark
-      python3Packages.sphinx-notfound-page
+      sphinxcontrib-httpdomain
+      sphinxcontrib-bibtex
+      sphinx-tabs
+      sphinx-rtd-theme
+      sphinx-prompt
+      recommonmark
+      sphinx-notfound-page
     ]
     ++ [
       sphinx

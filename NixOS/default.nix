@@ -30,10 +30,7 @@ let
       directory = ./pkgs/by-name;
     }
     // {
-      python3Packages = lib.filesystem.packagesFromDirectoryRecursive {
-        callPackage = callPython3PackageWith "python3Packages";
-        directory = ./pkgs/python-modules;
-      };
+      python3Packages = packages.python313Packages;
       python313Packages = lib.filesystem.packagesFromDirectoryRecursive {
         callPackage = callPython3PackageWith "python313Packages";
         directory = ./pkgs/python-modules;
