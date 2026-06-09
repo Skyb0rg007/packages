@@ -1,24 +1,11 @@
 {
   lib,
   fetchFromGitHub,
-  buildPythonPackage,
+  python3,
   nix-update-script,
   testers,
-  setuptools,
-  setuptools-scm,
-  click,
-  flask,
-  arrow,
-  tinydb,
-  requests,
-  cloudflare,
-  bcrypt,
-  peewee,
-  psycopg2,
-  jsonschema,
-  pyyaml,
 }:
-buildPythonPackage (finalAttrs: {
+python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "anemoi";
   version = "1.0.5";
   pyproject = true;
@@ -30,12 +17,12 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-V8evm5eNxUhQVY9xvLkq2jLBpLXdTIvcPH/VbIU6+NU=";
   };
 
-  build-system = [
+  build-system = with python3.pkgs; [
     setuptools
     setuptools-scm
   ];
 
-  dependencies = [
+  dependencies = with python3.pkgs; [
     click
     flask
     arrow
