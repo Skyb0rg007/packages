@@ -10,8 +10,10 @@ let
   };
   callPackage = lib.callPackageWith (pkgs // packages // { inherit nixosTests; });
   callPython3PackageWith =
-    python3Packages:
-    lib.callPackageWith (pkgs // packages // python3Packages // { inherit nixosTests; });
+    name:
+    lib.callPackageWith (
+      pkgs // packages // pkgs.${name} // packages.${name} // { inherit nixosTests; }
+    );
 
   # These override nixpkgs
   # XXX: Give mlkit, etc. different names from nixpkgs
@@ -25,19 +27,19 @@ let
     }
     // {
       python3Packages = lib.filesystem.packagesFromDirectoryRecursive {
-        callPackage = callPython3PackageWith pkgs.python3Packages;
+        callPackage = callPython3PackageWith "python3Packages";
         directory = ./pkgs/python-packages;
       };
       python313Packages = lib.filesystem.packagesFromDirectoryRecursive {
-        callPackage = callPython3PackageWith pkgs.python313Packages;
+        callPackage = callPython3PackageWith "python313Packages";
         directory = ./pkgs/python-packages;
       };
       python314Packages = lib.filesystem.packagesFromDirectoryRecursive {
-        callPackage = callPython3PackageWith pkgs.python314Packages;
+        callPackage = callPython3PackageWith "python314Packages";
         directory = ./pkgs/python-packages;
       };
       python315Packages = lib.filesystem.packagesFromDirectoryRecursive {
-        callPackage = callPython3PackageWith pkgs.python315Packages;
+        callPackage = callPython3PackageWith "python315Packages";
         directory = ./pkgs/python-packages;
       };
     };
