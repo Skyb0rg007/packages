@@ -28,10 +28,6 @@ let
         callPackage = callPython3PackageWith pkgs.python3Packages;
         directory = ./pkgs/python-packages;
       };
-      python312Packages = lib.filesystem.packagesFromDirectoryRecursive {
-        callPackage = callPython3PackageWith pkgs.python312Packages;
-        directory = ./pkgs/python-packages;
-      };
       python313Packages = lib.filesystem.packagesFromDirectoryRecursive {
         callPackage = callPython3PackageWith pkgs.python313Packages;
         directory = ./pkgs/python-packages;
