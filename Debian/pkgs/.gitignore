@@ -7,4 +7,5 @@ pwngrid/*
 pwnagotchi/*
 !pwnagotchi/debian
 *.gpg
+*.build
 _build
