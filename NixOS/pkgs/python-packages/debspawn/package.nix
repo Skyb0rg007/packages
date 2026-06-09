@@ -12,11 +12,14 @@
   pkgconfig,
   python,
   pkgs,
+  nix-update-script,
+  testers,
 }:
 buildPythonPackage (finalAttrs: {
   pname = "debspawn";
   version = "0.6.5";
   pyproject = true;
+  strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "lkhq";
@@ -31,6 +34,13 @@ buildPythonPackage (finalAttrs: {
   ];
 
   dependencies = [ tomlkit ];
+
+  postPatch = ''
+    substituteInPlace debspawn/dsrun \
+      --replace-fail \
+        "os.environ['SHELL'] = '/bin/sh'" \
+        "os.environ['SHELL'] = '/bin/sh'; os.environ['PATH'] = '/usr/sbin:/usr/bin:/sbin:/bin'"
+  '';
 
   postFixup = ''
     sed -i '1s|.*|#!/usr/bin/python3|' $out/${python.sitePackages}/debspawn/dsrun
@@ -48,6 +58,12 @@ buildPythonPackage (finalAttrs: {
       pkgs.systemd # systemd-nspawn
     ])
   ];
+
+  passthru.updateScript = nix-update-script { };
+
+  passthru.tests.version = testers.testVersion {
+    package = finalAttrs.finalPackage;
+  };
 
   meta = {
     description = "Debian package builder and build helper using systemd-nspawn";
