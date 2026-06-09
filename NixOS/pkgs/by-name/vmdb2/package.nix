@@ -1,19 +1,16 @@
 {
   lib,
-  buildPythonApplication,
+  python3,
   fetchFromRadicle,
-  setuptools,
-  jinja2,
-  pyaml,
   testers,
 }:
-buildPythonApplication (finalAttrs: {
+python3.pkgs.buildPythonPackage (finalAttrs: {
   pname = "vmdb2";
   version = "0.41";
   pyproject = true;
 
-  build-system = [ setuptools ];
-  dependencies = [
+  build-system = with python3.pkgs; [ setuptools ];
+  dependencies = with python3.pkgs; [
     jinja2
     pyaml
   ];
