@@ -1,12 +1,12 @@
 {
   fetchFromGitHub,
-  python3Packages,
+  python3,
   lib,
   sphinx,
   texinfo,
   installShellFiles,
 }:
-python3Packages.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication rec {
   pname = "keylime";
   version = "7.14.2";
   pyproject = true;
@@ -24,40 +24,44 @@ python3Packages.buildPythonApplication rec {
     "info"
   ];
 
-  build-system = [
-    python3Packages.setuptools
+  build-system = with python3.pkgs; [
+    setuptools
   ];
 
-  dependencies = [
-    python3Packages.alembic
-    python3Packages.cryptography
-    python3Packages.gpgme
-    python3Packages.jinja2
-    python3Packages.jsonschema
-    python3Packages.lark
-    python3Packages.packaging
-    python3Packages.psutil
-    python3Packages.pyasn1
-    python3Packages.pyasn1-modules
-    python3Packages.pyyaml
-    python3Packages.pyzmq
-    python3Packages.requests
-    python3Packages.sqlalchemy
-    python3Packages.tornado
+  dependencies = with python3.pkgs; [
+    alembic
+    cryptography
+    gpgme
+    jinja2
+    jsonschema
+    lark
+    packaging
+    psutil
+    pyasn1
+    pyasn1-modules
+    pyyaml
+    pyzmq
+    requests
+    sqlalchemy
+    tornado
   ];
 
-  nativeBuildInputs = [
-    sphinx
-    texinfo
-    python3Packages.sphinxcontrib-httpdomain
-    python3Packages.sphinxcontrib-bibtex
-    python3Packages.sphinx-tabs
-    python3Packages.sphinx-rtd-theme
-    python3Packages.sphinx-prompt
-    python3Packages.recommonmark
-    python3Packages.sphinx-notfound-page
-    installShellFiles
-  ];
+  nativeBuildInputs =
+    with python3.pkgs;
+    [
+      python3Packages.sphinxcontrib-httpdomain
+      python3Packages.sphinxcontrib-bibtex
+      python3Packages.sphinx-tabs
+      python3Packages.sphinx-rtd-theme
+      python3Packages.sphinx-prompt
+      python3Packages.recommonmark
+      python3Packages.sphinx-notfound-page
+    ]
+    ++ [
+      sphinx
+      texinfo
+      installShellFiles
+    ];
 
   patchPhase = ''
     runHook prePatch

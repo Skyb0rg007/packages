@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
   nix-update-script,
-  pytestCheckHook,
 }:
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "porkbun-ddns";
@@ -20,7 +19,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
 
   build-system = with python3.pkgs; [ setuptools ];
   dependencies = with python3.pkgs; [ xdg-base-dirs ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [ python3.pkgs.pytestCheckHook ];
   enabledTestPaths = [ "porkbun_ddns/test" ];
 
   passthru.updateScript = nix-update-script { };
