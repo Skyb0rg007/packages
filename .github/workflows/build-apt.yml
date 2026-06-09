@@ -1,10 +1,10 @@
 
 on:
   workflow_dispatch: ~
-  push:
-    paths:
-      - 'Debian/**'
-      - '.github/workflows/build-apt.yml'
+  # push:
+  #   paths:
+  #     - 'Debian/**'
+  #     - '.github/workflows/build-apt.yml'
 
 jobs:
   build-apt:
