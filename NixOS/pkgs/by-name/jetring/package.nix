@@ -52,5 +52,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://salsa.debian.org/debian/jetring";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
+    badPlatforms = [ "x86_64-freebsd" ];
   };
 })

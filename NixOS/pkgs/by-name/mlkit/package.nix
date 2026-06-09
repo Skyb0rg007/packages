@@ -1,9 +1,9 @@
 {
+  nixpkgs,
   lib,
-  mlkit,
   fetchFromGitHub,
 }:
-mlkit.overrideAttrs (prevAttrs: {
+nixpkgs.mlkit.overrideAttrs (prevAttrs: {
   version = "${prevAttrs.version}-8561fe6";
   src = fetchFromGitHub {
     owner = "melsman";
@@ -23,6 +23,6 @@ mlkit.overrideAttrs (prevAttrs: {
       "aarch64-linux"
       "aarch64-darwin"
     ];
-    timeout = 7200; # 2 hours
+    timeout = 7200;
   };
 })

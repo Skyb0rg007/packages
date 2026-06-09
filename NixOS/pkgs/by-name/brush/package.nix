@@ -1,10 +1,10 @@
 {
-  brush,
+  nixpkgs,
   fetchFromGitHub,
   rustPlatform,
   nix-update-script,
 }:
-brush.overrideAttrs (
+nixpkgs.brush.overrideAttrs (
   finalAttrs: prevAttrs: {
     src = fetchFromGitHub {
       owner = "reubeno";

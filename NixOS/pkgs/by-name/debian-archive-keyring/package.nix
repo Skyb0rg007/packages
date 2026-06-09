@@ -51,5 +51,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       lib.licenses.publicDomain
     ];
     platforms = lib.platforms.all;
+    badPlatforms = [ "x86_64-freebsd" ];
   };
 })

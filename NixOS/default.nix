@@ -8,52 +8,56 @@ let
   nixosTests = import ./tests/all-tests.nix {
     inherit pkgs nixosModules packages;
   };
-  # XXX: Merge pkgs and packages so `pkgs.python3Packages` is merged
-  callPackage = lib.callPackageWith (pkgs // packages // { inherit nixosTests; });
-  callPython3PackageWith =
-    name:
-    lib.callPackageWith (
-      pkgs // packages // pkgs.${name} // packages.${name} // { inherit nixosTests; }
-    );
-  callTcl9Package = lib.callPackageWith (
-    pkgs // packages // pkgs.tcl9Packages // packages.tcl9Packages // { inherit nixosTests; }
-  );
 
-  # These override nixpkgs
-  # XXX: Give mlkit, etc. different names from nixpkgs
-  mlkit = callPackage ./pkgs/mlkit/default.nix { };
-  brush = callPackage ./pkgs/brush/default.nix { };
+  pythonModuleNames = builtins.attrNames (builtins.readDir ./pkgs/python-modules);
+  pythonOverride =
+    interp:
+    interp.override {
+      packageOverrides =
+        pself: _:
+        lib.filesystem.packagesFromDirectoryRecursive {
+          callPackage = pself.callPackage;
+          directory = ./pkgs/python-modules;
+        };
+    };
+
+  python3 = pythonOverride pkgs.python3;
+  python313 = pythonOverride pkgs.python313;
+  python314 = pythonOverride pkgs.python314;
+  python315 = pythonOverride pkgs.python315;
 
   packages =
     lib.filesystem.packagesFromDirectoryRecursive {
-      inherit callPackage;
+      callPackage = lib.callPackageWith (
+        pkgs
+        // packages
+        // {
+          inherit
+            python3
+            python313
+            python314
+            python315
+            nixosTests
+            ;
+          nixpkgs = pkgs;
+        }
+      );
       directory = ./pkgs/by-name;
     }
     // {
       python3Packages = packages.python313Packages;
-      python313Packages = lib.filesystem.packagesFromDirectoryRecursive {
-        callPackage = callPython3PackageWith "python313Packages";
-        directory = ./pkgs/python-modules;
-      };
-      python314Packages = lib.filesystem.packagesFromDirectoryRecursive {
-        callPackage = callPython3PackageWith "python314Packages";
-        directory = ./pkgs/python-modules;
-      };
-      python315Packages = lib.filesystem.packagesFromDirectoryRecursive {
-        callPackage = callPython3PackageWith "python315Packages";
-        directory = ./pkgs/python-modules;
-      };
+      python313Packages = lib.genAttrs pythonModuleNames (n: python313.pkgs.${n});
+      python314Packages = lib.genAttrs pythonModuleNames (n: python314.pkgs.${n});
+      python315Packages = lib.genAttrs pythonModuleNames (n: python315.pkgs.${n});
       tcl9Packages = lib.filesystem.packagesFromDirectoryRecursive {
-        callPackage = callTcl9Package;
+        callPackage = lib.callPackageWith (
+          pkgs // packages // pkgs.tcl9Packages // packages.tcl9Packages // { inherit nixosTests; }
+        );
         directory = ./pkgs/tcl-modules;
       };
     };
 in
 {
-  inherit
-    nixosModules
-    mlkit
-    brush
-    ;
+  inherit nixosModules;
 }
 // packages
