@@ -42,5 +42,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "tpm2sh";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.skyesoss ];
+    platforms = lib.platforms.linux;
   };
 })
