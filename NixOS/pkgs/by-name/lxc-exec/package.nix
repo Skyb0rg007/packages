@@ -70,6 +70,22 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
   cargoTestFlags = lxcPackages;
 
+  passthru.pr-534 = finalAttrs.finalPackage.overrideAttrs (
+    finalAttrs: prevAttrs: {
+      src = fetchFromGitHub {
+        owner = "danbugs";
+        repo = "mxc";
+        rev = "84b4db8c6ddfd94c7c6af3af6f851a8bdc949df4";
+        hash = "sha256-p9uLCPlu1n1Lafg9yWGN91Mp0ANLXpt6iarFgY0hVGU=";
+      };
+
+      cargoDeps = rustPlatform.fetchCargoVendor {
+        inherit (finalAttrs) src sourceRoot;
+        hash = "sha256-aoy0lKDX6Wg36FZFLq48AWusMsfkJllzSY2SRpKBezw=";
+      };
+    }
+  );
+
   meta = {
     description = "Sandboxed code execution system for running untrusted code";
     homepage = "https://github.com/microsoft/mxc";
