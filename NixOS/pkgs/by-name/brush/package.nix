@@ -24,6 +24,8 @@ nixpkgs.brush.overrideAttrs (
       extraArgs = [ "--version=branch" ];
     };
 
+    dontVersionCheck = true;
+
     meta = prevAttrs.meta // {
       changelog = "${prevAttrs.meta.homepage}/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     };
