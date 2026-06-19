@@ -1,26 +1,25 @@
 {
   lib,
-  rustPlatform,
   stdenv,
   fetchFromGitHub,
-  pkg-config,
-  dbus,
-  udev,
-  gtk4,
-  pcsclite,
-  libnfc,
-  openssl,
   meson,
   ninja,
+  rustPlatform,
   rustc,
   cargo,
   wrapGAppsHook4,
-  desktop-file-utils,
-  libxml2,
-  kdePackages,
-  zip,
-  libclang,
+  pkg-config,
   blueprint-compiler,
+  desktop-file-utils,
+  kdePackages,
+  libxml2,
+  zip,
+  dbus,
+  gtk4,
+  libnfc,
+  openssl,
+  pcsclite,
+  udev,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "credentialsd";
@@ -37,8 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     hash = "sha256-ugb671Wxlx6T12sX+j/Wj9+mOO3mbfFebN5AGKmb7gI=";
   };
-
-  env.LIBCLANG_PATH = lib.makeLibraryPath [ libclang ];
 
   nativeBuildInputs = [
     meson
