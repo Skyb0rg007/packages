@@ -98,6 +98,7 @@ stdenv.mkDerivation {
     description = "Your self hosted YouTube media server";
     homepage = "https://tubearchivist.com";
     license = lib.licenses.gpl3Only;
+    broken = true;
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
