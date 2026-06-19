@@ -6,6 +6,8 @@
 }:
 nixpkgs.brush.overrideAttrs (
   finalAttrs: prevAttrs: {
+    version = "0.4.0-428f4774";
+
     src = fetchFromGitHub {
       owner = "reubeno";
       repo = "brush";
