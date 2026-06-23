@@ -8,12 +8,12 @@
   makeWrapper,
 }:
 let
-  version = "0.5.7";
+  version = "0.5.10";
   source = fetchFromGitHub {
     owner = "tubearchivist";
     repo = "tubearchivist";
     rev = "v${version}";
-    hash = "sha256-fmsRzR5GRA5pEBHuRwiysvIieTOaQYhEYJjg7l5jm2c=";
+    hash = "sha256-NzqHWyenEooFCD4Int2ULavRNQs1FKpbCoY3/6/PF/M=";
   };
 
   frontend = buildNpmPackage {
@@ -21,7 +21,7 @@ let
     inherit version;
     buildInputs = [ nodejs ];
     src = "${source}/frontend";
-    npmDepsHash = "sha256-tyTg8wsNyWs54OqW2mbnXlrnBi8BGfG0Ja2+JD1c5ds=";
+    npmDepsHash = "sha256-eCz1b0peMe4rA6aROnN0zOE1fB6thMnDLH4hkbxORmA=";
     npmBuildScript = "build:deploy";
     installPhase = ''
       mkdir -p $out
