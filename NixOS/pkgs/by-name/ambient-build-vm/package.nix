@@ -11,13 +11,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ambient-build-vm";
-  version = "0.1.0-550381a";
+  version = "0.1.0-unstable-2026-06-15";
 
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";
     repo = "z24yNhQC3JAyE3nbj8PP9SGUk5SgU";
-    rev = "550381a36b80f59a55ed9e6c8882c6ee523e741d";
-    hash = "sha256-AlcuEQQix1pJ6sDmKR8JnncfIcdNmSiLgAsdQuzc8bE=";
+    rev = "b3f98c9d2e60a331ed9f5e07a7e368a843454cf8";
+    hash = "sha256-UsynsbD3Zzh+5bdYi+spfnle5ifQU0iZOU0dfA8Obw0=";
   };
 
   dontConfigure = true;
