@@ -3,7 +3,7 @@
   fetchFromRadicle,
   rustPlatform,
   installShellFiles,
-  testers,
+  versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "radicle-ci-ambient";
@@ -20,6 +20,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-9p7Kk6Mz2jFK0OutJMxe2RW6SHvI1Z2kANNdvIXYq+k=";
 
   nativeBuildInputs = [ installShellFiles ];
+  nativeInstallCheckInputs = [ versionCheckHook ];
+
+  doInstallCheck = true;
 
   patchPhase = ''
     runHook prePatch
@@ -34,13 +37,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installManPage ./radicle-ci-ambient.1
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-  };
-
   meta = {
     description = "Radicle CI adapter for Ambient CI";
     homepage = "https://radicle-ci.liw.fi";
+    mainProgram = "radicle-ci-ambient";
     licenses = [
       lib.licenses.mit
       lib.licenses.asl20

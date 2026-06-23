@@ -2,7 +2,7 @@
   lib,
   python3,
   fetchFromRadicle,
-  testers,
+  versionCheckHook,
 }:
 python3.pkgs.buildPythonPackage (finalAttrs: {
   pname = "vmdb2";
@@ -23,9 +23,8 @@ python3.pkgs.buildPythonPackage (finalAttrs: {
     hash = "sha256-XHcOKsKEIxHzm66iVfK0QoVYqIo79Je1Kq/tqyzdWEE=";
   };
 
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-  };
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   meta = {
     description = "Debian virtual machine image builder";

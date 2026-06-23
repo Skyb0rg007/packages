@@ -4,7 +4,7 @@
   lib,
   config,
   nix-update-script,
-  testers,
+  versionCheckHook,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "reddio";
@@ -17,21 +17,20 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Bhe3icWycQXwwyBp9z1GpnTYAfAp3m79orfMITTU2Z8=";
   };
 
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgramArg = "-V";
+  doInstallCheck = true;
+
   dontBuild = true;
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion {
-      package = finalAttrs.finalPackage;
-      command = "reddio -V";
-    };
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Command-line interface for Reddit";
     homepage = "https://gitlab.com/aaronNG/reddio/";
+    mainProgram = "reddio";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.skyesoss ];
   };

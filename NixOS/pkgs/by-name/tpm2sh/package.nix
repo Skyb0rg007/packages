@@ -5,7 +5,7 @@
   pkg-config,
   openssl,
   nix-update-script,
-  testers,
+  versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tpm2sh";
@@ -28,13 +28,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     openssl
   ];
 
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
+
   # Tests require a TPM
   doCheck = false;
 
   passthru.updateScript = nix-update-script { };
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-  };
 
   meta = {
     description = "CLI for accessing TPM 2.0 chips on Linux.";

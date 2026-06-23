@@ -7,7 +7,7 @@
   rustPlatform,
   stdenv,
   nix-update-script,
-  testers,
+  versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
@@ -24,8 +24,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-SRuTsJGuFm9gei+va+4jlgqd9slqIXLLdF2iENds4yI=";
 
   doCheck = !stdenv.buildPlatform.isDarwin;
-  nativeCheckInputs = [ libisoburn ];
   nativeBuildInputs = [ installShellFiles ];
+  nativeCheckInputs = [ libisoburn ];
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
   patchPhase = ''
     runHook prePatch
@@ -44,12 +45,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installManPage *.1
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion {
-      package = finalAttrs.finalPackage;
-    };
-  };
+  doInstallCheck = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Ambient continuous integration engine";

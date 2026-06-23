@@ -6,7 +6,7 @@
   softhsm,
   installShellFiles,
   nix-update-script,
-  testers,
+  versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cascade-hsm-bridge";
@@ -28,6 +28,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     softhsm
   ];
 
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
+
   postInstall = ''
     installManPage ./doc/manual/build/man/*.{1,5}
   '';
@@ -42,14 +45,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     updateScript = nix-update-script {
       extraArgs = [ "--version=unstable" ];
     };
-    tests.version = testers.testVersion {
-      package = finalAttrs.finalPackage;
-    };
   };
 
   meta = {
     description = "KMIP to PKCS#11 bridge for Cascade";
     homepage = "https://github.com/NLnetLabs/cascade-hsm-bridge";
+    mainProgram = "cascade-hsm-bridge";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.skyesoss ];
     platforms = lib.platforms.linux;

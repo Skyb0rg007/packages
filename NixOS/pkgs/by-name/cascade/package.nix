@@ -7,6 +7,7 @@
   installShellFiles,
   nix-update-script,
   testers,
+  versionCheckHook,
   nixosTests,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -26,7 +27,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
     installShellFiles
   ];
+  nativeInstallCheckInputs = [ versionCheckHook ];
   buildInputs = [ openssl ];
+
+  doInstallCheck = true;
 
   postInstall = ''
     installManPage ./doc/manual/build/man/*.{1,5}
@@ -36,12 +40,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     updateScript = nix-update-script {
       extraArgs = [ "--version=unstable" ];
     };
-    tests = {
-      version = testers.testVersion {
-        package = finalAttrs.finalPackage;
-      };
-      nixos = nixosTests.cascade;
-    };
+    tests.nixos = nixosTests.cascade;
   };
 
   meta = {

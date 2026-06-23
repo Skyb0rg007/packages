@@ -3,7 +3,7 @@
   fetchFromGitHub,
   python3,
   nix-update-script,
-  testers,
+  versionCheckHook,
 }:
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "anemoi";
@@ -16,6 +16,8 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-V8evm5eNxUhQVY9xvLkq2jLBpLXdTIvcPH/VbIU6+NU=";
   };
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
   build-system = with python3.pkgs; [
     setuptools
@@ -38,10 +40,9 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
 
   pythonImportsCheck = [ "anemoi" ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-  };
+  doInstallCheck = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Anemoi is a least privilege dynamic DNS server";

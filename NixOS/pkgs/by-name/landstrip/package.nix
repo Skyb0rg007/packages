@@ -2,10 +2,10 @@
   lib,
   fetchFromGitHub,
   nix-update-script,
-  testers,
   rustPlatform,
   rustc,
   installShellFiles,
+  versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "landstrip";
@@ -19,20 +19,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-HVwku+sTKIVGELyoNvvTdScoFUTRaAdSaCmy6kIn/ac=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
   doCheck = false; # Requires permissions
+  doInstallCheck = true;
 
   postInstall = ''
     installManPage ./man/man1/landstrip.1
   '';
 
   passthru.updateScript = nix-update-script { };
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-  };
 
   meta = {
     homepage = "https://github.com/landstrip/landstrip";

@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitLab,
-  testers,
+  versionCheckHook,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "ascsaver";
@@ -17,15 +17,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-    version = "v${finalAttrs.version}";
-    command = "ascsaver";
-  };
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   meta = {
     description = "Screensaver for terminals";
     homepage = "https://gitlab.com/mezantrop/ascsaver";
+    mainProgram = "ascsaver";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.skyesoss ];
   };

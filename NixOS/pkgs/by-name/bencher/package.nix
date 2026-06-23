@@ -8,7 +8,7 @@
   fontconfig,
   freetype,
   nix-update-script,
-  testers,
+  versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bencher";
@@ -24,19 +24,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-biCHEePgVxrnGUj94bwWrp9GVhspiMjcMRdp3A7O2h0=";
 
   nativeBuildInputs = [ mold ];
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
   cargoBuildFlags = [ "--package=bencher_cli" ];
   cargoTestFlags = [ "--package=bencher_cli" ];
   # Build the open-source version
   buildNoDefaultFeatures = true;
   checkNoDefaultFeatures = finalAttrs.buildNoDefaultFeatures;
+  doInstallCheck = true;
 
-  passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion {
-      package = finalAttrs.finalPackage;
-    };
-  };
+  passthru.updateScript = nix-update-script { };
 
   postPatch = ''
     # Replaces the proprietary Rust files with empty files
@@ -69,10 +66,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
       The Nix derivation does not have proprietary features compiled.
     '';
     homepage = "https://bencher.dev";
-    license = [
+    license = lib.licenses.OR [
       lib.licenses.asl20
       lib.licenses.mit
     ];
     maintainers = [ lib.maintainers.skyesoss ];
+    mainProgram = "bencher";
   };
 })

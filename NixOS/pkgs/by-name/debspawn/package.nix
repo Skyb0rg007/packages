@@ -9,7 +9,7 @@
   systemd,
   debootstrap,
   nix-update-script,
-  testers,
+  versionCheckHook,
 }:
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "debspawn";
@@ -30,6 +30,9 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   ];
 
   dependencies = with python3.pkgs; [ tomlkit ];
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   # systemd-nspawn keeps the PATH variable intact, which is a problem for Nix
   postPatch = ''
@@ -58,10 +61,6 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   ];
 
   passthru.updateScript = nix-update-script { };
-
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-  };
 
   meta = {
     description = "Debian package builder and build helper using systemd-nspawn";
