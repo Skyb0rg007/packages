@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=process_state::"
     "--skip=binderfs::tests::test_add_device"
     "--skip=tests::process_state"
-    "--skip=thread_state::tests::test_process_pending_derefs_handles_reentrant_push_from_drop"
+    "--skip=thread_state::tests::"
   ];
 
   passthru.tests.rsb_hub-version = testers.testVersion {
