@@ -7,14 +7,14 @@
 }:
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "porkbun-ddns";
-  version = "1.1.26";
+  version = "1.1.27";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mietzen";
     repo = "porkbun-ddns";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-MBqblkT3hDRqInESuvnEZQqgrVe5e4Eq9uemE0f4SYc=";
+    hash = "sha256-UEYf3fEr7b+AICAe6kDuC4KRCP1ncKiJoReTkjDZTg4=";
   };
 
   build-system = with python3.pkgs; [ setuptools ];
