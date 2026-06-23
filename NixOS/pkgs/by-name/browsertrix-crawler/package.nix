@@ -23,11 +23,11 @@
   yarnConfigHook,
 }:
 let
-  version = "1.7.0";
-  rwp_version = "2.3.15";
+  version = "1.13.2";
+  rwp_version = "2.4.3";
   rwp = fetchzip {
     url = "https://registry.npmjs.org/replaywebpage/-/replaywebpage-${rwp_version}.tgz";
-    hash = "sha256-C70E5RZ7J6wtp67pCbUeA4nRpABFPlFO0ATYfK8AfJc=";
+    hash = "sha256-S5bf3tp3pz880tgUz75dPjowK2G6tP2HvMxiPd+om5E=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -37,12 +37,12 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "webrecorder";
     repo = "browsertrix-crawler";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-lkpuzWix41nsbny609H/o0Bkq1lu7eXDgo/QhnPbkNI=";
+    hash = "sha256-uf7keFsEp4YpoDmXc9Y9iweuFCJN/w0LpFk7fB1i7po=";
   };
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = "${finalAttrs.src}/yarn.lock";
-    hash = "sha256-cPncwmSTj94aT6lwT1AmPt3Gq3DzJovXlvQGGMy/Osg=";
+    hash = "sha256-QYwAed1/Xb3uYb0rwEmLmHK2S7Av/x6+2ba1CoXrQKI=";
   };
 
   env.yarnBuildScript = "tsc";
@@ -67,10 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   patchPhase = ''
     substituteInPlace src/create-login-profile.ts \
-      --replace-fail 'default: "/crawls/profiles/profile.tar.gz"' 'default: "./profiles/profile.tar.gz"' \
-      --replace-fail '"/crawls/profiles/profile.tar.gz"' 'path.join(process.cwd(), "/profiles/profile.tar.gz")' \
-      --replace-fail '"/crawls/profiles/"' 'path.join(process.cwd(), "/profiles/")' \
-      --replace-fail ' /crawls/profiles ' ' ./profiles '
+      --replace-fail 'default: "/crawls/profiles/profile.tar.gz"' 'default: "./profiles/profile.tar.gz"'
   '';
 
   preBuild = ''
