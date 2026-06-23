@@ -12,16 +12,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bencher";
-  version = "0.6.6";
+  version = "0.6.8";
 
   src = fetchFromGitHub {
     owner = "bencherdev";
     repo = "bencher";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-UytG3h6xc43Oly0LPDPK/owWGusegWHKU683YpI+2bA=";
+    hash = "sha256-MlRj56QXRrvfBxi6+B6vpEKlDWMFB+V1CzQYOiGFpHE=";
   };
 
-  cargoHash = "sha256-6EKTbtQyNv+PNOcp+rBFmoWI6H3iIcNEfkWBQR5BoaA=";
+  cargoHash = "sha256-biCHEePgVxrnGUj94bwWrp9GVhspiMjcMRdp3A7O2h0=";
 
   nativeBuildInputs = [ mold ];
 
