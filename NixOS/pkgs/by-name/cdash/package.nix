@@ -10,19 +10,19 @@
 }:
 php.buildComposerProject2 (finalAttrs: {
   pname = "cdash";
-  version = "5.0.0";
+  version = "5.1.0";
 
   src = fetchFromGitHub {
     owner = "Kitware";
     repo = "CDash";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-+Qww3Q1e0bcXsydY4bC0yGMqtkuyIarZC0SQcNl52dA=";
+    hash = "sha256-UcgR5TUJnY3jBxXw15rFhADBv00XO1g+YhnhQGNZZuw=";
   };
 
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
     inherit (finalAttrs) src;
-    hash = "sha256-EfppBRGuJQKcyshSw/9bwasLV3b23f+IrEHltsFcQ7c=";
+    hash = "sha256-Q45rdCsa63D3L9CWHDKQnpHrx76Qag+Tzui2k9S2WYM=";
   };
 
   env = {
@@ -64,7 +64,7 @@ php.buildComposerProject2 (finalAttrs: {
       }:
       enabled ++ [ all.xsl ];
   };
-  vendorHash = "sha256-XaDxxn8UH6/TXmNim6ghO/2xCrW0UDNmwSlokM+H7Xs=";
+  vendorHash = "sha256-HL3fWLMGT29rJFymsCDNGn+B/5lg7XRVhpWejL/Smes=";
 
   passthru.updateScript = nix-update-script { };
 
