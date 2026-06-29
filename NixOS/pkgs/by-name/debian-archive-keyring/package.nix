@@ -18,12 +18,28 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-NaVbca1mx0j4hfSncX8hh8PbtB92yGeZUUdp4Nx9JoY=";
   };
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   nativeBuildInputs = [
     jetring
     gnupg
   ];
+
+  installPhase = ''
+    runHook preInstall
+
+    install -d $out/share/keyrings/
+    cp trusted.pgp/debian-archive-*.pgp $out/share/keyrings/
+    cp -a trusted.pgp/debian-archive-*.gpg $out/share/keyrings/
+    cp keyrings/debian-archive-keyring.pgp $out/share/keyrings/
+    cp -a keyrings/debian-archive-keyring.gpg $out/share/keyrings/
+    cp keyrings/debian-archive-removed-keys.pgp $out/share/keyrings/
+    cp -a keyrings/debian-archive-removed-keys.gpg $out/share/keyrings/
+
+    install -D -m 644 -t $out/etc/apt/trusted.gpg.d apt-trusted-asc/*.asc
+
+    runHook postInstall
+  '';
 
   passthru.updateScript = nix-update-script { };
 
