@@ -18,8 +18,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-NaVbca1mx0j4hfSncX8hh8PbtB92yGeZUUdp4Nx9JoY=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
-
   nativeBuildInputs = [
     jetring
     gnupg
