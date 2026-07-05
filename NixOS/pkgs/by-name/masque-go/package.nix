@@ -6,15 +6,15 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "masque-go";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "quic-go";
     repo = "masque-go";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-XDhKEJgZlfh68WRjJhEN2tGAL5wjLxfV+tJLRZF4KHg=";
+    hash = "sha256-OvY+/3PtqmFNNwgMSOPSoqZAhHcpYDAJRyJDy/oIrgg=";
   };
-  vendorHash = "sha256-7JyB8Odix0ihwhbP8EaeIDhsuuyPrnJLADKusnOTcrI=";
+  vendorHash = "sha256-UypofpTr5F1QvuJHhmy7SxKDUHljWeXYC4lUDB0kiMI=";
 
   postInstall = ''
     mv $out/bin/{,masque-go-}client
