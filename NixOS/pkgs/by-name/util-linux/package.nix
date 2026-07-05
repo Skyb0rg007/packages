@@ -32,5 +32,8 @@
         gettext
         asciidoctor
       ];
+      meta = prevAttrs.meta // {
+        platforms = lib.platforms.linux;
+      };
     }
   )
