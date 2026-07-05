@@ -9,16 +9,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tpm2sh";
-  version = "0.20.1";
+  version = "1.0.0";
 
   src = fetchFromGitLab {
     owner = "tpm-protocol";
     repo = "tpm2sh";
     tag = finalAttrs.version;
-    hash = "sha256-cItaqJ202YG2crIebmsiazQS6aQOAYLbXWN0VntJPtw=";
+    hash = "sha256-dStussWZkQTDeAnul3jFnhQ5LOoxJtvT7RHpHBwyeKg=";
   };
 
-  cargoHash = "sha256-ccivI3Yx9U5kFd4XBaNrrM5Hm78DbprgmxBV8U1g3xc=";
+  cargoHash = "sha256-Q1yTnLu32T/58OYaaq3Wl0uLLaFMeqwMLDLPHvGjxbc=";
 
   nativeBuildInputs = [
     pkg-config
