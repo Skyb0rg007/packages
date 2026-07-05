@@ -16,6 +16,9 @@ buildGoModule (finalAttrs: {
   };
   vendorHash = "sha256-UypofpTr5F1QvuJHhmy7SxKDUHljWeXYC4lUDB0kiMI=";
 
+  # This test requires a working DNS server
+  checkFlags = [ "-skip=^TestProxyNXDOMAIN$" ];
+
   postInstall = ''
     mv $out/bin/{,masque-go-}client
     mv $out/bin/{,masque-go-}proxy
