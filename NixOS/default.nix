@@ -55,6 +55,12 @@ let
         );
         directory = ./pkgs/tcl-modules;
       };
+      ocamlPackages = lib.filesystem.packagesFromDirectoryRecursive {
+        callPackage = lib.callPackageWith (
+          pkgs // packages // pkgs.ocamlPackages // packages.ocamlPackages // { inherit nixosTests; }
+        );
+        directory = ./pkgs/ocaml-modules;
+      };
     };
 in
 {
