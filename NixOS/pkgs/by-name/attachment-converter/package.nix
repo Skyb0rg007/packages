@@ -26,7 +26,7 @@ let
         };
         propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.bstr ];
       });
-      keith-prelude = baseOcamlPackages.keith-prelude;
+      keith-prelude = self.callPackage ./keith-prelude.nix { };
     }
   );
 in
