@@ -30,21 +30,21 @@ let
   python314Packages = python314.pkgs;
   python315Packages = python315.pkgs;
 
-  mkOcamlPackages =
-    base:
-    let
-      merged = base // localOcamlModules;
-      localOcamlModules = lib.filesystem.packagesFromDirectoryRecursive {
-        callPackage = lib.callPackageWith (pkgs // packages // merged // { inherit nixosTests; });
-        directory = ./pkgs/ocaml-modules;
-      };
-    in
-    merged;
-
-  ocamlPackages = mkOcamlPackages pkgs.ocamlPackages;
-  ocamlNg = lib.mapAttrs (
-    _: v: if builtins.isAttrs v && v ? buildDunePackage then mkOcamlPackages v else v
-  ) pkgs.ocaml-ng;
+  # mkOcamlPackages =
+  #   base:
+  #   let
+  #     merged = base // localOcamlModules;
+  #     localOcamlModules = lib.filesystem.packagesFromDirectoryRecursive {
+  #       callPackage = lib.callPackageWith (pkgs // packages // merged // { inherit nixosTests; });
+  #       directory = ./pkgs/ocaml-modules;
+  #     };
+  #   in
+  #   merged;
+  #
+  # ocamlPackages = mkOcamlPackages pkgs.ocamlPackages;
+  # ocamlNg = lib.mapAttrs (
+  #   _: v: if builtins.isAttrs v && v ? buildDunePackage then mkOcamlPackages v else v
+  # ) pkgs.ocaml-ng;
 
   tcl9Packages = pkgs.tcl9Packages // tcl9ModulePackages;
   tcl9ModulePackages = lib.filesystem.packagesFromDirectoryRecursive {
@@ -68,10 +68,10 @@ let
             python314Packages
             python315Packages
             nixosTests
-            ocamlPackages
+            # ocamlPackages
             tcl9Packages
             ;
-          "ocaml-ng" = ocamlNg;
+          # "ocaml-ng" = ocamlNg;
           nixpkgs = pkgs;
         }
       );
@@ -80,13 +80,13 @@ let
     // {
       inherit
         tcl9Packages
-        ocamlPackages
+        # ocamlPackages
         python3Packages
         python313Packages
         python314Packages
         python315Packages
         ;
-      "ocaml-ng" = ocamlNg;
+      # "ocaml-ng" = ocamlNg;
     };
 in
 {
