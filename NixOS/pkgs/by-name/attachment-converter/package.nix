@@ -30,71 +30,68 @@ let
     }
   );
 in
-if stdenv.hostPlatform.isDarwin then
-  null
-else
-  ocamlPackages.buildDunePackage (finalAttrs: {
-    pname = "attachment-converter";
-    version = "0.2.1";
+ocamlPackages.buildDunePackage (finalAttrs: {
+  pname = "attachment-converter";
+  version = "0.2.1";
 
-    minimalOCamlVersion = "4.14";
+  minimalOCamlVersion = "4.14";
 
-    src = fetchFromGitHub {
-      owner = "uchicago-library";
-      repo = "attachment-converter";
-      tag = "v${finalAttrs.version}-8";
-      hash = "sha256-swpkA3uz4AY1v29VKS8J2R3fG8mhDUZqzAbeW4NBmTM=";
-    };
+  src = fetchFromGitHub {
+    owner = "uchicago-library";
+    repo = "attachment-converter";
+    tag = "v${finalAttrs.version}-8";
+    hash = "sha256-swpkA3uz4AY1v29VKS8J2R3fG8mhDUZqzAbeW4NBmTM=";
+  };
 
-    strictDeps = true;
-    __structuredAttrs = true;
+  strictDeps = true;
+  __structuredAttrs = true;
 
-    postPatch = ''
-      substituteInPlace dune --replace-fail "-ccopt -static" ""
-      substituteInPlace lib/configuration.ml \
-        --replace-fail "/usr/lib/attachment-converter/scripts/" \
-                       "$out/lib/attachment-converter/scripts/"
-    '';
+  postPatch = ''
+    substituteInPlace dune --replace-fail "-ccopt -static" ""
+    substituteInPlace lib/configuration.ml \
+      --replace-fail "/usr/lib/attachment-converter/scripts/" \
+                     "$out/lib/attachment-converter/scripts/"
+  '';
 
-    nativeInstallCheckInputs = [ versionCheckHook ];
-    doInstallCheck = true;
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
-    buildInputs = [
-      ocamlPackages.cmdliner
-      ocamlPackages.keith-prelude
-      ocamlPackages.mrmime
-      ocamlPackages.ocamlnet
-      ocamlPackages.prettym
-      ocamlPackages.re
+  buildInputs = [
+    ocamlPackages.cmdliner
+    ocamlPackages.keith-prelude
+    ocamlPackages.mrmime
+    ocamlPackages.ocamlnet
+    ocamlPackages.prettym
+    ocamlPackages.re
+  ];
+
+  postInstall = ''
+    patchShebangs ./conversion-scripts/*.sh
+    install -d $out/lib/attachment-converter/scripts
+    install -m 755 ./conversion-scripts/*.sh $out/lib/attachment-converter/scripts
+    wrapProgram $out/bin/attc \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          libreoffice
+          pandoc
+          vips
+          ghostscript
+          poppler-utils
+        ]
+      }
+  '';
+
+  meta = {
+    homepage = "https://dldc.lib.uchicago.edu/open/attachment-converter/";
+    description = "Tool for converting email attachments' formats";
+    license = lib.licenses.gpl3Plus;
+    mainProgram = "attc";
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
     ];
-
-    postInstall = ''
-      patchShebangs ./conversion-scripts/*.sh
-      install -d $out/lib/attachment-converter/scripts
-      install -m 755 ./conversion-scripts/*.sh $out/lib/attachment-converter/scripts
-      wrapProgram $out/bin/attc \
-        --prefix PATH : ${
-          lib.makeBinPath [
-            libreoffice
-            pandoc
-            vips
-            ghostscript
-            poppler-utils
-          ]
-        }
-    '';
-
-    meta = {
-      homepage = "https://dldc.lib.uchicago.edu/open/attachment-converter/";
-      description = "Tool for converting email attachments' formats";
-      license = lib.licenses.gpl3Plus;
-      mainProgram = "attc";
-      platforms = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-      maintainers = [ lib.maintainers.skyesoss ];
-    };
-  })
+    maintainers = [ lib.maintainers.skyesoss ];
+  };
+})
