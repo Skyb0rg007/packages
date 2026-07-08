@@ -88,7 +88,10 @@ ocamlPackages.buildDunePackage (finalAttrs: {
     description = "Tool for converting email attachments' formats";
     license = lib.licenses.gpl3Plus;
     mainProgram = "attc";
-    platforms = lib.lists.intersectLists ocaml.meta.platforms lib.platforms.linux;
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     maintainers = [ lib.maintainers.skyesoss ];
   };
 })

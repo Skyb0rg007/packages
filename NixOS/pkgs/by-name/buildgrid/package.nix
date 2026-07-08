@@ -57,6 +57,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     homepage = "https://buildgrid.build";
     mainProgram = "bgd";
     license = lib.licenses.asl20;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     maintainers = [ lib.maintainers.skyesoss ];
   };
 })

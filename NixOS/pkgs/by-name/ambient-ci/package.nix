@@ -27,6 +27,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeBuildInputs = [ installShellFiles ];
   nativeCheckInputs = [ libisoburn ];
   nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   patchPhase = ''
     runHook prePatch
@@ -45,8 +46,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installManPage *.1
   '';
 
-  doInstallCheck = true;
-
   passthru.updateScript = nix-update-script { };
 
   meta = {
@@ -59,8 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     '';
     mainProgram = "ambient";
     homepage = "https://ambient.liw.fi/";
-    platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.freebsd;
+    inherit (qemu.meta) platforms;
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.skyesoss ];
   };
