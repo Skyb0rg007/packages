@@ -8,16 +8,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rust-keylime";
-  version = "0.2.9";
+  version = "0.2.10";
 
   src = fetchFromGitHub {
     owner = "keylime";
     repo = "rust-keylime";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/8ZvIhv/Z177Svv/h81zq9uz5NnPHEDA3B49Fn57Pz8=";
+    hash = "sha256-+MypjFxEmuxgQilgtnAyfw1a0yf0QRpfENHTBhuK/94=";
   };
 
-  cargoHash = "sha256-Fg07/C3rbFeJWtvhX2UJuWmWDh4XCDuoDyEUZSsuzX8=";
+  cargoHash = "sha256-eVn9R5Ue9cPB8Xin2rVldHDycGWvyCCQ7RuVMRkb2yM=";
 
   nativeBuildInputs = [
     pkg-config
