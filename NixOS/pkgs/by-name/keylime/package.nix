@@ -8,14 +8,14 @@
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "keylime";
-  version = "7.14.2";
+  version = "7.14.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "keylime";
     repo = "keylime";
     tag = "v${version}";
-    hash = "sha256-gmng2bYBCiWGJizqIDVgGfmN3v4fo4eZY7V0yhAjPD0=";
+    hash = "sha256-Mdsg4InWz9ekNh/dmXuXBJ2vewr8IoGqfZzMgtnS/Og=";
   };
 
   outputs = [
