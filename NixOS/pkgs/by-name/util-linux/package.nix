@@ -15,9 +15,9 @@
 }).overrideAttrs
   (
     finalAttrs: prevAttrs: {
-      version = "${prevAttrs.version}+securebits";
+      version = "${prevAttrs.version}-unstable-2026-07-08";
       src = fetchFromGitHub {
-        owner = "Skyb0rg007";
+        owner = "util-linux";
         repo = "util-linux";
         rev = "87397f60013a9bfb4054ae1d673b8f9a0cef6062";
         hash = "sha256-0jc6M0uV9Zq3IrN1Cf/99ksWX/FJrZvNbK0DAkujcVA=";
