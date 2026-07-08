@@ -11,17 +11,17 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
-  version = "0.14.0";
+  version = "0.15.0";
 
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";
     repo = "zwPaQSTBX8hktn22F6tHAZSFH2Fh"; # ambient-ci
     node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV"; # liw
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9lYEvnF+eCqAu4YQSD7aSNp/IbPdg9vt2lVPW+YFJwQ=";
+    hash = "sha256-KNiG1N5G5Z88RFKF/r5eQOV4PfLCbSNzEfVppyPktTY=";
   };
 
-  cargoHash = "sha256-SRuTsJGuFm9gei+va+4jlgqd9slqIXLLdF2iENds4yI=";
+  cargoHash = "sha256-R5VN016WQ80DPJMHLrxt4eD1K2gZ1wjBcsj2nAaljrI=";
 
   doCheck = !stdenv.buildPlatform.isDarwin;
   nativeBuildInputs = [ installShellFiles ];
@@ -58,7 +58,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     '';
     mainProgram = "ambient";
     homepage = "https://ambient.liw.fi/";
-    inherit (qemu.meta) platforms;
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.skyesoss ];
   };
