@@ -46,11 +46,12 @@ let
   #   _: v: if builtins.isAttrs v && v ? buildDunePackage then mkOcamlPackages v else v
   # ) pkgs.ocaml-ng;
 
-  tcl9Packages = pkgs.tcl9Packages // tcl9ModulePackages;
+  tcl9PackagesFull = pkgs.tcl9Packages // tcl9ModulePackages;
   tcl9ModulePackages = lib.filesystem.packagesFromDirectoryRecursive {
-    callPackage = lib.callPackageWith (pkgs // packages // tcl9Packages // { inherit nixosTests; });
+    callPackage = lib.callPackageWith (pkgs // packages // tcl9PackagesFull // { inherit nixosTests; });
     directory = ./pkgs/tcl-modules;
   };
+  tcl9Packages = lib.recurseIntoAttrs tcl9ModulePackages;
 
   packages =
     lib.filesystem.packagesFromDirectoryRecursive {
@@ -69,8 +70,8 @@ let
             python315Packages
             nixosTests
             # ocamlPackages
-            tcl9Packages
             ;
+          tcl9Packages = tcl9PackagesFull;
           # "ocaml-ng" = ocamlNg;
           nixpkgs = pkgs;
         }
