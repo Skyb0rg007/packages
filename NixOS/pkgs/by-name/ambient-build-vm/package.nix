@@ -4,6 +4,7 @@
   stdenv,
   fetchFromRadicle,
   installShellFiles,
+  versionCheckHook,
   testers,
 }:
 let
@@ -25,6 +26,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ python ];
   nativeBuildInputs = [ installShellFiles ];
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
+  preVersionCheck = "version=\${version%%-*}";
 
   # TODO: Substitute vmdb2 and qemu-img
   installPhase = ''
@@ -42,11 +46,6 @@ stdenv.mkDerivation (finalAttrs: {
       --target-directory="$out/share/ambient-build-vm" \
       ambient.service base.vmdb playbook.yml
   '';
-
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-    version = "0.1.0";
-  };
 
   meta = {
     description = "Build VM images for Ambient CI";
