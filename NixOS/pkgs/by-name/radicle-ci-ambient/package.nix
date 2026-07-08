@@ -7,17 +7,17 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "radicle-ci-ambient";
-  version = "0.19.0";
+  version = "0.20.0";
 
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";
     repo = "z35CgFVYCKpqqDtJMzk8dyE6dViS6"; # radicle-ci-ambient
     node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV"; # liw
     tag = "v${finalAttrs.version}";
-    hash = "sha256-97O/E4aJ62jmsun1dts5GGYzoOEGqXSv0iHp2ahdO20=";
+    hash = "sha256-TOJeHV0qLxosrgXud40lrjNBBaLSQgNSt9Pnbo+8vHA=";
   };
 
-  cargoHash = "sha256-9p7Kk6Mz2jFK0OutJMxe2RW6SHvI1Z2kANNdvIXYq+k=";
+  cargoHash = "sha256-1ofJDYnLtrrKl5q8T2QME+7GwfR/A7dArHTTQxS5WQg=";
 
   nativeBuildInputs = [ installShellFiles ];
   nativeInstallCheckInputs = [ versionCheckHook ];
