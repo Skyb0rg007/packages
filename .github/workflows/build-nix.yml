@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - 'NixOS/**.nix'
+      - 'NixOS/flake.lock'
       - '.github/workflows/build-nix.yml'
 
 jobs:
