@@ -21,6 +21,7 @@
   pcsclite,
   udev,
   python3,
+  nixosTests,
 }:
 let
   pythonEnv = python3.withPackages (ps: [
@@ -77,6 +78,8 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGApp $out/bin/credentialsd
     wrapGApp $out/bin/credentialsd-ui
   '';
+
+  passthru.tests.nixos = nixosTests.credentialsd;
 
   meta = {
     description = "Linux Credential Manager API";
