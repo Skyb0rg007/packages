@@ -2,6 +2,7 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
+  stdenv,
   cmake,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -21,7 +22,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   env = {
     CMAKE_POLICY_VERSION_MINIMUM = "3.31";
-    NIX_CFLAGS_COMPILE = "-Wno-error=unterminated-string-initialization -Wno-error=stringop-overflow";
+    NIX_CFLAGS_COMPILE =
+      "-Wno-error=unterminated-string-initialization"
+      + lib.optionalString stdenv.buildPlatform.isLinux " -Wno-error=stringop-overflow";
   };
 
   meta = {
