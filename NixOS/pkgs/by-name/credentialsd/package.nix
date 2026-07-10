@@ -20,7 +20,13 @@
   openssl,
   pcsclite,
   udev,
+  python3,
 }:
+let
+  pythonEnv = python3.withPackages (ps: [
+    ps."dbus-next"
+  ]);
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "credentialsd";
   version = "0.2.0";
@@ -61,6 +67,16 @@ stdenv.mkDerivation (finalAttrs: {
     pcsclite
     udev
   ];
+
+  dontWrapGApps = true;
+
+  postFixup = ''
+    substituteInPlace $out/bin/credentialsd-firefox-helper \
+      --replace-fail '#!/usr/bin/env python3' '#!${pythonEnv.interpreter}'
+
+    wrapGApp $out/bin/credentialsd
+    wrapGApp $out/bin/credentialsd-ui
+  '';
 
   meta = {
     description = "Linux Credential Manager API";
