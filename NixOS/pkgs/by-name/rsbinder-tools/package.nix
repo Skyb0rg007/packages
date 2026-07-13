@@ -6,16 +6,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rsbinder-tools";
-  version = "0.9.0";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "hiking90";
     repo = "rsbinder";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-YhHJ3hg86tFnf9Jh62GhC0SMjEL1QWIyDU/VM2I4dMM=";
+    hash = "sha256-/e6VxcszH3golCy4smgPrxLJNwSykXh2LPlNX9G1ZA4=";
   };
 
-  cargoHash = "sha256-AUdXk6cszK/p0qHgRk55pVHA6B3oD+nlfoDGVtlxzao=";
+  cargoHash = "sha256-0WRODytZdzEX6zx4tiICnlPck9V8p1FLtzx5g2ZhCw0=";
 
   cargoBuildFlags = [ "--package=rsbinder-tools" ];
 
