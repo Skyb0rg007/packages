@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 45 packages.
+Generated from 44 packages.
 
 ## `ambient-build-vm`
 
@@ -156,9 +156,10 @@ Generated from 45 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.17.4
+- **Version:** 0.17.8
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
+- **License:** LGPL-2.1-or-later
 
 ## `masque-go`
 
