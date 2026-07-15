@@ -36,6 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Run tools in OS-level sandboxes";
     mainProgram = "landstrip";
     maintainers = [ lib.maintainers.skyesoss ];
+    license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin ++ lib.platforms.windows;
   };
 })
