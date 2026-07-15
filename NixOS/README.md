@@ -325,14 +325,6 @@ Generated from 45 packages.
 - **Homepage:** [https://gitlab.com/tpm-protocol/tpm2sh](https://gitlab.com/tpm-protocol/tpm2sh)
 - **License:** GPL-3.0-or-later
 
-## `util-linux`
-
-- **Package name:** util-linux
-- **Version:** 2.42-unstable-2026-07-08
-- **Description:** Set of system utilities for Linux
-- **Homepage:** [https://www.kernel.org/pub/linux/utils/util-linux/](https://www.kernel.org/pub/linux/utils/util-linux/)
-- **License:** GPL-2.0-only, GPL-2.0-or-later, GPL-3.0-or-later, LGPL-2.1-or-later, BSD-3-Clause, BSD-4-Clause-UC, publicDomain
-
 ## `vmdb2`
 
 - **Package name:** vmdb2
