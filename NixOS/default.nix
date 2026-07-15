@@ -25,10 +25,31 @@ let
   python314 = pythonOverride pkgs.python314;
   python315 = pythonOverride pkgs.python315;
 
-  python3Packages = python313Packages;
-  python313Packages = python313.pkgs;
-  python314Packages = python314.pkgs;
-  python315Packages = python315.pkgs;
+  # Full package sets
+  python3PackagesFull = python313PackagesFull;
+  python313PackagesFull = python313.pkgs;
+  python314PackagesFull = python314.pkgs;
+  python315PackagesFull = python315.pkgs;
+
+  # Packages defined only in this project
+  python3ModulePackages = python313ModulePackages;
+  python313ModulePackages = lib.filesystem.packagesFromDirectoryRecursive {
+    callPackage = python313.pkgs.callPackage;
+    directory = ./pkgs/python-modules;
+  };
+  python314ModulePackages = lib.filesystem.packagesFromDirectoryRecursive {
+    callPackage = python314.pkgs.callPackage;
+    directory = ./pkgs/python-modules;
+  };
+  python315ModulePackages = lib.filesystem.packagesFromDirectoryRecursive {
+    callPackage = python315.pkgs.callPackage;
+    directory = ./pkgs/python-modules;
+  };
+
+  python3Packages = lib.recurseIntoAttrs python313ModulePackages;
+  python313Packages = lib.recurseIntoAttrs python313ModulePackages;
+  python314Packages = lib.recurseIntoAttrs python314ModulePackages;
+  python315Packages = lib.recurseIntoAttrs python315ModulePackages;
 
   # mkOcamlPackages =
   #   base:
@@ -64,13 +85,13 @@ let
             python313
             python314
             python315
-            python3Packages
-            python313Packages
-            python314Packages
-            python315Packages
             nixosTests
             # ocamlPackages
             ;
+          python3Packages = python3PackagesFull;
+          python313Packages = python313PackagesFull;
+          python314Packages = python314PackagesFull;
+          python315Packages = python315PackagesFull;
           tcl9Packages = tcl9PackagesFull;
           # "ocaml-ng" = ocamlNg;
           nixpkgs = pkgs;
