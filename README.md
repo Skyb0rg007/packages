@@ -38,37 +38,7 @@ Note: the `extra-` prefix just means the line won't override previous configurat
 
 ### Packages
 
-- `anemoi`: Least-privilege Dynamic DNS
-  - [anemoi.nix](./NixOS/pkgs/anemoi.nix)
-  - GitHub: https://github.com/dayt0n/anemoi
-
-- `ascsaver`: ASCII screen saver
-  - [ascsaver.nix](./NixOS/pkgs/ascsaver.nix)
-  - GitLab: https://gitlab.com/mezantrop/ascsaver
-
-- `smlnj-dev`: SML/NJ development
-  - [smlnj-dev.nix](./NixOS/pkgs/smlnj-dev.nix)
-  - GitHub: https://github.com/smlnj/smlnj
-
-- `mlton`: MLton
-  - [mlton.nix](./NixOS/pkgs/mlton.nix)
-  - GitHub: https://github.com/MLton/mlton
-
-- `porkbun-ddns`: Porkbun DDNS
-  - [porkbun-ddns.nix](./NixOS/pkgs/porkbun-ddns.nix)
-  - GitHub: https://github.com/mietzen/porkbun-ddns
-
-- `tmux-notify`: Tmux Notify
-  - [tmux-notify.nix](./NixOS/pkgs/tmux-notify.nix)
-  - GitHub: https://github.com/rickstaa/tmux-notify
-
-### In-Progress / Stalled
-
-- `reddio`
-- `cdash`
-- `tubearchivist`
-- `archivebox`
-- `paperless-ai`
+See [NixOS/README.md](./NixOS/README.md).
 
 ## Ubuntu/Debian
 
