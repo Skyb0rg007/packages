@@ -8,13 +8,13 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "landlock-config";
-  version = "0-unstable-2026-07-02";
+  version = "0-unstable-2026-07-16";
 
   src = fetchFromGitHub {
     owner = "landlock-lsm";
     repo = "landlockconfig";
-    rev = "ab1ddf33b5d1c4b76c43ac8e0d46cbe1b0b48524";
-    hash = "sha256-3CrWhEHN7+gH+tCQ7C2XVyVcv+UeKtF38EbCz6ASBZY=";
+    rev = "62ad0d66b8c97e5a3eb9c6e56809d828aaba614f";
+    hash = "sha256-cfmu3P1ScREQTEOps1xkc40eEzXXigiwW4s0bXb8YMo=";
   };
 
   cargoPatches = [
@@ -27,10 +27,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     cargo-c
   ];
 
-  # landlockconfig is a library workspace: the root crate is a pure Rust lib and
-  # the installable artifact is the C API (cdylib/staticlib + header + pkg-config)
-  # produced by the `landlockconfig_ffi` crate via cargo-c. `cargo install` only
-  # copies executables, so without this `$out` would be empty.
+  cargoBuildFlags = [
+    "--package=llconfig"
+  ];
+
+  # The C API (cdylib/staticlib + header + pkg-config) is produced by the
+  # `landlockconfig_ffi` crate via cargo-c which has no builtin
+  # buildRustPackage support.
   postBuild = ''
     ${buildPackages.rust.envVars.setEnv} cargo cbuild --release --frozen \
       --package landlockconfig_ffi \
