@@ -2,33 +2,72 @@
   lib,
   fetchFromGitHub,
   rustPlatform,
+  buildPackages,
   stdenv,
+  testers,
   versionCheckHook,
   rustc,
   cacert,
+  pkg-config,
+  openssl,
+  cargo-c,
+  validatePkgConfig,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "upki";
-  version = "0.1.0";
+  version = "1.0.0-beta.2";
 
   src = fetchFromGitHub {
     owner = "rustls";
     repo = "upki";
     tag = "upki-${finalAttrs.version}";
-    hash = "sha256-F+35W3lCoZ4Oq5tq2zbtBeU7lXVx9/tA3OY2UvkqsWU=";
+    hash = "sha256-QTtZnMMSfacqqQUNHtCHgkG2qjQqvO338J/7Cn4HODQ=";
   };
 
-  cargoHash = "sha256-RXWeZT9c1lSVrz4J0XdxOmLmYtzwJgIQlXrvwGvkB78=";
+  cargoHash = "sha256-XQBElbN2QiqqP464rfgEwt7UHrKgCgmpHDP36m44kxc=";
 
-  buildAndTestSubdir = "upki";
+  cargoBuildFlags = [
+    "--package=upki-cli"
+    "--package=upki-openssl"
+  ];
 
-  nativeCheckInputs = [ cacert ];
+  cargoInstallFlags = [
+    "--package=upki-cli"
+  ];
+
+  nativeBuildInputs = [
+    cargo-c
+    pkg-config
+  ];
+  buildInputs = [ openssl ];
 
   env.SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  postBuild = ''
+    ${buildPackages.rust.envVars.setEnv} cargo cbuild --release --frozen \
+      --package upki-openssl \
+      --prefix=$out \
+      --target ${stdenv.hostPlatform.rust.rustcTarget}
+  '';
+
+  postInstall = ''
+    ${buildPackages.rust.envVars.setEnv} cargo cinstall --release --frozen \
+      --package upki-openssl \
+      --prefix=$out \
+      --target ${stdenv.hostPlatform.rust.rustcTarget}
+
+    install -Dm444 upki/upki.h $out/include/upki_openssl/upki.h
+  '';
+
+  nativeInstallCheckInputs = [
+    pkg-config
+    versionCheckHook
+    validatePkgConfig
+  ];
   doInstallCheck = true;
+
+  passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
   meta = {
     description = "Platform-independent browser-grade certificate infrastructure";
@@ -40,6 +79,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ];
     maintainers = [ lib.maintainers.skyesoss ]; # upstream: lesuisse
     mainProgram = "upki";
+    pkgConfigModules = [ "upki_openssl" ];
     platforms = rustc.meta.platforms;
   };
 })
