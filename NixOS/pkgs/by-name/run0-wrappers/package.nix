@@ -8,12 +8,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "run0-wrappers";
-  version = "0.4.0";
+  version = "0.5.0";
   src = fetchFromGitHub {
     owner = "thkukuk";
     repo = "run0-wrappers";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gkDEIvD+OpQRlBKSrehmyrjC8/ALwMvKrSXNb7XEll8=";
+    hash = "sha256-ZccmOjKy14IAGaYHjDs3wTkY18QU1UYAlN50tvjLQhg=";
   };
   nativeBuildInputs = [
     meson
