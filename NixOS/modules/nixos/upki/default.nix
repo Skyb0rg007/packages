@@ -90,7 +90,7 @@ in
       description = "Update the upki cache every ${cfg.interval}";
       wantedBy = [ "timers.target" ];
       timerConfig = {
-        OnBootSec = "0";
+        OnActiveSec = "0";
         OnUnitActiveSec = cfg.interval;
       };
     };
