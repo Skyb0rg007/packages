@@ -43,6 +43,7 @@ jobs:
             --systems ${{ matrix.system }} \
             --skip-cached \
             --cachix-cache=skyenet \
+            --no-nom \
             --no-link
 
       # TODO: Add to NUR
