@@ -44,7 +44,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     libadwaita
     nettle
     openssl
-    openssl
     pcsclite
     sqlite
   ];
