@@ -1,11 +1,11 @@
 # Packages
 
-Generated from 44 packages.
+Generated from 47 packages.
 
 ## `ambient-build-vm`
 
 - **Package name:** ambient-build-vm
-- **Version:** 0.1.0-unstable-2026-06-15
+- **Version:** 0.1.0-unstable-2026-07-10
 - **Description:** Build VM images for Ambient CI
 - **Homepage:** [https://ambient.liw.fi/](https://ambient.liw.fi/)
 - **License:** GPL-3.0-or-later
@@ -149,7 +149,7 @@ Generated from 44 packages.
 ## `landlock-config`
 
 - **Package name:** landlock-config
-- **Version:** 0-unstable-2026-07-02
+- **Version:** 0-unstable-2026-07-16
 - **Description:** Landlock configuration library
 - **Homepage:** [https://landlock.io](https://landlock.io)
 
@@ -208,6 +208,22 @@ Generated from 44 packages.
 - **Homepage:** [https://nlnetlabs.nl/projects/domain/mimir/](https://nlnetlabs.nl/projects/domain/mimir/)
 - **License:** MPL-2.0
 
+## `parsec`
+
+- **Package name:** parsec
+- **Version:** 1.5.0
+- **Description:** Platform AbstRaction for SECurity
+- **Homepage:** [https://parsec.community](https://parsec.community)
+- **License:** Apache-2.0
+
+## `parsec-tool`
+
+- **Package name:** parsec-tool
+- **Version:** 0.7.0
+- **Description:** Parsec Command Line Interface
+- **Homepage:** [https://parsec.community](https://parsec.community)
+- **License:** Apache-2.0
+
 ## `porkbun-ddns`
 
 - **Package name:** porkbun-ddns
@@ -242,7 +258,7 @@ Generated from 44 packages.
 ## `radicle-ci-ambient`
 
 - **Package name:** radicle-ci-ambient
-- **Version:** 0.20.0
+- **Version:** 0.21.1
 - **Description:** Radicle CI adapter for Ambient CI
 - **Homepage:** [https://radicle-ci.liw.fi](https://radicle-ci.liw.fi)
 
@@ -325,6 +341,13 @@ Generated from 44 packages.
 - **Description:** CLI for accessing TPM 2.0 chips on Linux.
 - **Homepage:** [https://gitlab.com/tpm-protocol/tpm2sh](https://gitlab.com/tpm-protocol/tpm2sh)
 - **License:** GPL-3.0-or-later
+
+## `upki`
+
+- **Package name:** upki
+- **Version:** 1.0.0-beta.2
+- **Description:** Platform-independent browser-grade certificate infrastructure
+- **Homepage:** [https://github.com/rustls/upki/tree/main/upki](https://github.com/rustls/upki/tree/main/upki)
 
 ## `vmdb2`
 
