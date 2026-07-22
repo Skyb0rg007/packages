@@ -40,11 +40,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildFeatures = [
-    # "mbed-crypto-provider"
-    # "pkcs11-provider"
-    # "tpm-provider"
-    # "cryptoauthlib-provider"
-    "all-providers"
+    "mbed-crypto-provider"
+    "pkcs11-provider"
+    "tpm-provider"
+    "cryptoauthlib-provider"
+    # "all-providers"
 
     "direct-authenticator"
     "unix-peer-credentials-authenticator"
