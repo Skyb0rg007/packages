@@ -8,7 +8,7 @@
   php,
   nix-update-script,
 }:
-php.buildComposerProject2 (finalAttrs: {
+(php.buildComposerProject2 (finalAttrs: {
   pname = "cdash";
   version = "5.2.0";
 
@@ -89,4 +89,10 @@ php.buildComposerProject2 (finalAttrs: {
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.skyesoss ];
   };
-})
+})).overrideAttrs
+  (oldAttrs: {
+    # Needed because buildComposerProject2 overrides this
+    meta = oldAttrs.meta // {
+      platforms = [ "x86_64-linux" ];
+    };
+  })
