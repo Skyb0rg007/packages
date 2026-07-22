@@ -57,6 +57,7 @@
               pkgs.git
               pkgs.nix
               pkgs.nix-update
+              pkgs.nix-fast-build
             ];
             env.NIX_CONFIG = "extra-experimental-features = nix-command flakes";
           };
