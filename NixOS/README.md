@@ -61,7 +61,7 @@ Generated from 47 packages.
 ## `buildgrid`
 
 - **Package name:** buildgrid
-- **Version:** 0.8.2
+- **Version:** 0.8.3
 - **Description:** Python remote execution service
 - **Homepage:** [https://buildgrid.build](https://buildgrid.build)
 - **License:** Apache-2.0
@@ -109,7 +109,7 @@ Generated from 47 packages.
 ## `image-builder`
 
 - **Package name:** image-builder
-- **Version:** 74.0.0
+- **Version:** 76.0.0
 - **Description:** Tools to build and deploy disk-images
 - **Homepage:** [https://osbuild.org](https://osbuild.org)
 - **License:** Apache-2.0
@@ -156,7 +156,7 @@ Generated from 47 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.17.8
+- **Version:** 0.17.34
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-2.1-or-later
@@ -281,7 +281,7 @@ Generated from 47 packages.
 ## `run0-wrappers`
 
 - **Package name:** run0-wrappers
-- **Version:** 0.4.0
+- **Version:** 0.5.0
 - **Description:** Wrappers for systemd's run0 to replace sudo
 - **Homepage:** [https://github.com/thkukuk/run0-wrappers](https://github.com/thkukuk/run0-wrappers)
 - **License:** BSD-2-Clause
@@ -362,7 +362,7 @@ Generated from 47 packages.
 ## `cdash`
 
 - **Package name:** cdash
-- **Version:** 5.1.0
+- **Version:** 5.2.0
 - **Description:** CDash is a web-based software testing server
 - **Homepage:** [https://www.cdash.org](https://www.cdash.org)
 - **License:** BSD-3-Clause
