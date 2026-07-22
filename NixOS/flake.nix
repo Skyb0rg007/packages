@@ -74,7 +74,15 @@
         let
           hostPlatform = pkgsFor.${system}.stdenv.hostPlatform;
           isBuildable =
-            v: lib.isDerivation v && !(v.meta.broken or false) && lib.meta.availableOn hostPlatform v;
+            v:
+            let
+              licenseFromMeta = v.meta.license or [ ];
+              licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [ licenseFromMeta ];
+            in
+            lib.isDerivation v
+            && !(v.meta.broken or false)
+            && builtins.all lib.licenses.isRedistributable licenseList
+            && lib.meta.availableOn hostPlatform v;
         in
         lib.filterAttrs (_: isBuildable) self.legacyPackages.${system}
       );
