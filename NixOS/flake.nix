@@ -33,17 +33,30 @@
           config.allowUnfree = true;
         }
       );
+      prefixAttrKeys =
+        prefix:
+        lib.mapAttrs' (
+          name: value: {
+            name = "${prefix}-${name}";
+            inherit value;
+          }
+        );
     in
     {
-      checks = forDefaultSystems (system: {
-        pre-commit-check = git-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            nixfmt.enable = true;
-            editorconfig-checker.enable = true;
+      checks = forDefaultSystems (
+        system:
+        prefixAttrKeys "package" self.packages.${system}
+        // prefixAttrKeys "devShell" self.devShells.${system}
+        // {
+          pre-commit-check = git-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              nixfmt.enable = true;
+              editorconfig-checker.enable = true;
+            };
           };
-        };
-      });
+        }
+      );
       devShells = forDefaultSystems (
         system:
         let
