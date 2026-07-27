@@ -53,7 +53,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Private key store for Sequoia";
     homepage = "https://gitlab.com/sequoia-pgp/sequoia-keystore";
     license = lib.licenses.lgpl2Plus;
-    inherit (rustc.meta) platforms;
+    platforms = lib.intersectLists lib.platforms.linux rustc.meta.platforms;
     maintainers = [ lib.maintainers.skyesoss ];
     mainProgram = "sequoia-keystore";
   };
