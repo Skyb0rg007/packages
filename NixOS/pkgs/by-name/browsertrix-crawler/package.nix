@@ -23,7 +23,7 @@
   yarnConfigHook,
 }:
 let
-  version = "1.13.2";
+  version = "1.14.0";
   rwp_version = "2.4.3";
   rwp = fetchzip {
     url = "https://registry.npmjs.org/replaywebpage/-/replaywebpage-${rwp_version}.tgz";
@@ -37,12 +37,12 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "webrecorder";
     repo = "browsertrix-crawler";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-uf7keFsEp4YpoDmXc9Y9iweuFCJN/w0LpFk7fB1i7po=";
+    hash = "sha256-0tVR0pyKCIMFpKJ18NnRa+3Z6cEEpTs5fRucelAIZ00=";
   };
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = "${finalAttrs.src}/yarn.lock";
-    hash = "sha256-QYwAed1/Xb3uYb0rwEmLmHK2S7Av/x6+2ba1CoXrQKI=";
+    hash = "sha256-0QCwgm+AJ9bwPftbA4DmTeLMOTwhCqOtoGVYr7EjYn8=";
   };
 
   env.yarnBuildScript = "tsc";
