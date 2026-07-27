@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 47 packages.
+Generated from 48 packages.
 
 ## `ambient-build-vm`
 
@@ -13,7 +13,7 @@ Generated from 47 packages.
 ## `ambient-ci`
 
 - **Package name:** ambient-ci
-- **Version:** 0.15.0
+- **Version:** 0.16.0
 - **Description:** Ambient continuous integration engine
 - **Homepage:** [https://ambient.liw.fi/](https://ambient.liw.fi/)
 - **License:** GPL-3.0-or-later
@@ -45,7 +45,7 @@ Generated from 47 packages.
 ## `browsertrix-crawler`
 
 - **Package name:** browsertrix-crawler
-- **Version:** 1.13.2
+- **Version:** 1.14.0
 - **Description:** A simplified browser-based crawling system
 - **Homepage:** [https://crawler.docs.browsertrix.com](https://crawler.docs.browsertrix.com)
 - **License:** AGPL-3.0-or-later, unfree
@@ -156,7 +156,7 @@ Generated from 47 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.17.34
+- **Version:** 0.17.38
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-2.1-or-later
@@ -310,6 +310,14 @@ Generated from 47 packages.
 - **Homepage:** [https://gitlab.com/sequoia-pgp/sequin](https://gitlab.com/sequoia-pgp/sequin)
 - **License:** GPL-2.0-or-later
 
+## `sequoia-keystore-server`
+
+- **Package name:** sequoia-keystore-server
+- **Version:** 0.2.1
+- **Description:** Private key store for Sequoia
+- **Homepage:** [https://gitlab.com/sequoia-pgp/sequoia-keystore](https://gitlab.com/sequoia-pgp/sequoia-keystore)
+- **License:** LGPL-2.0-or-later
+
 ## `subplot`
 
 - **Package name:** subplot
@@ -345,7 +353,7 @@ Generated from 47 packages.
 ## `upki`
 
 - **Package name:** upki
-- **Version:** 1.0.0-beta.2
+- **Version:** 1.0.0-beta.3
 - **Description:** Platform-independent browser-grade certificate infrastructure
 - **Homepage:** [https://github.com/rustls/upki/tree/main/upki](https://github.com/rustls/upki/tree/main/upki)
 
