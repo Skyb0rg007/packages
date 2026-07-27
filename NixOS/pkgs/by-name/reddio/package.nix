@@ -3,7 +3,6 @@
   fetchFromGitLab,
   lib,
   config,
-  nix-update-script,
   versionCheckHook,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -24,8 +23,6 @@ stdenv.mkDerivation (finalAttrs: {
   dontBuild = true;
 
   makeFlags = [ "PREFIX=$(out)" ];
-
-  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Command-line interface for Reddit";
