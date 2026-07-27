@@ -43,6 +43,7 @@ jobs:
             --command nix-fast-build \
             --flake ./NixOS#packages.${{ matrix.system }} \
             --systems ${{ matrix.system }} \
+            --select 'packages: builtins.removeAttrs packages (builtins.filter (name: !(builtins.elem "${{ matrix.system }}" (packages.${name}.meta.hydraPlatforms or [ "${{ matrix.system }}" ]))) (builtins.attrNames packages))' \
             --skip-cached \
             --cachix-cache=skyenet \
             --no-nom \
