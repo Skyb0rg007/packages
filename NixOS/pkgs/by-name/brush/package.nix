@@ -1,33 +1,38 @@
 {
-  nixpkgs,
-  fetchFromGitHub,
+  lib,
   rustPlatform,
+  fetchFromGitHub,
   nix-update-script,
 }:
-nixpkgs.brush.overrideAttrs (
-  finalAttrs: prevAttrs: {
-    version = "0.4.0-428f4774";
 
-    src = fetchFromGitHub {
-      owner = "reubeno";
-      repo = "brush";
-      rev = "428f47747a890061ae14da2645621751972a5dc9";
-      hash = "sha256-fH7BET5zOL9jv8V0jNf3+W4glaQ2gfCcikXhEaORcl4=";
-    };
+rustPlatform.buildRustPackage (finalAttrs: {
+  pname = "brush";
+  version = "0.4.0-unstable-2026-07-26";
 
-    cargoDeps = rustPlatform.fetchCargoVendor {
-      inherit (finalAttrs) src;
-      hash = "sha256-UWE1bZF+YVGoGDkHyldmKhzrkWda7MX72SuT5m9q3Bc=";
-    };
+  src = fetchFromGitHub {
+    owner = "reubeno";
+    repo = "brush";
+    rev = "897b373e08279f644438fb19438f156fc34647cd";
+    hash = "sha256-cGyU/gbgT8zZ8mG5aljH5L7NKqk1T6NePH52Rx/UpgI=";
+  };
 
-    passthru.updateScript = nix-update-script {
-      extraArgs = [ "--version=branch" ];
-    };
+  cargoHash = "sha256-PS3yjRyVHoBHTyayWK5krkD1zjbd1+cyAF5qNu1SW3g=";
 
-    dontVersionCheck = true;
+  doCheck = false;
 
-    meta = prevAttrs.meta // {
-      changelog = "${prevAttrs.meta.homepage}/blob/${finalAttrs.src.rev}/CHANGELOG.md";
-    };
-  }
-)
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=branch"
+      "--version-regex=^brush-v([0-9.]+-unstable-[0-9-]+)$"
+    ];
+  };
+
+  meta = {
+    description = "Bash/POSIX-compatible shell implemented in Rust";
+    homepage = "https://github.com/reubeno/brush";
+    changelog = "https://github.com/reubeno/brush/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.skyesoss ];
+    mainProgram = "brush";
+  };
+})
