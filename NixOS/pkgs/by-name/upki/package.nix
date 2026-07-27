@@ -16,16 +16,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "upki";
-  version = "1.0.0-beta.2";
+  version = "1.0.0-beta.3";
 
   src = fetchFromGitHub {
     owner = "rustls";
     repo = "upki";
     tag = "upki-${finalAttrs.version}";
-    hash = "sha256-QTtZnMMSfacqqQUNHtCHgkG2qjQqvO338J/7Cn4HODQ=";
+    hash = "sha256-GZkXxidIjG76yIzAcMRsRorMVYpImFN5Q2pe2YgiEUs=";
   };
 
-  cargoHash = "sha256-XQBElbN2QiqqP464rfgEwt7UHrKgCgmpHDP36m44kxc=";
+  cargoHash = "sha256-/z11KuGP3A3fh/Jk2Kx26x7okh6brHs+t/XC7BuPgcA=";
 
   cargoBuildFlags = [
     "--package=upki-cli"
