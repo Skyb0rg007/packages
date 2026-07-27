@@ -2,6 +2,7 @@
   lib,
   fetchFromGitLab,
   python3,
+  nix-update-script,
 }:
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "mkbstosi";
@@ -23,6 +24,10 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   dependencies = with python3.pkgs; [
     ruamel-yaml
   ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     description = "Make BuildStream OS Image";
