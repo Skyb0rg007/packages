@@ -6,14 +6,14 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "buildgrid";
-  version = "0.8.3";
+  version = "0.8.4";
   pyproject = true;
 
   src = fetchFromGitLab {
     owner = "BuildGrid";
     repo = "buildgrid";
     tag = finalAttrs.version;
-    hash = "sha256-odMT9hY3o9IIc27qffaRH2uxYeUD/w50OyQVc4pSs/g=";
+    hash = "sha256-vG+6OuoyEKk830ZLEuT0p+3IebOeKvkbjyZkGrFlGaQ=";
   };
 
   pythonRelaxDeps = [
