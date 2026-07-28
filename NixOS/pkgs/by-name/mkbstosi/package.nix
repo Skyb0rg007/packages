@@ -6,7 +6,7 @@
 }:
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "mkbstosi";
-  version = "0-unstable-2026-01-02";
+  version = "0-unstable-2026-01-03";
   pyproject = true;
 
   src = fetchFromGitLab {
