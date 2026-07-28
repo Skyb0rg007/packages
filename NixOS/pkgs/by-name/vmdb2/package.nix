@@ -26,6 +26,9 @@ python3.pkgs.buildPythonPackage (finalAttrs: {
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
 
+  # buildPythonPackage sets a default passthru.updateScript, but it's hosted on radicle.
+  passthru.updateScript = null;
+
   meta = {
     description = "Debian virtual machine image builder";
     longDescription = ''
