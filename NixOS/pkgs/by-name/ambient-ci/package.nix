@@ -6,7 +6,6 @@
   qemu,
   rustPlatform,
   stdenv,
-  nix-update-script,
   versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installManPage *.1
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = [ ./update.sh ];
 
   meta = {
     description = "Ambient continuous integration engine";
