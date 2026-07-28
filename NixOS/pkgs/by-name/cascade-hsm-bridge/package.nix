@@ -5,7 +5,6 @@
   cargo,
   softhsm,
   installShellFiles,
-  nix-update-script,
   versionCheckHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -40,12 +39,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # Build the debug release
     cargo build --bin cascade-hsm-bridge
   '';
-
-  passthru = {
-    updateScript = nix-update-script {
-      extraArgs = [ "--version=unstable" ];
-    };
-  };
 
   meta = {
     description = "KMIP to PKCS#11 bridge for Cascade";
