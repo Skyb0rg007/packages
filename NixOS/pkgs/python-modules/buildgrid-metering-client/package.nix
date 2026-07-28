@@ -36,6 +36,8 @@ buildPythonPackage (finalAttrs: {
     tenacity
   ];
 
+  passthru.updateScript = null;
+
   meta = {
     description = "Asyncio Python client of buildgrid-metering service";
     homepage = "https://gitlab.com/BuildGrid/buildgrid-metering-client";
