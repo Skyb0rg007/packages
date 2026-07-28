@@ -18,7 +18,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-PS3yjRyVHoBHTyayWK5krkD1zjbd1+cyAF5qNu1SW3g=";
 
-  doCheck = false;
+  postPatch = ''
+    rm brush-shell/tests/compat_tests.rs
+    sed -i -e '/^\[\[test\]\]$/{N;/name = "brush-compat-tests"/{N;N;N;d}}' brush-shell/Cargo.toml
+  '';
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
