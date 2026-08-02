@@ -7,13 +7,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "brush";
-  version = "0.4.0-unstable-2026-07-26";
+  version = "0.4.0-unstable-2026-07-31";
 
   src = fetchFromGitHub {
     owner = "reubeno";
     repo = "brush";
-    rev = "e98539913a8539e449affdfd2d107f86ac5ae526";
-    hash = "sha256-7vG6YGBytPusvvmSWCLUZ7KXk2/x3OhC+mIZs3eWWsM=";
+    rev = "71afef7ce79ad2fd94833fa4f93fa5486c86c56b";
+    hash = "sha256-xUpeKbbi3IK6Q3zFuoL4Wgx8nKHAaTQKB9PBDOyIqck=";
   };
 
   cargoHash = "sha256-PS3yjRyVHoBHTyayWK5krkD1zjbd1+cyAF5qNu1SW3g=";
