@@ -9,15 +9,15 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "landstrip";
-  version = "0.18.19";
+  version = "0.18.23";
   src = fetchFromGitHub {
     owner = "landstrip";
     repo = "landstrip";
     tag = finalAttrs.version;
-    hash = "sha256-t+MoM9BSwaJDQh/h0k+cqotKZy/eoKlXRLUjEQ0pnmE=";
+    hash = "sha256-HQt2wLlL20C5UWJcrk4aQTu28Syak+fznJUVrMtvXTI=";
   };
 
-  cargoHash = "sha256-S01neAzlwYj+HbBwFEeRDF2us96vtU6NIaDACPDsV/M=";
+  cargoHash = "sha256-gXqY5hXS5XW7sQmjpUCP1FArUl+lZf1cd/lHj68vla8=";
 
   nativeBuildInputs = [ installShellFiles ];
   nativeInstallCheckInputs = [ versionCheckHook ];
