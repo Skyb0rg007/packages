@@ -7,18 +7,21 @@
 }:
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "porkbun-ddns";
-  version = "1.1.27";
+  version = "2.0.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mietzen";
     repo = "porkbun-ddns";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-UEYf3fEr7b+AICAe6kDuC4KRCP1ncKiJoReTkjDZTg4=";
+    hash = "sha256-SSLNCmFaW9P5+LXPDcVUvyWGOGMXd1kqXbxTlYUTsas=";
   };
 
   build-system = with python3.pkgs; [ setuptools ];
-  dependencies = with python3.pkgs; [ xdg-base-dirs ];
+  dependencies = with python3.pkgs; [
+    jinja2
+    xdg-base-dirs
+  ];
   nativeCheckInputs = [ python3.pkgs.pytestCheckHook ];
   enabledTestPaths = [ "porkbun_ddns/test" ];
 
