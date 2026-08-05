@@ -55,7 +55,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Contact-centric PGP certificate manager built on Sequoia";
     homepage = "https://gitlab.com/sequoia-pgp/sequin";
-    license = lib.licenses.gpl2Plus;
+    # sequin sources are LGPL-2.0-or-later, but uses Slint which requires GPL-3.0-only
+    license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     mainProgram = "sequin";
     maintainers = [ lib.maintainers.skyesoss ];
