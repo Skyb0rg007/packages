@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Emulate a Radicle CI run locally";
     homepage = "https://radicle-ci.liw.fi";
     mainProgram = "rad-ci";
-    licenses = lib.licenses.OR [
+    license = lib.licenses.OR [
       lib.licenses.mit
       lib.licenses.asl20
     ];
