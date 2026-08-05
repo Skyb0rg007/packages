@@ -12,10 +12,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";
     repo = "z35CgFVYCKpqqDtJMzk8dyE6dViS6"; # radicle-ci-ambient
-    # XXX: Replace once git tag is fixed
-    # node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV"; # liw
-    # tag = "v${finalAttrs.version}";
-    rev = "7e8be391f6c48abb9de2188e901f75b265bc225a";
+    node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV"; # liw
+    tag = "v${finalAttrs.version}";
     hash = "sha256-PrCcvbGvZKjvCHkUDpCEhPjTJcboCA/DxWQTiqYvLyE=";
   };
 
