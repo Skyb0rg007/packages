@@ -19,14 +19,14 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "sbuild";
-  version = "0.91.9_bpo13+1";
+  version = "0.91.10";
 
   src = fetchFromGitLab {
     domain = "salsa.debian.org";
     owner = "debian";
     repo = "sbuild";
-    rev = "debian/${finalAttrs.version}";
-    hash = "sha256-udehTT9PxqNHOVDWbePfmINkEUn0202urcCT1mSf1W8=";
+    tag = "debian/${finalAttrs.version}";
+    hash = "sha256-y/EwvmBoRECeIl9R0/t2S+CDxF7Cpk8Fn+xN8xKeJFU=";
   };
 
   nativeBuildInputs = [
