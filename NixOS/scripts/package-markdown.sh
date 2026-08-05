@@ -69,7 +69,9 @@ metadata_json=$(
         filter = sourceFilter;
         name = "nixos-packages";
       };
-      packages = import root { };
+      pkgs = import <nixpkgs> { config.allowUnfree = true; };
+      inherit (pkgs) lib;
+      packages = import root { inherit pkgs; };
 
       isDerivation = value:
         builtins.isAttrs value && value ? type && value.type == "derivation";
@@ -103,15 +105,14 @@ metadata_json=$(
         else
           null;
 
+      # Render license as SPDX expression
       licenseToString = license:
-        if license == null then
+        if license == null || license == [ ] then
           null
         else if builtins.isList license then
-          concatStringsSep ", " (builtins.filter (value: value != null) (builtins.map licenseToString license))
-        else if builtins.isAttrs license then
-          license.spdxId or license.shortName or license.fullName or license.name or null
+          lib.licenses.toSPDX (lib.licenses.AND license)
         else
-          valueToString license;
+          lib.licenses.toSPDX license;
 
       homepageToString = homepage:
         if homepage == null then
@@ -150,6 +151,17 @@ metadata_json=$(
     builtins.sort lessThan (collect [ ] packages)
   '
 )
+
+missing_licenses=$(jq -r '[ .[] | select(.license == null or .license == "") | .attrPath ] | unique | .[]' <<<"$metadata_json")
+if [[ -n $missing_licenses ]]; then
+  {
+    echo "error: meta.license is missing for the following packages:"
+    while IFS= read -r attr_path; do
+      printf '  %s\n' "$attr_path"
+    done <<<"$missing_licenses"
+  } >&2
+  exit 1
+fi
 
 render_markdown() {
   jq -r '
