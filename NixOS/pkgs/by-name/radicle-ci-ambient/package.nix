@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Radicle CI adapter for Ambient CI";
     homepage = "https://radicle-ci.liw.fi";
     mainProgram = "radicle-ci-ambient";
-    licenses = [
+    license = lib.licenses.OR [
       lib.licenses.mit
       lib.licenses.asl20
     ];
