@@ -3,6 +3,7 @@
   pkgs,
   fetchFromGitHub,
   python3,
+  stdenv,
   nix-update-script,
 }:
 python3.pkgs.buildPythonApplication (finalAttrs: {
@@ -26,6 +27,8 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   enabledTestPaths = [ "porkbun_ddns/test" ];
 
   passthru.updateScript = nix-update-script { };
+
+  doCheck = !stdenv.hostPlatform.isDarwin;
 
   meta = {
     description = "An unofficial DDNS-Client for Porkbun Domains";
