@@ -84,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Linux Credential Manager API";
     homepage = "https://github.com/linux-credentials/credentialsd";
-    license = lib.licenses.lgpl3Plus;
+    license = lib.licenses.lgpl3Only;
     platforms = lib.platforms.linux;
   };
 })
