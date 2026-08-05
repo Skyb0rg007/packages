@@ -60,7 +60,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    license = lib.licenses.gpl3Plus;
+    license = lib.licenses.agpl3Plus;
     maintainers = [ lib.maintainers.skyesoss ];
   };
 })

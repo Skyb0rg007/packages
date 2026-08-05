@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     mainProgram = "ambient-build-vm";
     homepage = "https://ambient.liw.fi/";
-    license = lib.licenses.gpl3Plus;
+    license = lib.licenses.agpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.skyesoss ];
   };
