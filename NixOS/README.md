@@ -48,7 +48,7 @@ Generated from 48 packages.
 - **Version:** 1.14.0
 - **Description:** A simplified browser-based crawling system
 - **Homepage:** [https://crawler.docs.browsertrix.com](https://crawler.docs.browsertrix.com)
-- **License:** AGPL-3.0-or-later, unfree
+- **License:** AGPL-3.0-or-later AND LicenseRef-nixos-unfree
 
 ## `brush`
 
@@ -96,7 +96,7 @@ Generated from 48 packages.
 - **Version:** 2025.1
 - **Description:** GnuPG archive keys of the Debian archive
 - **Homepage:** [https://salsa.debian.org/release-team/debian-archive-keyring](https://salsa.debian.org/release-team/debian-archive-keyring)
-- **License:** GPL-2.0-or-later, publicDomain
+- **License:** GPL-2.0-or-later AND LicenseRef-nixos-publicDomain
 
 ## `debspawn`
 
@@ -128,7 +128,7 @@ Generated from 48 packages.
 - **Version:** 2026.0.0.198
 - **Description:** Intel oneAPI Toolkit
 - **Homepage:** [https://www.intel.com/content/www/us/en/developer/tools/oneapi/oneapi-toolkit.html](https://www.intel.com/content/www/us/en/developer/tools/oneapi/oneapi-toolkit.html)
-- **License:** intel-eula, issl, Apache-2.0
+- **License:** LicenseRef-nixos-intel-eula AND LicenseRef-nixos-issl AND Apache-2.0
 
 ## `jetring`
 
@@ -152,6 +152,7 @@ Generated from 48 packages.
 - **Version:** 0-unstable-2026-07-16
 - **Description:** Landlock configuration library
 - **Homepage:** [https://landlock.io](https://landlock.io)
+- **License:** MIT OR Apache-2.0
 
 ## `landstrip`
 
@@ -254,6 +255,7 @@ Generated from 48 packages.
 - **Version:** 0.10.0
 - **Description:** Emulate a Radicle CI run locally
 - **Homepage:** [https://radicle-ci.liw.fi](https://radicle-ci.liw.fi)
+- **License:** MIT OR Apache-2.0
 
 ## `radicle-ci-ambient`
 
@@ -261,6 +263,7 @@ Generated from 48 packages.
 - **Version:** 0.21.1
 - **Description:** Radicle CI adapter for Ambient CI
 - **Homepage:** [https://radicle-ci.liw.fi](https://radicle-ci.liw.fi)
+- **License:** MIT OR Apache-2.0
 
 ## `reddio`
 
@@ -356,6 +359,7 @@ Generated from 48 packages.
 - **Version:** 1.0.0-beta.3
 - **Description:** Platform-independent browser-grade certificate infrastructure
 - **Homepage:** [https://github.com/rustls/upki/tree/main/upki](https://github.com/rustls/upki/tree/main/upki)
+- **License:** MIT OR Apache-2.0
 
 ## `vmdb2`
 
