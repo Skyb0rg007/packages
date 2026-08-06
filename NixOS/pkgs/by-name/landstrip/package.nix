@@ -32,8 +32,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    homepage = "https://github.com/landstrip/landstrip";
     description = "Run tools in OS-level sandboxes";
+    homepage = "https://github.com/landstrip/landstrip";
+    changelog = "https://github.com/landstrip/landstrip/releases/tag/${finalAttrs.src.tag}";
     mainProgram = "landstrip";
     maintainers = [ lib.maintainers.skyesoss ];
     license = lib.licenses.lgpl21Plus;

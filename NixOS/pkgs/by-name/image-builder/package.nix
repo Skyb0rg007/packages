@@ -48,6 +48,8 @@ buildGoModule (finalAttrs: {
     description = "Tools to build and deploy disk-images";
     mainProgram = "image-builder";
     homepage = "https://osbuild.org";
+    downloadPage = "https://github.com/osbuild/image-builder";
+    changelog = "https://github.com/osbuild/image-builder/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.skyesoss ];

@@ -39,6 +39,7 @@ buildPythonPackage (finalAttrs: {
   meta = {
     description = "Cache-DiT: Accelerating Diffusion Transformers with Dynamic Feature Caching";
     homepage = "https://github.com/vipshop/cache-dit";
+    changelog = "https://github.com/vipshop/cache-dit/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.skyesoss ];
     broken = lib.strings.versionAtLeast python.version "3.15"; # Broken on 3.15

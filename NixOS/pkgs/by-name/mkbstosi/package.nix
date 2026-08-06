@@ -32,6 +32,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   meta = {
     description = "Make BuildStream OS Image";
     homepage = "https://gitlab.com/freedesktop-sdk/mkbstosi";
+    mainProgram = "mkbstosi";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
   };

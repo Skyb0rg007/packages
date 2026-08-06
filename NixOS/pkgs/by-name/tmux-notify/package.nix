@@ -22,8 +22,9 @@ tmuxPlugins.mkTmuxPlugin rec {
   '';
 
   meta = {
-    homepage = "https://github.com/rickstaa/tmux-notify";
     description = "Tmux plugin to notify you when processes are finished";
+    homepage = "https://github.com/rickstaa/tmux-notify";
+    changelog = "https://github.com/rickstaa/tmux-notify/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.skyesoss ];

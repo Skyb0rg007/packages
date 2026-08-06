@@ -43,6 +43,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "KMIP to PKCS#11 bridge for Cascade";
     homepage = "https://github.com/NLnetLabs/cascade-hsm-bridge";
+    changelog = "https://github.com/NLnetLabs/cascade-hsm-bridge/blob/${finalAttrs.src.tag}/Changelog.md";
     mainProgram = "cascade-hsm-bridge";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.skyesoss ];

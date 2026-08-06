@@ -14,6 +14,7 @@ buildGoModule (finalAttrs: {
     rev = "v${finalAttrs.version}";
     hash = "sha256-OvY+/3PtqmFNNwgMSOPSoqZAhHcpYDAJRyJDy/oIrgg=";
   };
+
   vendorHash = "sha256-UypofpTr5F1QvuJHhmy7SxKDUHljWeXYC4lUDB0kiMI=";
 
   # This test requires a working DNS server
@@ -49,6 +50,8 @@ buildGoModule (finalAttrs: {
       ```
     '';
     homepage = "https://quic-go.net";
+    downloadPage = "https://github.com/quic-go/masque-go";
+    changelog = "https://github.com/quic-go/masque-go/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.skyesoss ];
   };

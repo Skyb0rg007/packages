@@ -28,8 +28,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   meta = {
-    homepage = "https://nlnetlabs.nl/projects/domain/mimir/";
     description = "DNS proxy and load balancer";
+    homepage = "https://nlnetlabs.nl/projects/domain/mimir/";
+    downloadPage = "https://github.com/NLnetLabs/mimir";
     mainProgram = "mimir";
     license = lib.licenses.mpl20;
   };

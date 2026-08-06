@@ -20,8 +20,9 @@ mkTclDerivation (finalAttrs: {
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = {
-    homepage = "https://github.com/mxmanghi/tcl-syslog";
     description = "Syslog interface for Tcl";
+    homepage = "https://github.com/mxmanghi/tcl-syslog";
+    changelog = "https://github.com/mxmanghi/tcl-syslog/blob/${finalAttrs.src.tag}/ChangeLog";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
   };

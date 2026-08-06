@@ -50,6 +50,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       Android's service_manager functionality.
     '';
     homepage = "https://github.com/hiking90/rsbinder";
+    changelog = "https://github.com/hiking90/rsbinder/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.skyesoss ];

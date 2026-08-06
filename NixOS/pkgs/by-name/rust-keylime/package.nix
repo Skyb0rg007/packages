@@ -42,7 +42,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       The rust-keylime agent is the official agent and replaces the Python implementation.
     '';
     homepage = "https://keylime.dev";
-    changelog = "https://github.com/keylime/rust-keylime/releases";
+    downloadPage = "https://github.com/keylime/rust-keylime";
+    changelog = "https://github.com/keylime/rust-keylime/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.skyesoss ];
     mainProgram = "keylime_agent";

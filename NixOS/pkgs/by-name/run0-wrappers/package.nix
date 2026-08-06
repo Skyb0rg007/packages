@@ -26,8 +26,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    description = "Wrappers for systemd's run0 to replace sudo";
+    description = "Wrappers for systemd's run0 to replace pkexec, su, and sudo";
     homepage = "https://github.com/thkukuk/run0-wrappers";
+    changelog = "https://github.com/thkukuk/run0-wrappers/blob/${finalAttrs.src.tag}/NEWS";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.skyesoss ];

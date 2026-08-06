@@ -56,6 +56,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     '';
     mainProgram = "ambient";
     homepage = "https://ambient.liw.fi/";
+    downloadPage = "https://radicle.network/nodes/${finalAttrs.src.seed}/rad%3A${finalAttrs.src.repo}";
+    changelog = "${finalAttrs.meta.downloadPage}/remotes/${finalAttrs.src.node}/tree/${finalAttrs.src.tag}/NEWS.md";
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

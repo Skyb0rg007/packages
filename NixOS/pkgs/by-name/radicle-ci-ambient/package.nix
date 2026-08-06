@@ -40,6 +40,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Radicle CI adapter for Ambient CI";
     homepage = "https://radicle-ci.liw.fi";
+    downloadPage = "https://radicle.network/nodes/${finalAttrs.src.seed}/rad%3A${finalAttrs.src.repo}";
+    changelog = "${finalAttrs.meta.downloadPage}/remotes/${finalAttrs.src.node}/tree/${finalAttrs.src.tag}/NEWS.md";
     mainProgram = "radicle-ci-ambient";
     license = lib.licenses.OR [
       lib.licenses.mit

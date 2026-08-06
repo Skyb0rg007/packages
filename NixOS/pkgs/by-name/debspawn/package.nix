@@ -64,7 +64,16 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
 
   meta = {
     description = "Debian package builder and build helper using systemd-nspawn";
+    longDescription = ''
+      Debspawn is a tool to build Debian packages in an isolated environment.
+      Unlike similar tools like sbuild or pbuilder, debspawn uses
+      systemd-nspawn instead of plain chroots to manage the isolated
+      environment. This allows Debspawn to isolate builds from the host system
+      much more via containers. It also allows for more advanced features to
+      manage builds, for example setting resource limits for individual builds.
+    '';
     homepage = "https://github.com/lkhq/debspawn";
+    changelog = "https://github.com/lkhq/debspawn/blob/${finalAttrs.src.tag}/NEWS";
     mainProgram = "debspawn";
     license = lib.licenses.lgpl3Plus;
     maintainers = [ lib.maintainers.skyesoss ];

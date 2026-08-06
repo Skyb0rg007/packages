@@ -55,6 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     mainProgram = "ambient-build-vm";
     homepage = "https://ambient.liw.fi/";
+    downloadPage = "https://radicle.network/nodes/${finalAttrs.src.seed}/rad%3A${finalAttrs.src.repo}";
     license = lib.licenses.agpl3Plus;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.skyesoss ];

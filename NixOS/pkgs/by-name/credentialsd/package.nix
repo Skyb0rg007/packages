@@ -25,7 +25,7 @@
 }:
 let
   pythonEnv = python3.withPackages (ps: [
-    ps."dbus-next"
+    ps.dbus-next
   ]);
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -83,7 +83,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Linux Credential Manager API";
+    longDescription = ''
+      Proposal for a Linux credential management xdg portal D-Bus
+      specification, including webauthn/passkey support
+    '';
     homepage = "https://github.com/linux-credentials/credentialsd";
+    changelog = "https://github.com/linux-credentials/credentialsd/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.lgpl3Only;
     platforms = lib.platforms.linux;
   };

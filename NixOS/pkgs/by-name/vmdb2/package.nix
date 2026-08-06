@@ -36,6 +36,8 @@ python3.pkgs.buildPythonPackage (finalAttrs: {
     '';
     mainProgram = "vmdb2";
     homepage = "https://vmdb2.liw.fi/";
+    downloadPage = "https://radicle.network/nodes/${finalAttrs.src.seed}/rad%3A${finalAttrs.src.repo}";
+    changelog = "${finalAttrs.meta.downloadPage}/remotes/${finalAttrs.src.node}/tree/${finalAttrs.src.tag}/NEWS";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.skyesoss ];

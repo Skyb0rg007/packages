@@ -71,8 +71,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   meta = {
     description = "Platform-independent browser-grade certificate infrastructure";
-    homepage = "https://github.com/rustls/upki/tree/main/upki";
-    changelog = "https://github.com/rustls/upki/releases/tag/upki-${finalAttrs.version}";
+    homepage = "https://github.com/rustls/upki";
+    changelog = "https://github.com/rustls/upki/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.OR [
       lib.licenses.mit
       lib.licenses.asl20

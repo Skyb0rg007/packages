@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitLab {
     owner = "aaronNG";
     repo = "reddio";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Bhe3icWycQXwwyBp9z1GpnTYAfAp3m79orfMITTU2Z8=";
   };
 
@@ -27,6 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Command-line interface for Reddit";
     homepage = "https://gitlab.com/aaronNG/reddio/";
+    changelog = "https://gitlab.com/aaronNG/reddio/-/releases/${finalAttrs.src.tag}";
     mainProgram = "reddio";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.skyesoss ];

@@ -98,6 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Tool for building Debian binary packages from Debian sources";
     homepage = "https://salsa.debian.org/debian/sbuild";
+    changelog = "https://salsa.debian.org/debian/sbuild/-/blob/${finalAttrs.src.tag}/debian/changelog";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     badPlatforms = [ "aarch64-linux" ];

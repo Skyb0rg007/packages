@@ -67,6 +67,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   meta = {
     description = "Sandboxed code execution system for running untrusted code";
+    longDescription = ''
+      MXC is a sandboxed code execution system for running untrusted code
+      (model output, plugins, tools) on Windows, Linux, and macOS. It provides
+      multiple containment backends — from OS-native process sandboxes to full
+      VMs — behind a unified JSON configuration schema and TypeScript SDK.
+    '';
     homepage = "https://github.com/microsoft/mxc";
     license = lib.licenses.mit;
     mainProgram = if stdenv.hostPlatform.isLinux then "lxc-exec" else null;

@@ -146,9 +146,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Platform AbstRaction for SECurity";
     homepage = "https://parsec.community";
+    downloadPage = "https://github.com/parallaxsecond/parsec";
     changelog = "https://github.com/parallaxsecond/parsec/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.skyesoss ];
     mainProgram = "parsec";
     platforms = lib.platforms.linux;
   };

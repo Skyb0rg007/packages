@@ -82,6 +82,7 @@
       systems.
     '';
     homepage = "https://www.cdash.org";
+    downloadPage = "https://github.com/Kitware/CDash";
     changelog = "https://github.com/Kitware/CDash/releases";
     mainProgram = "artisan";
     # Needs modification

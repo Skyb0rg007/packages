@@ -109,6 +109,7 @@ python3.pkgs.buildPythonApplication rec {
       prone location.)
     '';
     homepage = "https://keylime.dev";
+    downloadPage = "https://github.com/keylime/keylime";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.skyesoss ];
     platforms = lib.platforms.linux;

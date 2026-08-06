@@ -47,6 +47,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Friendly DNSSEC signing pipeline";
     mainProgram = "cascade";
     homepage = "https://blog.nlnetlabs.nl/cascade/";
+    downloadPage = "https://github.com/NLnetLabs/cascade";
+    changelog = "https://github.com/NLnetLabs/cascade/blob/${finalAttrs.src.tag}/Changelog.md";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.skyesoss ];
   };

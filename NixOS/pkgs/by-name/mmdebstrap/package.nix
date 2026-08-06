@@ -117,8 +117,9 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "";
+    description = "Alternative to debootstrap which uses apt internally";
     homepage = "https://gitlab.mister-muffin.de/josch/mmdebstrap/";
+    changelog = "https://gitlab.mister-muffin.de/josch/mmdebstrap/src/tag/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "mmdebstrap";

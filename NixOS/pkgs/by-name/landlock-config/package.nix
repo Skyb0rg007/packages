@@ -44,6 +44,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Landlock configuration library";
     homepage = "https://landlock.io";
+    downloadPage = "https://github.com/landlock-lsm/landlockconfig";
     license = lib.licenses.OR [
       lib.licenses.mit
       lib.licenses.asl20

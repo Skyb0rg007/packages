@@ -12,7 +12,7 @@ let
   source = fetchFromGitHub {
     owner = "tubearchivist";
     repo = "tubearchivist";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-NzqHWyenEooFCD4Int2ULavRNQs1FKpbCoY3/6/PF/M=";
   };
 
@@ -97,6 +97,8 @@ stdenv.mkDerivation {
   meta = {
     description = "Your self hosted YouTube media server";
     homepage = "https://tubearchivist.com";
+    downloadPage = "https://github.com/tubearchivist/tubearchivist";
+    changelog = "https://github.com/tubearchivist/tubearchivist/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
     broken = true;
     platforms = [

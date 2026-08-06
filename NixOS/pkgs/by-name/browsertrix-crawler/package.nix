@@ -130,6 +130,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "A simplified browser-based crawling system";
     homepage = "https://crawler.docs.browsertrix.com";
+    downloadPage = "https://github.com/webrecorder/browsertrix-crawler";
     # unfree due to google-chrome dependency
     license = [
       lib.licenses.agpl3Plus
