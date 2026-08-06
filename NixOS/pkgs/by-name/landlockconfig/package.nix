@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage (
     gitDate = builtins.substring 11 (-1) finalAttrs.version;
   in
   {
-    pname = "landlock-config";
+    pname = "landlockconfig";
     version = "0-unstable-2026-07-22";
 
     src = fetchFromGitHub {
