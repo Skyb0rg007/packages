@@ -6,6 +6,7 @@
   openssl,
   nix-update-script,
   versionCheckHook,
+  installShellFiles,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tpm2sh";
@@ -22,11 +23,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [
     pkg-config
+    installShellFiles
   ];
 
   buildInputs = [
     openssl
   ];
+
+  postInstall = ''
+    installManPage tpm2sh.1
+  '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
