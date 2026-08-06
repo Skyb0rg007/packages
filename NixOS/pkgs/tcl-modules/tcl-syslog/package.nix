@@ -3,6 +3,7 @@
   fetchFromGitHub,
   mkTclDerivation,
   tcl,
+  autoreconfHook,
 }:
 
 mkTclDerivation (finalAttrs: {
@@ -16,9 +17,12 @@ mkTclDerivation (finalAttrs: {
     hash = "sha256-Wgip+153xdrinTZSiSzsChdLqXj3sACTrBKwHb60esQ=";
   };
 
+  nativeBuildInputs = [ autoreconfHook ];
+
   meta = {
     homepage = "https://github.com/mxmanghi/tcl-syslog";
     description = "Syslog interface for Tcl";
     license = lib.licenses.gpl3Plus;
+    platforms = lib.platforms.unix;
   };
 })
