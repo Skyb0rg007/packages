@@ -4,6 +4,8 @@
   ...
 }:
 let
+  ourLib = import ./lib.nix { inherit lib; };
+
   nixosModules = import ./modules/nixos;
   nixosTests = import ./tests/all-tests.nix {
     inherit pkgs nixosModules packages;
@@ -113,5 +115,6 @@ let
 in
 {
   inherit nixosModules;
+  lib = ourLib;
 }
 // packages

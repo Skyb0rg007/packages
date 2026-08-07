@@ -14,7 +14,6 @@
       self,
       nixpkgs,
       git-hooks,
-      ...
     }:
     let
       inherit (nixpkgs) lib;
@@ -43,6 +42,7 @@
         );
     in
     {
+      lib = import ./lib.nix { inherit lib; };
       checks = forDefaultSystems (
         system:
         prefixAttrKeys "package" self.packages.${system}
