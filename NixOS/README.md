@@ -8,7 +8,7 @@ Generated from 48 packages.
 - **Version:** 0.1.0-unstable-2026-07-10
 - **Description:** Build VM images for Ambient CI
 - **Homepage:** [https://ambient.liw.fi/](https://ambient.liw.fi/)
-- **License:** GPL-3.0-or-later
+- **License:** AGPL-3.0-or-later
 
 ## `ambient-ci`
 
@@ -16,7 +16,7 @@ Generated from 48 packages.
 - **Version:** 0.16.0
 - **Description:** Ambient continuous integration engine
 - **Homepage:** [https://ambient.liw.fi/](https://ambient.liw.fi/)
-- **License:** GPL-3.0-or-later
+- **License:** AGPL-3.0-or-later
 
 ## `anemoi`
 
@@ -61,7 +61,7 @@ Generated from 48 packages.
 ## `buildgrid`
 
 - **Package name:** buildgrid
-- **Version:** 0.8.6
+- **Version:** 0.8.7
 - **Description:** Python remote execution service
 - **Homepage:** [https://buildgrid.build](https://buildgrid.build)
 - **License:** Apache-2.0
@@ -88,7 +88,7 @@ Generated from 48 packages.
 - **Version:** 0.2.0
 - **Description:** Linux Credential Manager API
 - **Homepage:** [https://github.com/linux-credentials/credentialsd](https://github.com/linux-credentials/credentialsd)
-- **License:** LGPL-3.0-or-later
+- **License:** LGPL-3.0-only
 
 ## `debian-archive-keyring`
 
@@ -130,6 +130,14 @@ Generated from 48 packages.
 - **Homepage:** [https://www.intel.com/content/www/us/en/developer/tools/oneapi/oneapi-toolkit.html](https://www.intel.com/content/www/us/en/developer/tools/oneapi/oneapi-toolkit.html)
 - **License:** LicenseRef-nixos-intel-eula AND LicenseRef-nixos-issl AND Apache-2.0
 
+## `island`
+
+- **Package name:** island
+- **Version:** 0-unstable-2026-05-22
+- **Description:** Sandboxing tool using Landlock for secure command execution
+- **Homepage:** [https://landlock.io](https://landlock.io)
+- **License:** Apache-2.0 OR MIT
+
 ## `jetring`
 
 - **Package name:** jetring
@@ -146,10 +154,10 @@ Generated from 48 packages.
 - **Homepage:** [https://keylime.dev](https://keylime.dev)
 - **License:** Apache-2.0
 
-## `landlock-config`
+## `landlockconfig`
 
-- **Package name:** landlock-config
-- **Version:** 0-unstable-2026-07-16
+- **Package name:** landlockconfig
+- **Version:** 0-unstable-2026-07-22
 - **Description:** Landlock configuration library
 - **Homepage:** [https://landlock.io](https://landlock.io)
 - **License:** MIT OR Apache-2.0
@@ -157,7 +165,7 @@ Generated from 48 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.18.23
+- **Version:** 0.18.26
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-2.1-or-later
@@ -178,18 +186,11 @@ Generated from 48 packages.
 - **Homepage:** [https://gitlab.com/freedesktop-sdk/mkbstosi](https://gitlab.com/freedesktop-sdk/mkbstosi)
 - **License:** LGPL-2.1-or-later
 
-## `mlkit`
-
-- **Package name:** mlkit
-- **Version:** 4.7.21-8561fe6
-- **Description:** Standard ML Compiler and Toolkit
-- **Homepage:** [https://elsman.com/mlkit/](https://elsman.com/mlkit/)
-- **License:** GPL-2.0-or-later
-
 ## `mmdebstrap`
 
 - **Package name:** mmdebstrap
 - **Version:** 1.5.7
+- **Description:** Alternative to debootstrap which uses apt internally
 - **Homepage:** [https://gitlab.mister-muffin.de/josch/mmdebstrap/](https://gitlab.mister-muffin.de/josch/mmdebstrap/)
 - **License:** MIT
 
@@ -285,7 +286,7 @@ Generated from 48 packages.
 
 - **Package name:** run0-wrappers
 - **Version:** 0.5.0
-- **Description:** Wrappers for systemd's run0 to replace sudo
+- **Description:** Wrappers for systemd's run0 to replace pkexec, su, and sudo
 - **Homepage:** [https://github.com/thkukuk/run0-wrappers](https://github.com/thkukuk/run0-wrappers)
 - **License:** BSD-2-Clause
 
@@ -300,7 +301,7 @@ Generated from 48 packages.
 ## `sbuild`
 
 - **Package name:** sbuild
-- **Version:** 0.91.9\_bpo13+1
+- **Version:** 0.91.10
 - **Description:** Tool for building Debian binary packages from Debian sources
 - **Homepage:** [https://salsa.debian.org/debian/sbuild](https://salsa.debian.org/debian/sbuild)
 - **License:** GPL-2.0-or-later
@@ -308,10 +309,10 @@ Generated from 48 packages.
 ## `sequin`
 
 - **Package name:** sequin
-- **Version:** 0-unstable-2026-07-07
+- **Version:** 0-unstable-2026-08-03
 - **Description:** Contact-centric PGP certificate manager built on Sequoia
 - **Homepage:** [https://gitlab.com/sequoia-pgp/sequin](https://gitlab.com/sequoia-pgp/sequin)
-- **License:** GPL-2.0-or-later
+- **License:** GPL-3.0-only
 
 ## `sequoia-keystore-server`
 
@@ -358,7 +359,7 @@ Generated from 48 packages.
 - **Package name:** upki
 - **Version:** 1.0.0-beta.3
 - **Description:** Platform-independent browser-grade certificate infrastructure
-- **Homepage:** [https://github.com/rustls/upki/tree/main/upki](https://github.com/rustls/upki/tree/main/upki)
+- **Homepage:** [https://github.com/rustls/upki](https://github.com/rustls/upki)
 - **License:** MIT OR Apache-2.0
 
 ## `vmdb2`
