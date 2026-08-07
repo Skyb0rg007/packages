@@ -18,6 +18,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoPatches = [
     ./add-Cargo-lock.patch
+    ./nix-paths.patch
   ];
 
   doCheck = false;
