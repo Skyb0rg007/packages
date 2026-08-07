@@ -19,7 +19,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "osbuild";
     repo = "image-builder";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-omUK+VbeEXs3IJpDak7ycaRiMgGpp387XjCaiOD/VkQ=";
   };
 

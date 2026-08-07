@@ -11,7 +11,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "quic-go";
     repo = "masque-go";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-OvY+/3PtqmFNNwgMSOPSoqZAhHcpYDAJRyJDy/oIrgg=";
   };
 
