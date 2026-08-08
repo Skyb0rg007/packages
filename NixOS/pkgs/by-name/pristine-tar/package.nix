@@ -143,7 +143,7 @@ stdenv.mkDerivation (finalAttrs: {
       lib.licenses.bzip2
       lib.licenses.gpl2Plus
     ];
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     mainProgram = "pristine-tar";
   };
 })
