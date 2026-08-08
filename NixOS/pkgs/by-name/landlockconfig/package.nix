@@ -2,6 +2,7 @@
   lib,
   stdenv,
   buildPackages,
+  callPackage,
   rustPlatform,
   fetchFromGitHub,
   cargo-c,
@@ -13,6 +14,7 @@ rustPlatform.buildRustPackage (
   let
     gitCommit = builtins.substring 0 12 finalAttrs.src.rev;
     gitDate = builtins.substring 11 (-1) finalAttrs.version;
+    landlockConfigFromClosure = callPackage ./landlockConfigFromClosure.nix { };
   in
   {
     pname = "landlockconfig";
@@ -59,13 +61,21 @@ rustPlatform.buildRustPackage (
         --target=${stdenv.hostPlatform.rust.rustcTarget}
     '';
 
-    passthru.tests = {
-      pkg-config = testers.hasPkgConfigModules {
-        package = finalAttrs.finalPackage;
-      };
-      version = testers.testVersion {
-        package = finalAttrs.finalPackage;
-        version = "${gitCommit} ${gitDate}";
+    passthru = {
+      inherit landlockConfigFromClosure;
+
+      tests = {
+        config-from-closure = callPackage ./landlockConfigFromClosure-test.nix {
+          inherit landlockConfigFromClosure;
+          landlockconfig = finalAttrs.finalPackage;
+        };
+        pkg-config = testers.hasPkgConfigModules {
+          package = finalAttrs.finalPackage;
+        };
+        version = testers.testVersion {
+          package = finalAttrs.finalPackage;
+          version = "${gitCommit} ${gitDate}";
+        };
       };
     };
 

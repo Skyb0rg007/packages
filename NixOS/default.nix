@@ -102,6 +102,8 @@ let
       directory = ./pkgs/by-name;
     }
     // {
+      inherit (packages.landlockconfig.passthru) landlockConfigFromClosure;
+
       inherit
         tcl9Packages
         # ocamlPackages
