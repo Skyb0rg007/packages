@@ -15,7 +15,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromRadicle {
     seed = "radicle.subplot.tech";
     repo = "zjxyd2A1A7FnxtC69qDfoAajfTHo"; # subplot
-    rev = "7551e2d55af928323ce7edc89f4672b789d2819c"; # 0.14.0
+    node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV"; # liw
+    tag = finalAttrs.version;
     hash = "sha256-tId6lHDYqUiqJJalRi8leJn6ykZEw8fj08DKJWjmc9U=";
   };
 
