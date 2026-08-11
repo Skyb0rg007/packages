@@ -9,6 +9,8 @@
   wrapGAppsHook4,
   libadwaita,
   kdePackages,
+  makeDesktopItem,
+  copyDesktopItems,
 }:
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "blueferry";
@@ -30,6 +32,57 @@ python3Packages.buildPythonPackage (finalAttrs: {
     gobject-introspection
     wrapGAppsHook4
     kdePackages.wrapQtAppsHook
+    copyDesktopItems
+  ];
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "io.weirdware.BlueFerry.Gtk";
+      desktopName = "BlueFerry";
+      genericName = "iPhone Bluetooth Bridge";
+      comment = "Your iPhone's messages and notifications on the Linux desktop";
+      exec = "blueferry-gtk";
+      icon = "io.weirdware.BlueFerry.Gtk";
+      terminal = false;
+      categories = [
+        "Network"
+        "InstantMessaging"
+        "GTK"
+      ];
+      keywords = [
+        "iPhone"
+        "SMS"
+        "iMessage"
+        "Bluetooth"
+        "Notifications"
+        "Messages"
+      ];
+      startupNotify = true;
+    })
+    (makeDesktopItem {
+      name = "io.weirdware.BlueFerry.Qt";
+      desktopName = "BlueFerry";
+      genericName = "iPhone Bluetooth Bridge";
+      comment = "Your iPhone's messages and notifications on Plasma";
+      exec = "blueferry-qt";
+      icon = "io.weirdware.BlueFerry.Qt";
+      terminal = false;
+      categories = [
+        "Network"
+        "InstantMessaging"
+        "Qt"
+        "KDE"
+      ];
+      keywords = [
+        "iPhone"
+        "SMS"
+        "iMessage"
+        "Bluetooth"
+        "Notifications"
+        "Messages"
+      ];
+      startupNotify = true;
+    })
   ];
 
   buildInputs = [
@@ -66,6 +119,11 @@ python3Packages.buildPythonPackage (finalAttrs: {
 
     install -Dm644 data/io.weirdware.BlueFerry.xml \
       $out/share/dbus-1/interfaces/io.weirdware.BlueFerry.xml
+
+    install -Dm644 data/icons/io.weirdware.BlueFerry.Gtk.svg \
+      $out/share/icons/hicolor/scalable/apps/io.weirdware.BlueFerry.Gtk.svg
+    install -Dm644 data/icons/io.weirdware.BlueFerry.Gtk.svg \
+      $out/share/icons/hicolor/scalable/apps/io.weirdware.BlueFerry.Qt.svg
   '';
 
   dontWrapGApps = true;
