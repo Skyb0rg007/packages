@@ -2,3 +2,4 @@ repo/dists
 repo/pool
 repo/db
 index.html
+_build/
