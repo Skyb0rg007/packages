@@ -13,6 +13,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   dontUnpack = true;
+  dontConfigure = true;
+  dontBuild = true;
 
   installPhase = ''
     install -d $out/bin
