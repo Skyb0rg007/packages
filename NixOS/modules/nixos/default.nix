@@ -1,4 +1,5 @@
 {
+  dnclient = ./dnclient;
   credentialsd = ./credentialsd;
   cascade = ./cascade;
   debspawn = ./debspawn;
