@@ -5,6 +5,7 @@
   sphinx,
   texinfo,
   installShellFiles,
+  tpm2-tools,
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "keylime";
@@ -62,6 +63,10 @@ python3.pkgs.buildPythonApplication rec {
       texinfo
       installShellFiles
     ];
+
+  makeWrapperArgs = [
+    "--prefix PATH : ${lib.makeBinPath [ tpm2-tools ]}"
+  ];
 
   patchPhase = ''
     runHook prePatch
