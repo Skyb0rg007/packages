@@ -6,6 +6,7 @@
   texinfo,
   installShellFiles,
   tpm2-tools,
+  nixosTests,
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "keylime";
@@ -91,6 +92,8 @@ python3.pkgs.buildPythonApplication rec {
     mkdir -pv ''${!outputInfo}/share/info
     cp docs/_build/texinfo/*.info ''${!outputInfo}/share/info
   '';
+
+  passthru.tests.nixos = nixosTests.keylime;
 
   meta = {
     description = "Keylime is an open-source scalable trust system harnessing TPM Technology";

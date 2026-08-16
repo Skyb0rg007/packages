@@ -5,6 +5,7 @@
   pkg-config,
   rustPlatform,
   tpm2-tss,
+  nixosTests,
 }:
 let
   # Bug in tpm2-tss 4.2.0
@@ -37,6 +38,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     openssl.dev
     tpm2-tss-keylime.dev
   ];
+
+  passthru.tests.nixos = nixosTests.keylime;
 
   meta = {
     description = "Rust implementation of the keylime agent";
