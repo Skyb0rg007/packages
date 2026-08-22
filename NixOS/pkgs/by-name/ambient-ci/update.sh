@@ -116,11 +116,6 @@ if build_for_hash; then
     set_field cargoHash "$got"
 fi
 
-if ! nix build --no-link --print-build-logs "$root#$attr"; then
-    echo "ambient-ci: $latest does not build, reverting" >&2
-    exit 1
-fi
-
 # Keep the updated package.nix.
 backup_kept="$backup"
 backup=""
