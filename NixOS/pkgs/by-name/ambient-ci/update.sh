@@ -4,10 +4,26 @@
 
 set -euo pipefail
 
-dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-root="$(cd -- "$dir/../../.." && pwd)"
-package="$dir/package.nix"
 attr="${UPDATE_NIX_ATTR_PATH:-ambient-ci}"
+relative="pkgs/by-name/ambient-ci/package.nix"
+
+# `passthru.updateScript` runs this from a read-only copy in the nix store, so
+# `BASH_SOURCE` is not where the package to edit lives. Update scripts are run
+# with the flake root as the working directory (see scripts/nix-update.sh), so
+# prefer that, and fall back to the checkout the script itself lives in for the
+# case where it is executed straight out of a working tree.
+root="$PWD"
+package="$root/$relative"
+if [ ! -w "$package" ]; then
+    dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+    if [ -w "$dir/package.nix" ]; then
+        root="$(cd -- "$dir/../../.." && pwd)"
+        package="$dir/package.nix"
+    else
+        echo "ambient-ci: cannot find a writable $relative; run this from the flake root" >&2
+        exit 1
+    fi
+fi
 
 seed="radicle.liw.fi"
 repo="zwPaQSTBX8hktn22F6tHAZSFH2Fh"
