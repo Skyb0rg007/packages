@@ -2,6 +2,7 @@
   lib,
   fetchFromGitLab,
   python3Packages,
+  nix-update-script,
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "buildstream-sbom";
@@ -24,6 +25,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   dependencies = [
     python3Packages.pyyaml
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     homepage = "https://gitlab.com/BuildStream/buildstream-sbom/";
