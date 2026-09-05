@@ -33,5 +33,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     description = "Produce SBOMs describing BuildStream elements and dependencies";
     license = lib.licenses.asl20;
     changelog = "https://gitlab.com/BuildStream/buildstream-sbom/-/blob/${finalAttrs.version}/CHANGELOG.md";
+    maintainers = [ lib.maintainers.skyesoss ];
+    platforms = lib.platforms.all;
+    mainProgram = "buildstream-sbom";
   };
 })
