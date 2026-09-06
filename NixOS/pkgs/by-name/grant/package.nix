@@ -57,7 +57,12 @@ buildGoModule (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "";
+    description = "CLI tool for checking licenses";
+    longDescription = ''
+      Grant is a CLI tool and Go library for checking licenses in container
+      images, SBOMs, and filesystems. Works seamlessly with Syft for license
+      investigation and policy enforcement.
+    '';
     homepage = "https://github.com/anchore/grant";
     changelog = "https://github.com/anchore/grant/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
