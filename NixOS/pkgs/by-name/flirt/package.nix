@@ -2,6 +2,8 @@
   lib,
   fetchFromForgejo,
   rustPlatform,
+  installShellFiles,
+  stdenv,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "flirt";
@@ -17,9 +19,20 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-gK6bfjHqlvLfNS3k3u2gKAg9KV61zL6O4FeNaamYVO8=";
 
+  nativeBuildInputs = [
+    installShellFiles
+  ];
+
   postPatch = ''
     substituteInPlace build.rs \
       --replace-fail 'include_str!(".git/HEAD")' '"${lib.substring 0 7 finalAttrs.src.rev}"'
+  '';
+
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd flirt \
+      --bash <($out/bin/flirt util completion bash) \
+      --fish <($out/bin/flirt util completion fish) \
+      --zsh <($out/bin/flirt util completion zsh)
   '';
 
   meta = {
