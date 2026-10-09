@@ -4,6 +4,7 @@
   rustPlatform,
   installShellFiles,
   versionCheckHook,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "radicle-ci-ambient";
@@ -36,6 +37,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = ''
     installManPage ./radicle-ci-ambient.1
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Radicle CI adapter for Ambient CI";

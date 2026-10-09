@@ -4,6 +4,7 @@
   rustPlatform,
   installShellFiles,
   versionCheckHook,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rad-ci";
@@ -26,6 +27,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = ''
     installManPage ./rad-ci.1
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Emulate a Radicle CI run locally";
