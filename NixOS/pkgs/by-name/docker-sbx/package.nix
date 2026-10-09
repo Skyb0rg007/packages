@@ -104,7 +104,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         runHook postInstall
       '';
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = [ ./update.sh ];
 
   meta = {
     description = "Safe environments for agents";
