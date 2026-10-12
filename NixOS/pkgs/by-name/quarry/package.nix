@@ -60,7 +60,9 @@ buildGoModule (finalAttrs: {
     ln -s quarry $out/bin/quarry-sysupdate
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     description = "TUF-based software distribution toolchain";
