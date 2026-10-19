@@ -50,7 +50,9 @@ stdenv.mkDerivation (finalAttrs: {
       ambient.service base.vmdb playbook.yml
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     description = "Build VM images for Ambient CI";
