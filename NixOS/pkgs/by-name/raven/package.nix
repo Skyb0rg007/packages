@@ -217,7 +217,10 @@ stdenv.mkDerivation (finalAttrs: {
           shortName = "microsoft-bestfit";
           fullName = "Microsoft Windows Best Fit code page data";
           url = "https://www.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WindowsBestFit/readme.txt";
-          free = false;
+          # Debatable: nothing grants the right to use or modify these tables, but they are
+          # factual mappings Microsoft published for interoperability, unicode.org hosts them
+          # for download, and ReactOS and Wine ship them in free software.
+          # free = false;
           redistributable = true;
         })
       ];
