@@ -18,6 +18,7 @@
   gzip,
   gnutar,
   coreutils,
+  nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "pristine-tar";
@@ -135,6 +136,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postCheck
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=^debian/([0-9.]+)$" ];
+  };
 
   meta = {
     homepage = "https://salsa.debian.org/debian/pristine-tar";

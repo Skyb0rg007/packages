@@ -3,6 +3,7 @@
   fetchFromRadicle,
   rustPlatform,
   rustc,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rad-plan";
@@ -16,6 +17,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-scxHbfLAbmXitE4IwcJPkgfAr5lHOzRyjiRP4gF7DEk=";
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     description = "Collaborative Object for Claude Code Plans";

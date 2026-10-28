@@ -10,6 +10,7 @@
   kdePackages,
   makeDesktopItem,
   copyDesktopItems,
+  nix-update-script,
 }:
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "blueferry";
@@ -131,6 +132,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
     wrapGApp $out/bin/blueferry-gtk
     wrapQtApp $out/bin/blueferry-qt
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "iPhone iMessage/SMS and notifications bridge to Linux over Bluetooth";
