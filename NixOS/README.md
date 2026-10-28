@@ -305,11 +305,12 @@ Generated from 84 packages.
 - **Homepage:** [https://github.com/torvalds/linux/blob/master/tools/include/nolibc/nolibc.h](https://github.com/torvalds/linux/blob/master/tools/include/nolibc/nolibc.h)
 - **License:** GPL-2.0-only
 
-## `nolibcStdenv`
+## `ollama-openvino`
 
-- **Package name:** stdenv-linux
-- **Version:** 26.05pre-git
-- **Description:** Build environment that compiles C programs against nolibc
+- **Package name:** ollama-openvino
+- **Version:** 2026.4-unstable-2026-08-19
+- **Description:** Ollama with an OpenVINO GenAI backend for Intel CPUs, GPUs and NPUs
+- **Homepage:** [https://github.com/openvinotoolkit/openvino\_contrib/tree/master/modules/ollama\_openvino](https://github.com/openvinotoolkit/openvino_contrib/tree/master/modules/ollama_openvino)
 - **License:** MIT
 
 ## `parsec`
