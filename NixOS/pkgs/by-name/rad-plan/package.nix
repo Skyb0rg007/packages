@@ -7,7 +7,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rad-plan";
-  version = "0.3.0";
+  version = "0-unstable-2026-08-20";
 
   src = fetchFromRadicle {
     seed = "iris.radicle.network";
