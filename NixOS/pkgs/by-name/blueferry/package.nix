@@ -14,7 +14,7 @@
 }:
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "blueferry";
-  version = "0.7.7";
+  version = "0.8.1";
   __structuredAttrs = true;
   pyproject = true;
 
@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     owner = "erikwb";
     repo = "blueferry";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-xQpqZ4exzHy0zs/XWUta18u4zqfNC0ioBfEW36GbA5w=";
+    hash = "sha256-XZtDMC8klQFeGCGN1yuT0ud5IXjTvAHDGVCdaO5uf/A=";
   };
 
   build-system = [
@@ -105,7 +105,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
     substituteInPlace \
       src/blueferry/{bluez_setup,bluetooth_capabilities,backend_lifecycle,pair_setup}.py \
       --replace-quiet /usr/bin/systemctl ${lib.getExe' systemd "systemctl"} \
-      --replace-quiet /usr/bin/pkexec /run/wrappers/bin/pkexec \
       --replace-quiet /usr/bin/btmgmt ${lib.getExe' bluez "btmgmt"}
   '';
 
