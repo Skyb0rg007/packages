@@ -42,6 +42,7 @@ let
       {
         ctranslate2 = super.ctranslate2.override { inherit ctranslate2-cpp; };
         whisperx = super.whisperx.override { inherit ctranslate2-cpp; };
+        mcp = super.mcp_1 or super.mcp;
       }
     );
   });
