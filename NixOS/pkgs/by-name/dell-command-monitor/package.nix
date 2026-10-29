@@ -7,6 +7,7 @@
   libusb1,
   libxml2_13,
   zlib,
+  nixosTests,
 }:
 let
   sources = callPackage ./sources.nix { };
@@ -47,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit sources omi srvadmin-hapi;
+    tests.nixos = nixosTests.dell-command-monitor;
     updateScript = null; # proprietary, no public version feed
   };
 
