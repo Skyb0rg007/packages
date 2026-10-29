@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 84 packages.
+Generated from 85 packages.
 
 ## `ambient-build-vm`
 
@@ -453,6 +453,7 @@ Generated from 84 packages.
 - **Package name:** quarry
 - **Version:** 0-unstable-2026-10-25
 - **Description:** TUF-based software distribution toolchain
+- **Homepage:** [https://github.com/amutable/quarry](https://github.com/amutable/quarry)
 - **License:** Apache-2.0
 
 ## `rad-ci`
@@ -518,6 +519,14 @@ Generated from 84 packages.
 - **Description:** Wrappers for systemd's run0 to replace pkexec, su, and sudo
 - **Homepage:** [https://github.com/thkukuk/run0-wrappers](https://github.com/thkukuk/run0-wrappers)
 - **License:** BSD-2-Clause
+
+## `run0edit`
+
+- **Package name:** run0edit
+- **Version:** 0.7.0
+- **Description:** Allow a permitted user to edit a file as root using run0
+- **Homepage:** [https://github.com/HastD/run0edit](https://github.com/HastD/run0edit)
+- **License:** MIT OR Apache-2.0
 
 ## `rune`
 
