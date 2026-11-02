@@ -42,6 +42,12 @@ let
     hash = "sha256-U3O7u2BUHLKkngrLUzYOEhjU9dVsMfkYezQbn8Ftqmk=";
   };
 
+  # Pinned SQLite amalgamation winsqlite3.dll is built from (scripts/provision-sqlite.py)
+  sqliteAmalgamation = fetchurl {
+    url = "https://www.sqlite.org/2026/sqlite-amalgamation-3540100.zip";
+    hash = "sha256-CpyONDUtrUYAaqgoNtU4O/+dxryc5aYFU8Baow5q0fk=";
+  };
+
   # Code signing roots installer signatures are checked against (scripts/provision-roots.py)
   rootCertificates = linkFarm "raven-root-certificates" (
     lib.mapAttrs
@@ -100,6 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.cmakeFeature "RAVEN_CONTROLS32_COMPONENT_DIR" "${components}/controls-x86")
       (lib.cmakeFeature "RAVEN_INSTALLER_COMPONENT_DIR" "${components}/installer-x64")
       (lib.cmakeFeature "RAVEN_INSTALLER32_COMPONENT_DIR" "${components}/installer-x86")
+      (lib.cmakeFeature "RAVEN_SQLITE_COMPONENT_DIR" "${components}/sqlite")
     ];
 
   nativeBuildInputs = [
@@ -141,6 +148,8 @@ stdenv.mkDerivation (finalAttrs: {
     "root_certificates"
     "installer_components_64"
     "installer_components_32"
+    "sqlite_component"
+    "icu_component"
   ];
 
   # The runtime loads its components from beside its own executable
@@ -158,7 +167,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    # Guest components built from the pinned ReactOS source
+    # Guest components built ahead of the main build, some from the pinned ReactOS source
     components = stdenv.mkDerivation {
       pname = "raven-components";
       inherit (finalAttrs) version src;
@@ -177,9 +186,10 @@ stdenv.mkDerivation (finalAttrs: {
         runHook preBuild
 
         # The import libraries the components link against are named after the output directory
-        python3 scripts/provision-rtl.py --archive ${reactosSource} --output components/rtl
+        python3 scripts/provision-rtl.py --output components/rtl
+        python3 scripts/provision-sqlite.py --archive ${sqliteAmalgamation} --output components/sqlite
         for arch in x64 x86; do
-          python3 scripts/provision-controls.py --archive ${reactosSource} --arch $arch --output components/controls-$arch
+          python3 scripts/provision-controls.py --arch $arch --output components/controls-$arch
           python3 scripts/provision-installer.py --archive ${reactosSource} --arch $arch --output components/installer-$arch
         done
 
@@ -193,7 +203,7 @@ stdenv.mkDerivation (finalAttrs: {
       '';
     };
 
-    # The pinned ReactOS revision and certificates in scripts/provision-*.py must be bumped by hand
+    # The pinned ReactOS revision, SQLite release and certificates in scripts/provision-*.py must be bumped by hand
     updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
   };
 
