@@ -214,19 +214,18 @@ stdenv.mkDerivation (finalAttrs: {
       with lib.licenses;
       AND [
         gpl3Plus # Raven host (raven, raven-bootstrap)
-        mit # Raven guest adapters, libxml2, ReactOS PSEH
-        gpl2Only # ReactOS-derived guest components
-        gpl2Plus # ReactOS UTF-8 codec linked into the host
-        lgpl21Plus # ReactOS/Wine DLLs, ReactOS non-client drawing
-        bsd2 # ReactOS RTL (COPYING.ARM)
-        unicode-30 # Unicode decomposition data, ReactOS c_1252.txt
-        zlib # zlib (cabinet.dll, libpng.dll, libxslt.dll), DXVK
+        mit # Raven guest components, libxml2 (msxml3.dll)
+        gpl2Only # ReactOS-derived installer components
+        lgpl21Plus # ReactOS/Wine headers and IDL in the installer components
+        unicode-30 # Unicode decomposition data, code page tables
+        zlib # zlib (cabinet.dll, libpng.dll, libtiff.dll, msxml3.dll), DXVK
         libpng2 # libpng.dll
-        ijg # libjpeg.dll
+        ijg # libjpeg.dll, libtiff.dll
         libtiff # libtiff.dll
-        x11 # libxslt.dll
+        x11 # libxslt (msxml3.dll)
         publicDomain # win-iconv (msxml3.dll)
-        # libxml2 dict.c and list.c (msxml3.dll, libxslt.dll)
+        blessing # SQLite (winsqlite3.dll)
+        # libxml2 dict.c and list.c (msxml3.dll)
         (mkLicense {
           shortName = "isc-veillard";
           spdxId = "ISC-Veillard";
