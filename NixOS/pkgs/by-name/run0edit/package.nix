@@ -6,7 +6,6 @@
   ninja,
   pandoc,
   python3,
-  util-linux,
   versionCheckHook,
   nix-update-script,
 }:
@@ -23,29 +22,19 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-RZdueYT1c3rNQyNCP7RyldOwDQdnd+8I8LCQOq41nik=";
   };
 
-  # Hash the unmodified inner script before `patches` are applied
-  prePatch = ''
-    oldChecksum=$(b2sum -l 256 run0edit_inner.py | cut -d' ' -f1)
-  '';
-
-  patches = [
-    # Use setpriv + script instead of runuser, which always opens a PAM session
-    ./use-setpriv.patch
-    # Check RUN0EDIT_EDITOR before VISUAL and EDITOR
-    ./run0edit-editor-env.patch
-  ];
-
   postPatch = ''
+    oldChecksum=$(b2sum -l 256 run0edit_inner.py | cut -d' ' -f1)
+
     substituteInPlace run0edit_main.py \
       --replace-fail 'path="/usr/bin:/bin:/usr/sbin:/sbin"' \
         'path="/run/current-system/sw/bin:/usr/bin:/bin:/usr/sbin:/sbin"' \
       --replace-fail 'python_cmd = find_command("python3")' \
         'python_cmd = "${python3.interpreter}"'
 
-    # for 'setpriv' and 'script'
+    # Default PATH of the unprivileged editor, unless /etc/login.defs sets ENV_PATH
     substituteInPlace run0edit_inner.py \
-      --replace-fail 'path="/usr/bin:/bin:/usr/sbin:/sbin"' \
-        'path="${lib.makeBinPath [ util-linux ]}"'
+      --replace-fail 'env["PATH"] = "/usr/local/bin:/bin:/usr/bin"' \
+        'env["PATH"] = "/run/wrappers/bin:/run/current-system/sw/bin:/usr/local/bin:/bin:/usr/bin"'
 
     newChecksum=$(b2sum -l 256 run0edit_inner.py | cut -d' ' -f1)
     substituteInPlace run0edit_main.py \
