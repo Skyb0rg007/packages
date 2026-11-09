@@ -12,7 +12,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "run0edit";
-  version = "0.7.0";
+  version = "0.7.1";
   strictDeps = true;
   __structuredAttrs = true;
 
@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "HastD";
     repo = "run0edit";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-AseNZBc+EMLOA+lhrpCKEyRq8ZVYl8KBlAM5zNoSzPA=";
+    hash = "sha256-RZdueYT1c3rNQyNCP7RyldOwDQdnd+8I8LCQOq41nik=";
   };
 
   # Hash the unmodified inner script before `patches` are applied
