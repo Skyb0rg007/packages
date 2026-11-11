@@ -80,7 +80,7 @@
               pkgs.nix
               nix-update.packages.${system}.nix-update
               pkgs.nix-fast-build
-              pkgs.zizmor
+              self.packages.${system}.zizmor
             ];
             env.NIX_CONFIG = "extra-experimental-features = nix-command flakes";
           };
@@ -110,6 +110,12 @@
             && lib.meta.availableOn hostPlatform v;
         in
         lib.filterAttrs (_: isBuildable) self.legacyPackages.${system}
+        // {
+          zizmor = pkgsFor.${system}.zizmor.overrideAttrs (prevAttrs: {
+            nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [ pkgsFor.${system}.pkg-config ];
+            buildInputs = (prevAttrs.buildInputs or [ ]) ++ [ pkgsFor.${system}.aws-lc ];
+          });
+        }
       );
       hydraJobs = {
         inherit (self.packages) "x86_64-linux";
