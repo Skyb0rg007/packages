@@ -6,11 +6,14 @@
   linkFarm,
   nix-update-script,
   bison,
+  cargo,
   cmake,
   ninja,
   pkg-config,
   pkgsCross,
   python3,
+  rustPlatform,
+  rustc,
   wayland-scanner,
   wine64Packages,
   dxvk,
@@ -98,6 +101,18 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-j79VYOneV9GjeV6TUvXAHeEMSEKSKQ7BQjCTdM3XWSQ=";
   };
 
+  # The waits on kernel objects are a Rust static library, built by cargo from CMake
+  cargoRoot = "native/waits";
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    inherit (finalAttrs)
+      pname
+      version
+      src
+      cargoRoot
+      ;
+    hash = "sha256-KooDdCeEOD/jWU+AVGZWNDmmIE11fWLDrViGy2ytqtk=";
+  };
+
   # Configure-time fixture provisioning downloads and builds test programs
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -131,9 +146,12 @@ stdenv.mkDerivation (finalAttrs: {
     ];
 
   nativeBuildInputs = [
+    cargo
     cmake
     ninja
     pkg-config
+    rustPlatform.cargoSetupHook
+    rustc
     pkgsCross.mingw32.buildPackages.gcc
     pkgsCross.mingwW64.buildPackages.gcc
     python3
