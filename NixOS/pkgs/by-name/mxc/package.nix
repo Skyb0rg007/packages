@@ -87,14 +87,14 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mxc";
-  version = "1.0.1";
+  version = "1.1.0";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "mxc";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-uqsF4b0GLvNJbtiUZ2Cq779rt7DFsB76I9TSQSq5bAg=";
+    hash = "sha256-74e6KZTaErXycDIB5LxQduNvLhv1ULHlHmjmEW7sNmk=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -119,7 +119,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     })
   ];
 
-  cargoHash = "sha256-zYRySwLZa8R8Wf3oelQSJdGDd6A+VblHU3wUQx9wwqk=";
+  cargoHash = "sha256-yuF5Dn0JnB+gt8mU8lI1exURMImexGNoKgg2zD+tJJc=";
 
   env = {
     RUST_BACKTRACE = "1";
