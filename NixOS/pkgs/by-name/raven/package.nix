@@ -89,13 +89,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "raven";
-  version = "0-unstable-2026-11-14";
+  version = "0-unstable-2026-11-16";
 
   src = fetchFromGitHub {
     owner = "mirkobrombin";
     repo = "raven";
-    rev = "0e9885ccd503e2bdad12900ba42a993c0b2b682d";
-    hash = "sha256-5Hj99rQjXyM2KxAG79ON5/psytJwe1kXr2RRqf2BE4A=";
+    rev = "aac0ae51e890d62fb97da20927058a845e4309b8";
+    hash = "sha256-j79VYOneV9GjeV6TUvXAHeEMSEKSKQ7BQjCTdM3XWSQ=";
   };
 
   # Configure-time fixture provisioning downloads and builds test programs
