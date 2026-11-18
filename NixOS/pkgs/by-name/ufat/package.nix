@@ -33,7 +33,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Create, fill and check FAT32 file systems without mounting them";
     homepage = "https://github.com/systemd/ufat";
-    license = lib.license.lgpl21Plus;
+    license = lib.licenses.lgpl21Plus;
     mainProgram = "ufat";
+    platforms = lib.platforms.linux;
   };
 })
